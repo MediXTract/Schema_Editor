@@ -333,7 +333,7 @@ body {
 
 /* Filter Bar */
 .filter-bar {
-    background: var(--gray-50);
+    background: #dbeafe;
     border-bottom: 1px solid var(--gray-200);
     padding: 1rem 1.5rem;
     display: flex;
@@ -615,7 +615,7 @@ body {
     grid-template-columns: 2fr 1fr 1fr 3fr 120px;
     gap: 1rem;
     padding: 1rem 1.5rem;
-    background: var(--gray-50);
+    background: #dbeafe;
     border-bottom: 1px solid var(--gray-200);
     font-weight: 600;
     font-size: 0.875rem;
@@ -729,7 +729,7 @@ body {
     justify-content: space-between;
     padding: 1.5rem;
     border-bottom: 1px solid var(--gray-200);
-    background: var(--gray-50);
+    background: #dbeafe;
 }
 
 .panel-title {
@@ -765,8 +765,8 @@ body {
 }
 
 .panel-close:hover {
-    background: var(--gray-200);
-    color: var(--gray-600);
+    background: #bfdbfe;
+    color: var(--gray-700);
 }
 
 .panel-content {
