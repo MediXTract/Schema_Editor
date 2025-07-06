@@ -13,6 +13,7 @@ A modern, browser-based editor for managing and editing JSON Schema fields. Load
 - 🧩 **Inline field editing** with real-time UI updates
 - 🧪 **Enum support**, group management, and schema version tracking
 - 💾 **One-click saving** with versioned filenames (`schema_v001.json`, etc.)
+- 📤 **Downloadable, filtered schema exports** (clean JSON files with only the selected fields)
 - 📱 **Responsive design** for desktop and mobile
 
 ---
