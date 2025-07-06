@@ -11,8 +11,8 @@ class SchemaEditor {
         this.filteredFields = [];
         this.filters = {
             search: '',
-            type: '',
-            group: '',
+            types: [],
+            groups: [],
             hasComments: false,
             hasErrors: false,
             hasChanges: false
@@ -22,9 +22,24 @@ class SchemaEditor {
         this.typeOptions = new Set();
         this.groupOptions = new Set();
         
+        // Custom dropdown state
+        this.dropdowns = {
+            type: { isOpen: false, selected: [] },
+            group: { isOpen: false, selected: [] }
+        };
+        
         this.initializeEventListeners();
         this.checkBrowserSupport();
         this.showEmptyState();
+    }
+
+    ensureFilterArrays() {
+        if (!this.filters.types || !Array.isArray(this.filters.types)) {
+            this.filters.types = [];
+        }
+        if (!this.filters.groups || !Array.isArray(this.filters.groups)) {
+            this.filters.groups = [];
+        }
     }
 
     checkBrowserSupport() {
@@ -52,11 +67,14 @@ class SchemaEditor {
         document.getElementById('scanFolderBtn').addEventListener('click', this.handleFolderScan.bind(this));
         document.getElementById('fileInput').addEventListener('change', this.handleFileLoad.bind(this));
         document.getElementById('saveBtn').addEventListener('click', this.saveChanges.bind(this));
+        document.getElementById('downloadFilteredBtn').addEventListener('click', this.downloadFilteredFields.bind(this));
         
         // Filtering
         document.getElementById('searchInput').addEventListener('input', this.handleSearchInput.bind(this));
-        document.getElementById('typeFilter').addEventListener('change', this.handleTypeFilter.bind(this));
-        document.getElementById('groupFilter').addEventListener('change', this.handleGroupFilter.bind(this));
+        
+        // Custom dropdown event listeners
+        this.initializeCustomDropdowns();
+        
         document.getElementById('commentsFilter').addEventListener('click', this.handleToggleFilter.bind(this, 'hasComments'));
         document.getElementById('errorsFilter').addEventListener('click', this.handleToggleFilter.bind(this, 'hasErrors'));
         document.getElementById('changesFilter').addEventListener('click', this.handleToggleFilter.bind(this, 'hasChanges'));
@@ -65,9 +83,132 @@ class SchemaEditor {
         // Panel management
         document.getElementById('closePanelBtn').addEventListener('click', this.closeFieldDetails.bind(this));
         
-        // Handle escape key to close panel
+        // Handle escape key to close panel and dropdowns
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') this.closeFieldDetails();
+            if (e.key === 'Escape') {
+                this.closeFieldDetails();
+                this.closeAllDropdowns();
+            }
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.custom-dropdown')) {
+                this.closeAllDropdowns();
+            }
+        });
+    }
+
+    initializeCustomDropdowns() {
+        // Type filter dropdown
+        const typeDropdown = document.getElementById('typeFilter');
+        const typeTrigger = typeDropdown.querySelector('.dropdown-trigger');
+        typeTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.toggleDropdown('type');
+        });
+
+        // Group filter dropdown
+        const groupDropdown = document.getElementById('groupFilter');
+        const groupTrigger = groupDropdown.querySelector('.dropdown-trigger');
+        groupTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.toggleDropdown('group');
+        });
+    }
+
+    toggleDropdown(dropdownType) {
+        // Close other dropdowns
+        Object.keys(this.dropdowns).forEach(key => {
+            if (key !== dropdownType) {
+                this.closeDropdown(key);
+            }
+        });
+
+        // Toggle the clicked dropdown
+        if (this.dropdowns[dropdownType].isOpen) {
+            this.closeDropdown(dropdownType);
+        } else {
+            this.openDropdown(dropdownType);
+        }
+    }
+
+    openDropdown(dropdownType) {
+        const dropdown = document.getElementById(`${dropdownType}Filter`);
+        dropdown.classList.add('open');
+        this.dropdowns[dropdownType].isOpen = true;
+    }
+
+    closeDropdown(dropdownType) {
+        const dropdown = document.getElementById(`${dropdownType}Filter`);
+        dropdown.classList.remove('open');
+        this.dropdowns[dropdownType].isOpen = false;
+    }
+
+    closeAllDropdowns() {
+        Object.keys(this.dropdowns).forEach(key => {
+            this.closeDropdown(key);
+        });
+    }
+
+    handleDropdownOptionClick(dropdownType, value, event) {
+        event.stopPropagation();
+        
+        const selected = this.dropdowns[dropdownType].selected;
+        const index = selected.indexOf(value);
+        
+        if (index === -1) {
+            // Add to selection
+            selected.push(value);
+        } else {
+            // Remove from selection
+            selected.splice(index, 1);
+        }
+        
+        // Update filters
+        this.filters[dropdownType === 'type' ? 'types' : 'groups'] = [...selected];
+        
+        // Update dropdown display
+        this.updateDropdownDisplay(dropdownType);
+        this.updateDropdownOptions(dropdownType);
+        
+        // Apply filters
+        this.applyFilters();
+    }
+
+    updateDropdownDisplay(dropdownType) {
+        const dropdown = document.getElementById(`${dropdownType}Filter`);
+        const label = dropdown.querySelector('.dropdown-label');
+        const selected = this.dropdowns[dropdownType].selected;
+        
+        if (selected.length === 0) {
+            label.innerHTML = dropdownType === 'type' ? 'All Types' : 'All Groups';
+        } else if (selected.length === 1) {
+            const displayValue = dropdownType === 'group' ? 
+                this.formatGroupName(selected[0]) : selected[0];
+            label.innerHTML = displayValue;
+        } else if (selected.length <= 2) {
+            const displayValues = selected.map(val => 
+                dropdownType === 'group' ? this.formatGroupName(val) : val
+            ).join(', ');
+            label.innerHTML = displayValues;
+        } else {
+            label.innerHTML = `<div class="dropdown-selected-tags">
+                <span class="dropdown-tag">${selected.length} selected</span>
+            </div>`;
+        }
+    }
+
+    updateDropdownOptions(dropdownType) {
+        const dropdown = document.getElementById(`${dropdownType}Filter`);
+        const content = dropdown.querySelector('.dropdown-content');
+        const selected = this.dropdowns[dropdownType].selected;
+        
+        // Update option states
+        content.querySelectorAll('.dropdown-option').forEach(option => {
+            const value = option.dataset.value;
+            const isSelected = selected.includes(value);
+            option.classList.toggle('selected', isSelected);
         });
     }
 
@@ -77,6 +218,7 @@ class SchemaEditor {
         document.getElementById('loadingIndicator').style.display = 'none';
         document.getElementById('errorMessage').style.display = 'none';
         document.getElementById('saveBtn').disabled = true;
+        document.getElementById('downloadFilteredBtn').style.display = 'none';
     }
 
     showLoading(message = 'Loading...') {
@@ -255,24 +397,33 @@ class SchemaEditor {
     }
 
     populateFilterOptions() {
-        // Populate type filter
-        const typeFilter = document.getElementById('typeFilter');
-        typeFilter.innerHTML = '<option value="">All Types</option>';
-        Array.from(this.typeOptions).sort().forEach(type => {
-            const option = document.createElement('option');
-            option.value = type;
-            option.textContent = type;
-            typeFilter.appendChild(option);
-        });
+        this.populateCustomDropdown('type', Array.from(this.typeOptions).sort());
+        this.populateCustomDropdown('group', Array.from(this.groupOptions).sort());
+    }
 
-        // Populate group filter
-        const groupFilter = document.getElementById('groupFilter');
-        groupFilter.innerHTML = '<option value="">All Groups</option>';
-        Array.from(this.groupOptions).sort().forEach(group => {
-            const option = document.createElement('option');
-            option.value = group;
-            option.textContent = this.formatGroupName(group);
-            groupFilter.appendChild(option);
+    populateCustomDropdown(dropdownType, options) {
+        const dropdown = document.getElementById(`${dropdownType}Filter`);
+        const content = dropdown.querySelector('.dropdown-content');
+        
+        content.innerHTML = '';
+        
+        options.forEach(option => {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'dropdown-option';
+            optionDiv.dataset.value = option;
+            
+            const displayValue = dropdownType === 'group' ? this.formatGroupName(option) : option;
+            
+            optionDiv.innerHTML = `
+                <div class="dropdown-option-checkbox"></div>
+                <span>${displayValue}</span>
+            `;
+            
+            optionDiv.addEventListener('click', (e) => {
+                this.handleDropdownOptionClick(dropdownType, option, e);
+            });
+            
+            content.appendChild(optionDiv);
         });
     }
 
@@ -281,6 +432,7 @@ class SchemaEditor {
         document.getElementById('loadingIndicator').style.display = 'none';
         document.getElementById('emptyState').style.display = 'none';
         document.getElementById('saveBtn').disabled = false;
+        document.getElementById('downloadFilteredBtn').style.display = 'inline-flex';
         
         this.renderFieldsTable();
         this.updateFieldStats();
@@ -289,16 +441,6 @@ class SchemaEditor {
     // Efficient filtering
     handleSearchInput(event) {
         this.filters.search = event.target.value.toLowerCase().trim();
-        this.applyFilters();
-    }
-
-    handleTypeFilter(event) {
-        this.filters.type = event.target.value;
-        this.applyFilters();
-    }
-
-    handleGroupFilter(event) {
-        this.filters.group = event.target.value;
         this.applyFilters();
     }
 
@@ -311,17 +453,24 @@ class SchemaEditor {
     clearAllFilters() {
         this.filters = {
             search: '',
-            type: '',
-            group: '',
+            types: [],
+            groups: [],
             hasComments: false,
             hasErrors: false,
             hasChanges: false
         };
 
+        // Reset dropdown states
+        this.dropdowns.type.selected = [];
+        this.dropdowns.group.selected = [];
+        
         // Reset UI
         document.getElementById('searchInput').value = '';
-        document.getElementById('typeFilter').value = '';
-        document.getElementById('groupFilter').value = '';
+        this.updateDropdownDisplay('type');
+        this.updateDropdownDisplay('group');
+        this.updateDropdownOptions('type');
+        this.updateDropdownOptions('group');
+        
         document.getElementById('commentsFilter').classList.remove('active');
         document.getElementById('errorsFilter').classList.remove('active');
         document.getElementById('changesFilter').classList.remove('active');
@@ -330,6 +479,9 @@ class SchemaEditor {
     }
 
     applyFilters() {
+        // Ensure filter arrays are properly initialized
+        this.ensureFilterArrays();
+        
         this.filteredFields = this.allFields.filter(field => {
             // Search filter
             if (this.filters.search) {
@@ -340,11 +492,11 @@ class SchemaEditor {
                 if (!searchMatch) return false;
             }
 
-            // Type filter
-            if (this.filters.type && field.type !== this.filters.type) return false;
+            // Type filter - check if field type is in selected types array
+            if (this.filters.types.length > 0 && !this.filters.types.includes(field.type)) return false;
 
-            // Group filter
-            if (this.filters.group && field.group !== this.filters.group) return false;
+            // Group filter - check if field group is in selected groups array
+            if (this.filters.groups.length > 0 && !this.filters.groups.includes(field.group)) return false;
 
             // Metadata filters
             if (this.filters.hasComments && !field.hasComments) return false;
@@ -832,6 +984,120 @@ class SchemaEditor {
         URL.revokeObjectURL(url);
         
         this.showSaveSuccess('Downloaded!');
+    }
+
+    downloadFilteredFields() {
+        // Create filtered schema containing only visible fields
+        const filteredSchema = {
+            type: "object",
+            properties: {},
+            required: [],
+            additionalProperties: true
+        };
+
+        // Add only filtered fields to the new schema, removing specified keys
+        this.filteredFields.forEach(field => {
+            const cleanFieldDef = this.cleanFieldDefinition(field.definition);
+            filteredSchema.properties[field.id] = cleanFieldDef;
+        });
+
+        // Generate filename based on active filters
+        const filename = this.generateFilteredFilename();
+        
+        // Download the file
+        this.downloadJsonFile(filteredSchema, filename);
+        this.showDownloadSuccess(`Downloaded: ${filename}`);
+    }
+
+    cleanFieldDefinition(fieldDef) {
+        // Create a copy and remove the specified keys
+        const cleaned = JSON.parse(JSON.stringify(fieldDef));
+        delete cleaned.group_id;
+        delete cleaned.changes;
+        delete cleaned.errors;
+        delete cleaned.comments;
+        return cleaned;
+    }
+
+    generateFilteredFilename() {
+        // Ensure filter arrays are properly initialized
+        this.ensureFilterArrays();
+        
+        const parts = ['schema'];
+        
+        // Add filter parts to filename
+        if (this.filters.types.length > 0) {
+            this.filters.types.forEach(type => {
+                parts.push(`Type${type.charAt(0).toUpperCase() + type.slice(1)}`);
+            });
+        }
+        
+        if (this.filters.groups.length > 0) {
+            this.filters.groups.forEach(group => {
+                const groupName = group.replace('group_', 'Group').replace('_', '');
+                parts.push(groupName);
+            });
+        }
+        
+        // Add metadata filters
+        if (this.filters.hasComments) parts.push('CommentsTrue');
+        if (this.filters.hasErrors) parts.push('ErrorsTrue'); 
+        if (this.filters.hasChanges) parts.push('ChangesTrue');
+        
+        // Add "All" for unfiltered metadata
+        if (!this.filters.hasComments && !this.filters.hasErrors && !this.filters.hasChanges) {
+            parts.push('CommentsAll', 'ErrorsAll', 'ChangesAll');
+        } else {
+            if (!this.filters.hasComments) parts.push('CommentsAll');
+            if (!this.filters.hasErrors) parts.push('ErrorsAll');
+            if (!this.filters.hasChanges) parts.push('ChangesAll');
+        }
+        
+        // If no filters applied, use "noFilters"
+        if (this.filters.types.length === 0 && 
+            this.filters.groups.length === 0 && 
+            !this.filters.hasComments && 
+            !this.filters.hasErrors && 
+            !this.filters.hasChanges &&
+            !this.filters.search) {
+            parts.splice(1); // Remove all filter parts
+            parts.push('noFilters');
+        }
+        
+        // Add version (increment from current version)
+        const version = (this.currentVersion + 1).toString().padStart(3, '0');
+        parts.push(`v${version}`);
+        
+        return parts.join('_') + '.json';
+    }
+
+    downloadJsonFile(data, filename) {
+        const blob = new Blob([JSON.stringify(data, null, 2)], { 
+            type: 'application/json' 
+        });
+        
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    showDownloadSuccess(message) {
+        const downloadBtn = document.getElementById('downloadFilteredBtn');
+        const originalHTML = downloadBtn.innerHTML;
+        downloadBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
+        </svg> Downloaded!`;
+        downloadBtn.style.background = 'var(--success)';
+        
+        setTimeout(() => {
+            downloadBtn.innerHTML = originalHTML;
+            downloadBtn.style.background = '';
+        }, 2000);
     }
 
     showSaveSuccess(message) {
