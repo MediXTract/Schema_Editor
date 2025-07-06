@@ -511,17 +511,22 @@ body {
     display: inline-flex;
     align-items: center;
     padding: 0.25rem 0.5rem;
-    background: var(--gray-100);
+    border: 1px solid;
     border-radius: var(--radius);
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--gray-700);
     width: fit-content;
 }
 
 .field-group {
-    color: var(--gray-600);
-    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid;
+    border-radius: var(--radius);
+    font-size: 0.75rem;
+    font-weight: 500;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
 }
 
 .field-description {
