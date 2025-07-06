@@ -257,29 +257,29 @@ class SchemaEditor {
             
             for await (const [name, handle] of this.directoryHandle.entries()) {
                 if (handle.kind === 'file' && name.endsWith('.json')) {
-                    try {
-                        const file = await handle.getFile();
-                        const content = await file.text();
-                        const data = JSON.parse(content);
-                        
-                        const versionMatch = name.match(/schema_v(\d{3})\.json$/);
-                        if (versionMatch) {
-                            const version = parseInt(versionMatch[1]);
-                            this.allSchemas.set(version, { data, filename: name });
-                            foundSchemaFiles++;
-                        } else if (data.type === 'object' && data.properties) {
-                            const fallbackVersion = Date.now() % 1000;
-                            this.allSchemas.set(fallbackVersion, { data, filename: name });
-                            foundSchemaFiles++;
+                    // Only consider files that match the exact pattern: schema_vNNN.json
+                    const versionMatch = name.match(/^schema_v(\d+)\.json$/);
+                    if (versionMatch) {
+                        try {
+                            const file = await handle.getFile();
+                            const content = await file.text();
+                            const data = JSON.parse(content);
+                            
+                            // Validate that it's a proper schema
+                            if (data.type === 'object' && data.properties) {
+                                const version = parseInt(versionMatch[1]);
+                                this.allSchemas.set(version, { data, filename: name });
+                                foundSchemaFiles++;
+                            }
+                        } catch (error) {
+                            console.warn(`Skipping invalid schema file: ${name}`, error);
                         }
-                    } catch (error) {
-                        console.warn(`Skipping invalid JSON file: ${name}`, error);
                     }
                 }
             }
 
             if (foundSchemaFiles === 0) {
-                this.showError('No valid schema files found. Looking for files named schema_vXXX.json or valid JSON schema files.');
+                this.showError('No valid schema files found. Looking for files named schema_vNNN.json (where NNN is a number).');
                 return;
             }
 
@@ -300,28 +300,28 @@ class SchemaEditor {
             
             for (const file of files) {
                 if (file.name.endsWith('.json')) {
-                    try {
-                        const content = await this.readFileContent(file);
-                        const data = JSON.parse(content);
-                        
-                        const versionMatch = file.name.match(/schema_v(\d{3})\.json$/);
-                        if (versionMatch) {
-                            const version = parseInt(versionMatch[1]);
-                            this.allSchemas.set(version, { data, filename: file.name });
-                            foundSchemaFiles++;
-                        } else if (data.type === 'object' && data.properties) {
-                            const fallbackVersion = this.allSchemas.size;
-                            this.allSchemas.set(fallbackVersion, { data, filename: file.name });
-                            foundSchemaFiles++;
+                    // Only consider files that match the exact pattern: schema_vNNN.json
+                    const versionMatch = file.name.match(/^schema_v(\d+)\.json$/);
+                    if (versionMatch) {
+                        try {
+                            const content = await this.readFileContent(file);
+                            const data = JSON.parse(content);
+                            
+                            // Validate that it's a proper schema
+                            if (data.type === 'object' && data.properties) {
+                                const version = parseInt(versionMatch[1]);
+                                this.allSchemas.set(version, { data, filename: file.name });
+                                foundSchemaFiles++;
+                            }
+                        } catch (error) {
+                            console.warn(`Skipping invalid schema file: ${file.name}`, error);
                         }
-                    } catch (error) {
-                        console.warn(`Skipping invalid JSON file: ${file.name}`);
                     }
                 }
             }
 
             if (foundSchemaFiles === 0) {
-                this.showError('No valid schema files found in selected files.');
+                this.showError('No valid schema files found. Looking for files named schema_vNNN.json (where NNN is a number).');
                 return;
             }
 
@@ -942,9 +942,9 @@ class SchemaEditor {
     async saveChanges() {
         try {
             const newVersion = this.currentVersion + 1;
-            const filename = `schema_v${newVersion.toString().padStart(3, '0')}.json`;
+            const filename = `schema_v${newVersion}.json`;
             
-            if (this.directoryHandle && 'showSaveFilePicker' in window) {
+            if (this.directoryHandle) {
                 try {
                     const fileHandle = await this.directoryHandle.getFileHandle(filename, { create: true });
                     const writable = await fileHandle.createWritable();
@@ -1079,7 +1079,7 @@ class SchemaEditor {
         }
         
         // Add version (increment from current version)
-        const version = (this.currentVersion + 1).toString().padStart(3, '0');
+        const version = this.currentVersion + 1;
         parts.push(`v${version}`);
         
         return parts.join('_') + '.json';
