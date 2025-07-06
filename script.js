@@ -942,7 +942,7 @@ class SchemaEditor {
     async saveChanges() {
         try {
             const newVersion = this.currentVersion + 1;
-            const filename = `schema_v${newVersion}.json`;
+            const filename = `schema_v${newVersion.toString().padStart(3, '0')}.json`;
             
             if (this.directoryHandle) {
                 try {
@@ -1079,7 +1079,7 @@ class SchemaEditor {
         }
         
         // Add version (increment from current version)
-        const version = this.currentVersion + 1;
+        const version = (this.currentVersion + 1).toString().padStart(3, '0');
         parts.push(`v${version}`);
         
         return parts.join('_') + '.json';
