@@ -374,10 +374,13 @@ class SchemaEditor {
         row.dataset.fieldId = field.id;
         row.addEventListener('click', () => this.selectField(field.id));
 
+        const typeColor = this.getTypeColor(field.type);
+        const groupColor = this.getGroupColor(field.group);
+
         row.innerHTML = `
             <div class="field-name">${field.id}</div>
-            <div class="field-type">${field.type}</div>
-            <div class="field-group">${this.formatGroupName(field.group)}</div>
+            <div class="field-type" style="background-color: ${typeColor.bg}; color: ${typeColor.text}; border-color: ${typeColor.border};">${field.type}</div>
+            <div class="field-group" style="background-color: ${groupColor.bg}; color: ${groupColor.text}; border-color: ${groupColor.border};">${this.formatGroupName(field.group)}</div>
             <div class="field-description">${field.description}</div>
             <div class="field-indicators">
                 ${field.hasComments ? '<span class="indicator comments" title="Has comments"></span>' : ''}
@@ -739,6 +742,45 @@ class SchemaEditor {
             return fieldDef.anyOf.some(t => t.enum && Array.isArray(t.enum));
         }
         return false;
+    }
+
+    getTypeColor(type) {
+        const typeColors = {
+            'string': { bg: '#fef3c7', text: '#92400e', border: '#f59e0b' },
+            'number': { bg: '#dbeafe', text: '#1e40af', border: '#3b82f6' },
+            'integer': { bg: '#e0e7ff', text: '#4338ca', border: '#6366f1' },
+            'boolean': { bg: '#dcfce7', text: '#166534', border: '#22c55e' },
+            'array': { bg: '#fce7f3', text: '#be185d', border: '#ec4899' },
+            'object': { bg: '#f3e8ff', text: '#7c3aed', border: '#a855f7' },
+            'enum': { bg: '#fed7d7', text: '#c53030', border: '#e53e3e' },
+            'unknown': { bg: '#f7fafc', text: '#4a5568', border: '#a0aec0' }
+        };
+        
+        return typeColors[type] || typeColors['unknown'];
+    }
+
+    getGroupColor(group) {
+        // Generate consistent colors for groups using hash-based approach
+        const groupColors = [
+            { bg: '#dbeafe', text: '#1e40af', border: '#3b82f6' }, // Blue
+            { bg: '#dcfce7', text: '#166534', border: '#22c55e' }, // Green
+            { bg: '#fef3c7', text: '#92400e', border: '#f59e0b' }, // Yellow
+            { bg: '#fce7f3', text: '#be185d', border: '#ec4899' }, // Pink
+            { bg: '#f3e8ff', text: '#7c3aed', border: '#a855f7' }, // Purple
+            { bg: '#fed7d7', text: '#c53030', border: '#e53e3e' }, // Red
+            { bg: '#e0f2fe', text: '#0c4a6e', border: '#0891b2' }, // Cyan
+            { bg: '#ecfdf5', text: '#064e3b', border: '#059669' }, // Emerald
+            { bg: '#fdf4ff', text: '#86198f', border: '#d946ef' }, // Fuchsia
+            { bg: '#fff7ed', text: '#9a3412', border: '#ea580c' }  // Orange
+        ];
+
+        // Simple hash function to assign consistent colors
+        let hash = 0;
+        for (let i = 0; i < group.length; i++) {
+            hash = ((hash << 5) - hash + group.charCodeAt(i)) & 0x7fffffff;
+        }
+        
+        return groupColors[hash % groupColors.length];
     }
 
     formatGroupName(groupId) {
