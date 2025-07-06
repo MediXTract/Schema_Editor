@@ -237,7 +237,7 @@ class SchemaEditor {
         try {
             this.showLoading('Selecting folder...');
             
-            this.directoryHandle = await window.showDirectoryPicker({ mode: 'read' });
+            this.directoryHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
             this.showLoading('Scanning for schema files...');
             await this.scanDirectoryForSchemas();
             
@@ -985,7 +985,7 @@ class SchemaEditor {
         this.showSaveSuccess('Downloaded!');
     }
 
-    downloadFilteredFields() {
+    async downloadFilteredFields() {
         // Create filtered schema containing only visible fields
         const filteredSchema = {
             type: "object",
@@ -1003,7 +1003,22 @@ class SchemaEditor {
         // Generate filename based on active filters
         const filename = this.generateFilteredFilename();
         
-        // Download the file
+        // Try to save to the same folder first, fall back to download
+        if (this.directoryHandle) {
+            try {
+                const fileHandle = await this.directoryHandle.getFileHandle(filename, { create: true });
+                const writable = await fileHandle.createWritable();
+                await writable.write(JSON.stringify(filteredSchema, null, 2));
+                await writable.close();
+                
+                this.showDownloadSuccess(`Saved to folder: ${filename}`);
+                return;
+            } catch (error) {
+                console.warn('Could not save to folder, falling back to download:', error);
+            }
+        }
+        
+        // Fallback to regular download
         this.downloadJsonFile(filteredSchema, filename);
         this.showDownloadSuccess(`Downloaded: ${filename}`);
     }
