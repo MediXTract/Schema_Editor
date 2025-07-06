@@ -2,7 +2,7 @@
 
 A modern, browser-based editor for managing and editing JSON Schema fields. Load multiple schema files, filter and view fields with ease, and make inline changes — all from a clean, responsive interface.
 
-[![Deploy](https://img.shields.io/badge/🔗%20View-Schema%20Editor-blue)](https://medixtract.github.io/Schema_Editor/)
+[![Deploy](https://img.shields.io/badge/🔗%20View%20-%20Schema%20Editor-blue)](https://medixtract.github.io/Schema_Editor/)
 
 ---
 
