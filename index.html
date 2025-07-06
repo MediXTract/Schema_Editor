@@ -38,6 +38,13 @@
                         </svg>
                         Save Changes
                     </button>
+                    
+                    <button id="downloadFilteredBtn" class="btn btn-secondary" style="display: none;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                        Download Filtered Fields
+                    </button>
                 </div>
             </div>
         </header>
@@ -105,13 +112,31 @@
                         </div>
                         
                         <div class="filter-group">
-                            <select id="typeFilter" class="filter-select">
-                                <option value="">All Types</option>
-                            </select>
+                            <!-- Custom Type Filter Dropdown -->
+                            <div class="custom-dropdown" id="typeFilter">
+                                <div class="dropdown-trigger">
+                                    <span class="dropdown-label">All Types</span>
+                                    <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M7,10L12,15L17,10H7Z"/>
+                                    </svg>
+                                </div>
+                                <div class="dropdown-content">
+                                    <!-- Options will be populated dynamically -->
+                                </div>
+                            </div>
                             
-                            <select id="groupFilter" class="filter-select">
-                                <option value="">All Groups</option>
-                            </select>
+                            <!-- Custom Group Filter Dropdown -->
+                            <div class="custom-dropdown" id="groupFilter">
+                                <div class="dropdown-trigger">
+                                    <span class="dropdown-label">All Groups</span>
+                                    <svg class="dropdown-arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M7,10L12,15L17,10H7Z"/>
+                                    </svg>
+                                </div>
+                                <div class="dropdown-content">
+                                    <!-- Options will be populated dynamically -->
+                                </div>
+                            </div>
                             
                             <div class="filter-toggles">
                                 <button id="commentsFilter" class="filter-toggle" title="Has Comments">
