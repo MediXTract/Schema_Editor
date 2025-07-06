@@ -46,17 +46,9 @@ class SchemaEditor {
         const hasFileSystemAccess = 'showDirectoryPicker' in window;
         
         if (hasFileSystemAccess) {
-            document.getElementById('browserSupportInfo').style.display = 'block';
             document.getElementById('browserLimitationInfo').style.display = 'none';
             document.getElementById('fallbackControls').style.display = 'none';
-            
-            // Auto-hide info banner after 5 seconds
-            setTimeout(() => {
-                const banner = document.getElementById('browserSupportInfo');
-                if (banner) banner.style.display = 'none';
-            }, 5000);
         } else {
-            document.getElementById('browserSupportInfo').style.display = 'none';
             document.getElementById('browserLimitationInfo').style.display = 'block';
             document.getElementById('fallbackControls').style.display = 'flex';
         }
