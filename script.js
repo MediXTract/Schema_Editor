@@ -568,9 +568,16 @@ class SchemaEditor {
     showFieldDetails(fieldId) {
         const fieldDef = this.currentSchema.properties[fieldId];
         const panel = document.getElementById('fieldDetailsPanel');
+        const fieldType = this.getFieldType(fieldDef);
+        const typeColor = this.getTypeColor(fieldType);
         
         document.getElementById('selectedFieldName').textContent = fieldId;
-        document.getElementById('selectedFieldType').textContent = this.getFieldType(fieldDef);
+        
+        const fieldTypeBadge = document.getElementById('selectedFieldType');
+        fieldTypeBadge.textContent = fieldType;
+        fieldTypeBadge.style.backgroundColor = typeColor.bg;
+        fieldTypeBadge.style.color = typeColor.text;
+        fieldTypeBadge.style.borderColor = typeColor.border;
         
         this.renderFieldDetailsForm(fieldDef);
         
