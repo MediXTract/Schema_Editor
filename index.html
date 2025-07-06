@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schema Field Editor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>Schema Field Editor</h1>
+                    <div class="schema-info">
+                        <span id="currentVersion">No schema loaded</span>
+                        <span id="fieldStats" class="field-stats">0 fields</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="scanFolderBtn" class="btn btn-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/>
+                        </svg>
+                        Scan Folder
+                    </button>
+                    
+                    <div class="file-input-wrapper" id="fallbackControls" style="display: none;">
+                        <input type="file" id="fileInput" multiple accept=".json">
+                        <button class="btn btn-secondary">Select Files</button>
+                    </div>
+                    
+                    <button id="saveBtn" class="btn btn-success" disabled>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z"/>
+                        </svg>
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Loading & Error States -->
+        <div id="loadingIndicator" class="loading-overlay">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <span id="loadingText">Loading...</span>
+            </div>
+        </div>
+
+        <div id="errorMessage" class="error-banner" style="display: none;"></div>
+
+        <!-- Browser Support Info -->
+        <div id="browserSupportInfo" class="info-banner">
+            <div class="banner-content">
+                <div class="banner-icon">🚀</div>
+                <div class="banner-text">
+                    <strong>Enhanced Folder Scanning Available</strong>
+                    <span>Your browser supports automatic folder scanning for faster schema loading.</span>
+                </div>
+                <button class="banner-close" onclick="this.parentElement.parentElement.style.display='none'">×</button>
+            </div>
+        </div>
+
+        <div id="browserLimitationInfo" class="warning-banner" style="display: none;">
+            <div class="banner-content">
+                <div class="banner-icon">⚠️</div>
+                <div class="banner-text">
+                    <strong>Limited Browser Support</strong>
+                    <span>Automatic folder scanning not available. Please select JSON files manually.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state">
+                <div class="empty-icon">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/>
+                    </svg>
+                </div>
+                <h2>Ready to Load Schema</h2>
+                <p>Click "Scan Folder" to automatically find and load schema files, or select files manually.</p>
+                <div class="quick-actions">
+                    <button class="btn btn-primary btn-large" onclick="document.getElementById('scanFolderBtn').click()">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+
+            <!-- Schema Editor -->
+            <div id="schemaEditor" class="schema-editor" style="display: none;">
+                <!-- Filter Bar -->
+                <div class="filter-bar">
+                    <div class="filter-section">
+                        <div class="search-input">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                            </svg>
+                            <input type="text" id="searchInput" placeholder="Search fields by name, description, or group...">
+                        </div>
+                        
+                        <div class="filter-group">
+                            <select id="typeFilter" class="filter-select">
+                                <option value="">All Types</option>
+                            </select>
+                            
+                            <select id="groupFilter" class="filter-select">
+                                <option value="">All Groups</option>
+                            </select>
+                            
+                            <div class="filter-toggles">
+                                <button id="commentsFilter" class="filter-toggle" title="Has Comments">
+                                    <span class="indicator comments"></span>
+                                    Comments
+                                </button>
+                                <button id="errorsFilter" class="filter-toggle" title="Has Errors">
+                                    <span class="indicator errors"></span>
+                                    Errors
+                                </button>
+                                <button id="changesFilter" class="filter-toggle" title="Has Changes">
+                                    <span class="indicator changes"></span>
+                                    Changes
+                                </button>
+                            </div>
+                            
+                            <button id="clearFilters" class="btn btn-ghost btn-sm">Clear</button>
+                        </div>
+                    </div>
+                    
+                    <div class="results-info">
+                        <span id="resultsCount">0 fields</span>
+                    </div>
+                </div>
+
+                <!-- Fields Table -->
+                <div class="fields-container">
+                    <div class="fields-table">
+                        <div class="table-header">
+                            <div class="th field-name">Field Name</div>
+                            <div class="th field-type">Type</div>
+                            <div class="th field-group">Group</div>
+                            <div class="th field-description">Description</div>
+                            <div class="th field-indicators">Status</div>
+                        </div>
+                        <div class="table-body" id="fieldsTableBody">
+                            <!-- Fields will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Field Details Panel -->
+                <div id="fieldDetailsPanel" class="field-details-panel" style="display: none;">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <h3 id="selectedFieldName">Field Details</h3>
+                            <div class="field-type-badge" id="selectedFieldType">Type</div>
+                        </div>
+                        <button class="panel-close" id="closePanelBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="panel-content" id="fieldDetailsContent">
+                        <!-- Field details form will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
