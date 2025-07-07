@@ -318,43 +318,6 @@
     border-left-color: var(--gray-200);
 }
 
-/* Custom scrollbar for dark themes */
-[data-theme="dark"] .field-details-panel ::-webkit-scrollbar {
-    width: 8px;
-}
-
-[data-theme="dark"] .field-details-panel ::-webkit-scrollbar-track {
-    background: var(--color-light);
-    border-radius: 4px;
-}
-
-[data-theme="dark"] .field-details-panel ::-webkit-scrollbar-thumb {
-    background: var(--color-primary);
-    border-radius: 4px;
-}
-
-[data-theme="dark"] .field-details-panel ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-accent);
-}
-
-[data-theme="joan"] .field-details-panel ::-webkit-scrollbar {
-    width: 8px;
-}
-
-[data-theme="joan"] .field-details-panel ::-webkit-scrollbar-track {
-    background: var(--color-light);
-    border-radius: 4px;
-}
-
-[data-theme="joan"] .field-details-panel ::-webkit-scrollbar-thumb {
-    background: var(--gray-300);
-    border-radius: 4px;
-}
-
-[data-theme="joan"] .field-details-panel ::-webkit-scrollbar-thumb:hover {
-    background: var(--gray-400);
-}
-
 [data-theme="dark"] .panel-title h3,
 [data-theme="joan"] .panel-title h3 {
     color: var(--gray-700);
