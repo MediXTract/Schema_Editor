@@ -770,15 +770,15 @@ class SchemaEditor {
             <div class="checkbox-group">
                 <div class="checkbox-item">
                     <input type="checkbox" ${fieldDef.changes ? 'checked' : ''} data-property="changes">
-                    <label>Has Changes</label>
+                    <label>Changes</label>
                 </div>
                 <div class="checkbox-item">
                     <input type="checkbox" ${fieldDef.errors ? 'checked' : ''} data-property="errors">
-                    <label>Has Errors</label>
+                    <label>Errors</label>
                 </div>
                 <div class="checkbox-item">
                     <input type="checkbox" ${fieldDef.improvements ? 'checked' : ''} data-property="improvements">
-                    <label>Has Improvements</label>
+                    <label>Improvements</label>
                 </div>
             </div>
         `);
