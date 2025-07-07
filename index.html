@@ -20,11 +20,10 @@
                     </div>
                 </div>
                 <div class="header-actions">
-                    <button id="configBtn" class="btn btn-secondary">
+                    <button id="settingsBtn" class="btn btn-ghost" title="Settings">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
+                            <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
                         </svg>
-                        Settings
                     </button>
                     
                     <button id="scanFolderBtn" class="btn btn-primary">
@@ -135,17 +134,29 @@
                             </div>
                             
                             <div class="filter-toggles">
-                                <button id="commentsFilter" class="filter-toggle" title="Has Comments">
-                                    <span class="indicator comments"></span>
-                                    Comments
+                                <button id="commentsFilter" class="filter-toggle" data-filter="comments" title="Comments Filter">
+                                    <span class="indicator-icon comments">
+                                        <span class="indicator-fill"></span>
+                                    </span>
+                                    <span class="filter-label">Comments: All</span>
                                 </button>
-                                <button id="errorsFilter" class="filter-toggle" title="Has Errors">
-                                    <span class="indicator errors"></span>
-                                    Errors
+                                <button id="errorsFilter" class="filter-toggle" data-filter="errors" title="Errors Filter">
+                                    <span class="indicator-icon errors">
+                                        <span class="indicator-fill"></span>
+                                    </span>
+                                    <span class="filter-label">Errors: All</span>
                                 </button>
-                                <button id="changesFilter" class="filter-toggle" title="Has Changes">
-                                    <span class="indicator changes"></span>
-                                    Changes
+                                <button id="changesFilter" class="filter-toggle" data-filter="changes" title="Changes Filter">
+                                    <span class="indicator-icon changes">
+                                        <span class="indicator-fill"></span>
+                                    </span>
+                                    <span class="filter-label">Changes: All</span>
+                                </button>
+                                <button id="improvementsFilter" class="filter-toggle" data-filter="improvements" title="Improvements Filter">
+                                    <span class="indicator-icon improvements">
+                                        <span class="indicator-fill"></span>
+                                    </span>
+                                    <span class="filter-label">Improvements: All</span>
                                 </button>
                             </div>
                             
@@ -161,8 +172,12 @@
                 <!-- Fields Table -->
                 <div class="fields-container">
                     <div class="fields-table">
-                        <div class="table-header" id="tableHeader">
-                            <!-- Headers will be generated dynamically -->
+                        <div class="table-header">
+                            <div class="th field-name">Field Name</div>
+                            <div class="th field-type">Type</div>
+                            <div class="th field-group">Group</div>
+                            <div class="th field-description">Description</div>
+                            <div class="th field-indicators">Status</div>
                         </div>
                         <div class="table-body" id="fieldsTableBody">
                             <!-- Fields will be rendered here -->
@@ -175,7 +190,7 @@
                     <div class="panel-header">
                         <div class="panel-title">
                             <h3 id="selectedFieldName">Field Details</h3>
-                            <div class="field-group-badge" id="selectedFieldGroup">Group</div>
+                            <div class="field-type-badge" id="selectedFieldType">Type</div>
                         </div>
                         <button class="panel-close" id="closePanelBtn">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -190,86 +205,90 @@
                 </div>
             </div>
         </main>
-    </div>
-
-    <!-- Configuration Modal -->
-    <div id="configModal" class="config-modal">
-        <div class="config-modal-content">
-            <div class="config-header">
-                <h2>Configuration Settings</h2>
-                <button class="config-close" id="configCloseBtn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
-                    </svg>
-                </button>
-            </div>
-            
-            <div class="config-content">
-                <!-- Theme Settings -->
-                <div class="config-section">
-                    <h3>Theme</h3>
-                    <div class="theme-selector">
-                        <label class="theme-option">
-                            <input type="radio" name="theme" value="light" checked>
-                            <div class="theme-preview light-theme">
-                                <div class="theme-bars">
-                                    <div class="theme-bar"></div>
-                                    <div class="theme-bar"></div>
-                                    <div class="theme-bar"></div>
-                                </div>
-                                <span>Light</span>
-                            </div>
-                        </label>
-                        <label class="theme-option">
-                            <input type="radio" name="theme" value="dark">
-                            <div class="theme-preview dark-theme">
-                                <div class="theme-bars">
-                                    <div class="theme-bar"></div>
-                                    <div class="theme-bar"></div>
-                                    <div class="theme-bar"></div>
-                                </div>
-                                <span>Dark</span>
-                            </div>
-                        </label>
-                    </div>
+        
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="settings-modal" style="display: none;">
+            <div class="settings-overlay"></div>
+            <div class="settings-content">
+                <div class="settings-header">
+                    <h3>Settings</h3>
+                    <button class="settings-close" id="closeSettingsBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                        </svg>
+                    </button>
                 </div>
-
-                <!-- Column Settings -->
-                <div class="config-section">
-                    <h3>Table Columns</h3>
-                    <div class="column-settings">
-                        <div class="column-visibility">
-                            <h4>Visible Columns</h4>
-                            <div class="column-list" id="columnVisibilityList">
-                                <!-- Column checkboxes will be generated -->
+                
+                <div class="settings-body">
+                    <!-- Theme Settings -->
+                    <div class="settings-section">
+                        <h4>Appearance</h4>
+                        <div class="setting-item">
+                            <label>Theme</label>
+                            <div class="theme-selector">
+                                <button id="lightThemeBtn" class="theme-option active" data-theme="light">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12,18C9.24,18 7,15.76 7,13C7,10.24 9.24,8 12,8C14.76,8 17,10.24 17,13C17,15.76 14.76,18 12,18M12,6A1,1 0 0,1 13,7V10A1,1 0 0,1 12,11A1,1 0 0,1 11,10V7A1,1 0 0,1 12,6M6.36,7.64A1,1 0 0,1 7.77,7.64A1,1 0 0,1 7.77,9.05L5.64,11.18A1,1 0 0,1 4.23,11.18A1,1 0 0,1 4.23,9.77L6.36,7.64M18.64,7.64L20.77,9.77A1,1 0 0,1 20.77,11.18A1,1 0 0,1 19.36,11.18L17.23,9.05A1,1 0 0,1 17.23,7.64A1,1 0 0,1 18.64,7.64M12,1A1,1 0 0,1 13,2V5A1,1 0 0,1 12,6A1,1 0 0,1 11,5V2A1,1 0 0,1 12,1M1,12A1,1 0 0,1 2,11H5A1,1 0 0,1 6,12A1,1 0 0,1 5,13H2A1,1 0 0,1 1,12M23,12A1,1 0 0,1 22,13H19A1,1 0 0,1 18,12A1,1 0 0,1 19,11H22A1,1 0 0,1 23,12M4.23,14.82A1,1 0 0,1 5.64,14.82L7.77,16.95A1,1 0 0,1 7.77,18.36A1,1 0 0,1 6.36,18.36L4.23,16.23A1,1 0 0,1 4.23,14.82M19.36,14.82A1,1 0 0,1 20.77,16.23L18.64,18.36A1,1 0 0,1 17.23,18.36A1,1 0 0,1 17.23,16.95L19.36,14.82M12,18A1,1 0 0,1 13,19V22A1,1 0 0,1 12,23A1,1 0 0,1 11,22V19A1,1 0 0,1 12,18Z"/>
+                                    </svg>
+                                    Light
+                                </button>
+                                <button id="darkThemeBtn" class="theme-option" data-theme="dark">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95M17.33,17.97C14.5,17.81 11.7,16.64 9.53,14.5C7.36,12.31 6.2,9.5 6.04,6.68C3.23,9.82 3.34,14.4 6.35,17.41C9.37,20.43 14,20.54 17.33,17.97Z"/>
+                                    </svg>
+                                    Dark
+                                </button>
                             </div>
                         </div>
-                        
-                        <div class="column-order">
-                            <h4>Column Order</h4>
+                    </div>
+                    
+                    <!-- Column Order Settings -->
+                    <div class="settings-section">
+                        <h4>Column Order</h4>
+                        <div class="setting-item">
+                            <label>Drag to reorder columns</label>
                             <div class="column-order-list" id="columnOrderList">
-                                <!-- Draggable column order items will be generated -->
+                                <div class="column-item" data-column="name">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9,3H11V5H9V3M13,3H15V5H13V3M9,7H11V9H9V7M13,7H15V9H13V7M9,11H11V13H9V11M13,11H15V13H13V11M9,15H11V17H9V15M13,15H15V17H13V15M9,19H11V21H9V19M13,19H15V21H13V19Z"/>
+                                    </svg>
+                                    Field Name
+                                </div>
+                                <div class="column-item" data-column="type">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9,3H11V5H9V3M13,3H15V5H13V3M9,7H11V9H9V7M13,7H15V9H13V7M9,11H11V13H9V11M13,11H15V13H13V11M9,15H11V17H9V15M13,15H15V17H13V15M9,19H11V21H9V19M13,19H15V21H13V19Z"/>
+                                    </svg>
+                                    Type
+                                </div>
+                                <div class="column-item" data-column="group">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9,3H11V5H9V3M13,3H15V5H13V3M9,7H11V9H9V7M13,7H15V9H13V7M9,11H11V13H9V11M13,11H15V13H13V11M9,15H11V17H9V15M13,15H15V17H13V15M9,19H11V21H9V19M13,19H15V21H13V19Z"/>
+                                    </svg>
+                                    Group
+                                </div>
+                                <div class="column-item" data-column="description">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9,3H11V5H9V3M13,3H15V5H13V3M9,7H11V9H9V7M13,7H15V9H13V7M9,11H11V13H9V11M13,11H15V13H13V11M9,15H11V17H9V15M13,15H15V17H13V15M9,19H11V21H9V19M13,19H15V21H13V19Z"/>
+                                    </svg>
+                                    Description
+                                </div>
+                                <div class="column-item" data-column="indicators">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9,3H11V5H9V3M13,3H15V5H13V3M9,7H11V9H9V7M13,7H15V9H13V7M9,11H11V13H9V11M13,11H15V13H13V11M9,15H11V17H9V15M13,15H15V17H13V15M9,19H11V21H9V19M13,19H15V21H13V19Z"/>
+                                    </svg>
+                                    Status
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="column-widths">
-                            <h4>Column Widths</h4>
-                            <div class="column-width-controls" id="columnWidthControls">
-                                <!-- Width sliders will be generated -->
-                            </div>
+                        <div class="setting-item">
+                            <button id="resetColumnOrderBtn" class="btn btn-secondary btn-sm">Reset to Default</button>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="config-footer">
-                <div class="preset-buttons">
-                    <button id="tomasPresetBtn" class="btn btn-secondary">Tomás Preset</button>
-                    <button id="joanPresetBtn" class="btn btn-secondary">Joan Preset</button>
-                </div>
-                <div class="config-actions">
-                    <button id="configCancelBtn" class="btn btn-secondary">Cancel</button>
-                    <button id="configSaveBtn" class="btn btn-primary">Save Settings</button>
+                
+                <div class="settings-footer">
+                    <button id="saveSettingsBtn" class="btn btn-primary">Save Changes</button>
+                    <button id="cancelSettingsBtn" class="btn btn-secondary">Cancel</button>
                 </div>
             </div>
         </div>
