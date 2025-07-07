@@ -32,7 +32,23 @@ class SchemaEditor {
         // Settings state with defaults
         this.settings = {
             theme: 'light',
-            columnOrder: ['name', 'type', 'group', 'description', 'indicators']
+            columnOrder: ['name', 'description', 'comments', 'group', 'type', 'indicators'],
+            columnVisibility: {
+                name: true,
+                type: true,
+                group: true,
+                description: true,
+                comments: true,
+                indicators: true
+            },
+            columnWidths: {
+                name: 2,
+                type: 1,
+                group: 1,
+                description: 3,
+                comments: 2,
+                indicators: 120
+            }
         };
         
         this.initializeEventListeners();
@@ -93,7 +109,7 @@ class SchemaEditor {
         document.getElementById('saveSettingsBtn').addEventListener('click', this.saveSettings.bind(this));
         document.getElementById('lightThemeBtn').addEventListener('click', () => this.selectTheme('light'));
         document.getElementById('darkThemeBtn').addEventListener('click', () => this.selectTheme('dark'));
-        document.getElementById('resetColumnOrderBtn').addEventListener('click', this.resetColumnOrder.bind(this));
+        document.getElementById('joanThemeBtn').addEventListener('click', () => this.selectTheme('joan'));
         
         // Handle escape key to close panel and dropdowns
         document.addEventListener('keydown', (e) => {
@@ -401,6 +417,7 @@ class SchemaEditor {
             type: this.getFieldType(def),
             group: def.group_id || 'ungrouped',
             description: def.description || '',
+            comments: def.comments || '',
             hasComments: Boolean(def.comments && def.comments.trim()),
             hasErrors: Boolean(def.errors),
             hasChanges: Boolean(def.changes),
@@ -472,6 +489,9 @@ class SchemaEditor {
 
     // Three-state filtering for boolean properties
     handleThreeStateFilter(filterName, event) {
+        // Use currentTarget to get the button element, not the child that was clicked
+        const button = event.currentTarget;
+        
         const currentState = this.filters[filterName];
         let newState;
         
@@ -491,14 +511,24 @@ class SchemaEditor {
         }
         
         this.filters[filterName] = newState;
-        this.updateFilterButtonState(event.target, filterName, newState);
+        this.updateFilterButtonState(button, filterName, newState);
         this.applyFilters();
     }
 
     updateFilterButtonState(button, filterName, state) {
+        if (!button) {
+            console.warn(`Button not found for filter: ${filterName}`);
+            return;
+        }
+        
         button.setAttribute('data-state', state);
         
         const label = button.querySelector('.filter-label');
+        if (!label) {
+            console.warn(`Label not found in button for filter: ${filterName}`);
+            return;
+        }
+        
         const capitalizedName = filterName.charAt(0).toUpperCase() + filterName.slice(1);
         
         switch (state) {
@@ -563,6 +593,7 @@ class SchemaEditor {
                 const searchMatch = 
                     field.id.toLowerCase().includes(this.filters.search) ||
                     field.description.toLowerCase().includes(this.filters.search) ||
+                    field.comments.toLowerCase().includes(this.filters.search) ||
                     field.group.toLowerCase().includes(this.filters.search);
                 if (!searchMatch) return false;
             }
@@ -624,26 +655,26 @@ class SchemaEditor {
             type: `<div class="field-type" style="background-color: ${typeColor.bg}; color: ${typeColor.text}; border-color: ${typeColor.border};">${field.type}</div>`,
             group: `<div class="field-group" style="background-color: ${groupColor.bg}; color: ${groupColor.text}; border-color: ${groupColor.border};">${this.formatGroupName(field.group)}</div>`,
             description: `<div class="field-description">${field.description}</div>`,
+            comments: `<div class="field-comments">${field.comments}</div>`,
             indicators: `<div class="field-indicators">
-                ${field.hasComments ? '<span class="indicator comments" title="Has comments"></span>' : ''}
-                ${field.hasErrors ? '<span class="indicator errors" title="Has errors"></span>' : ''}
-                ${field.hasChanges ? '<span class="indicator changes" title="Has changes"></span>' : ''}
-                ${field.hasImprovements ? '<span class="indicator improvements" title="Has improvements"></span>' : ''}
+                ${field.hasComments ? '<span class="indicator comments" title="Comments"></span>' : ''}
+                ${field.hasErrors ? '<span class="indicator errors" title="Errors"></span>' : ''}
+                ${field.hasChanges ? '<span class="indicator changes" title="Changes"></span>' : ''}
+                ${field.hasImprovements ? '<span class="indicator improvements" title="Improvements"></span>' : ''}
             </div>`
         };
 
-        // Build row HTML based on column order
-        row.innerHTML = this.settings.columnOrder.map(columnId => columns[columnId]).join('');
+        // Filter to only visible columns based on settings
+        const visibleColumns = this.settings.columnOrder.filter(col => this.settings.columnVisibility[col]);
+        
+        // Build row HTML based on visible columns only
+        row.innerHTML = visibleColumns.map(columnId => columns[columnId]).join('');
 
-        // Apply grid template
-        const columnWidths = {
-            name: '2fr',
-            type: '1fr',
-            group: '1fr',
-            description: '3fr',
-            indicators: '120px'
-        };
-        const gridTemplate = this.settings.columnOrder.map(col => columnWidths[col]).join(' ');
+        // Apply grid template for visible columns with custom widths
+        const gridTemplate = visibleColumns.map(col => {
+            const width = this.settings.columnWidths[col];
+            return col === 'indicators' ? `${width}px` : `${width}fr`;
+        }).join(' ');
         row.style.gridTemplateColumns = gridTemplate;
 
         return row;
@@ -656,7 +687,7 @@ class SchemaEditor {
     updateResultsCount() {
         const count = this.filteredFields.length;
         const total = this.allFields.length;
-        const text = count === total ? `${total} fields` : `${count} of ${total} fields`;
+        const text = count === total ? `${total} fields` : `${count}/${total} fields`;
         document.getElementById('resultsCount').textContent = text;
     }
 
@@ -722,15 +753,15 @@ class SchemaEditor {
             <div class="checkbox-group">
                 <div class="checkbox-item">
                     <input type="checkbox" ${fieldDef.changes ? 'checked' : ''} data-property="changes">
-                    <label>Has Changes</label>
+                    <label>Changes</label>
                 </div>
                 <div class="checkbox-item">
                     <input type="checkbox" ${fieldDef.errors ? 'checked' : ''} data-property="errors">
-                    <label>Has Errors</label>
+                    <label>Errors</label>
                 </div>
                 <div class="checkbox-item">
                     <input type="checkbox" ${fieldDef.improvements ? 'checked' : ''} data-property="improvements">
-                    <label>Has Improvements</label>
+                    <label>Improvements</label>
                 </div>
             </div>
         `);
@@ -1049,6 +1080,7 @@ class SchemaEditor {
                 type: this.getFieldType(def),
                 group: def.group_id || 'ungrouped',
                 description: def.description || '',
+                comments: def.comments || '',
                 hasComments: Boolean(def.comments && def.comments.trim()),
                 hasErrors: Boolean(def.errors),
                 hasChanges: Boolean(def.changes),
@@ -1137,12 +1169,24 @@ class SchemaEditor {
         const div = document.createElement('div');
         div.className = 'enum-item';
         
-        div.innerHTML = `
-            <input type="text" value="${value}" placeholder="Enum value">
-            <button class="enum-remove" onclick="this.parentElement.remove(); this.updateEnumValues();">×</button>
-        `;
-
-        div.querySelector('input').addEventListener('change', this.updateEnumValues.bind(this));
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = value;
+        input.placeholder = 'Enum value';
+        input.className = 'enum-input'; // Add specific class for better CSS targeting
+        
+        const button = document.createElement('button');
+        button.className = 'enum-remove';
+        button.textContent = '×';
+        button.onclick = () => {
+            div.remove();
+            this.updateEnumValues();
+        };
+        
+        div.appendChild(input);
+        div.appendChild(button);
+        
+        input.addEventListener('change', this.updateEnumValues.bind(this));
         
         return div;
     }
@@ -1650,9 +1694,45 @@ class SchemaEditor {
     updateThemeButtons() {
         const lightBtn = document.getElementById('lightThemeBtn');
         const darkBtn = document.getElementById('darkThemeBtn');
+        const joanBtn = document.getElementById('joanThemeBtn');
         
         lightBtn.classList.toggle('active', this.settings.theme === 'light');
         darkBtn.classList.toggle('active', this.settings.theme === 'dark');
+        joanBtn.classList.toggle('active', this.settings.theme === 'joan');
+    }
+
+    applyJoanPreset() {
+        // Apply Joan theme and reset column order to the new default
+        this.settings.theme = 'joan';
+        this.settings.columnOrder = ['name', 'description', 'comments', 'group', 'type', 'indicators'];
+        this.settings.columnVisibility = {
+            name: true,
+            type: true,
+            group: true,
+            description: true,
+            comments: true,
+            indicators: true
+        };
+        this.settings.columnWidths = {
+            name: 2,
+            type: 1,
+            group: 1,
+            description: 3,
+            comments: 2,
+            indicators: 120
+        };
+        
+        // Update UI immediately
+        document.documentElement.setAttribute('data-theme', 'joan');
+        this.updateThemeButtons();
+        this.updateColumnOrderDisplay();
+        this.initializeColumnDragDrop();
+        
+        // Apply changes if schema is loaded
+        if (this.currentSchema) {
+            this.applyColumnOrder();
+            this.renderFieldsTable();
+        }
     }
 
     updateColumnOrderDisplay() {
@@ -1664,6 +1744,7 @@ class SchemaEditor {
             type: 'Type',
             group: 'Group',
             description: 'Description',
+            comments: 'Comments',
             indicators: 'Status'
         };
         
@@ -1673,12 +1754,48 @@ class SchemaEditor {
             item.dataset.column = columnId;
             item.draggable = true;
             
+            const isVisible = this.settings.columnVisibility[columnId];
+            const currentWidth = this.settings.columnWidths[columnId];
+            const isPixelBased = columnId === 'indicators';
+            const eyeIcon = isVisible ? 
+                `<path d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"/>` :
+                `<path d="M11.83,9L15,12.16C15,12.11 15,12.05 15,12A3,3 0 0,0 12,9C11.94,9 11.89,9 11.83,9M7.53,9.8L9.08,11.35C9.03,11.56 9,11.77 9,12A3,3 0 0,0 12,15C12.22,15 12.44,14.97 12.65,14.92L14.2,16.47C13.53,16.8 12.79,17 12,17A5,5 0 0,1 7,12C7,11.21 7.2,10.47 7.53,9.8M2,4.27L4.28,6.55L4.73,7C3.08,8.3 1.78,10 1,12C2.73,16.39 7,19.5 12,19.5C13.55,19.5 15.03,19.2 16.38,18.66L16.81,19.09L19.73,22L21,20.73L3.27,3M12,7A5,5 0 0,1 17,12C17,12.64 16.87,13.26 16.64,13.82L19.57,16.75C21.07,15.5 22.27,13.86 23,12C21.27,7.61 17,4.5 12,4.5C10.6,4.5 9.26,4.75 8,5.2L10.17,7.35C10.76,7.13 11.38,7 12,7Z"/>`;
+            
             item.innerHTML = `
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="drag-handle">
                     <path d="M9,3H11V5H9V3M13,3H15V5H13V3M9,7H11V9H9V7M13,7H15V9H13V7M9,11H11V13H9V11M13,11H15V13H13V11M9,15H11V17H9V15M13,15H15V17H13V15M9,19H11V21H9V19M13,19H15V21H13V19Z"/>
                 </svg>
-                ${columnLabels[columnId]}
+                <span class="column-label">${columnLabels[columnId]}</span>
+                <div class="column-width-adjuster">
+                    <input type="range" 
+                           class="width-slider" 
+                           min="${isPixelBased ? 80 : 0.5}" 
+                           max="${isPixelBased ? 300 : 5}" 
+                           step="${isPixelBased ? 10 : 0.1}" 
+                           value="${currentWidth}" 
+                           data-column="${columnId}">
+                    <span class="width-display">${currentWidth}${isPixelBased ? 'px' : 'fr'}</span>
+                </div>
+                <button class="column-visibility-toggle ${isVisible ? 'visible' : 'hidden'}" data-column="${columnId}" title="${isVisible ? 'Hide column' : 'Show column'}">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        ${eyeIcon}
+                    </svg>
+                </button>
             `;
+            
+            // Add click handler for visibility toggle
+            const toggleBtn = item.querySelector('.column-visibility-toggle');
+            toggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleColumnVisibility(columnId);
+            });
+            
+            // Add input handler for width adjustment
+            const widthSlider = item.querySelector('.width-slider');
+            widthSlider.addEventListener('input', (e) => {
+                e.stopPropagation();
+                this.handleColumnWidthChange(columnId, parseFloat(e.target.value));
+            });
             
             container.appendChild(item);
         });
@@ -1703,6 +1820,8 @@ class SchemaEditor {
         container.addEventListener('dragover', (e) => {
             e.preventDefault();
             const dragging = container.querySelector('.dragging');
+            if (!dragging) return;
+            
             const siblings = [...container.querySelectorAll('.column-item:not(.dragging)')];
             
             const nextSibling = siblings.find(sibling => {
@@ -1716,6 +1835,20 @@ class SchemaEditor {
             e.preventDefault();
             this.updateColumnOrderFromDOM();
         });
+        
+        // Prevent dragging when clicking on visibility toggle or width adjuster
+        container.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.column-visibility-toggle') || e.target.closest('.column-width-adjuster')) {
+                const columnItem = e.target.closest('.column-item');
+                if (columnItem) {
+                    columnItem.draggable = false;
+                    // Re-enable dragging after a short delay
+                    setTimeout(() => {
+                        columnItem.draggable = true;
+                    }, 100);
+                }
+            }
+        });
     }
 
     updateColumnOrderFromDOM() {
@@ -1723,8 +1856,52 @@ class SchemaEditor {
         this.settings.columnOrder = Array.from(items).map(item => item.dataset.column);
     }
 
+    handleColumnWidthChange(columnId, newWidth) {
+        this.settings.columnWidths[columnId] = newWidth;
+        
+        // Update the display immediately
+        const widthDisplay = document.querySelector(`[data-column="${columnId}"] .width-display`);
+        if (widthDisplay) {
+            const isPixelBased = columnId === 'indicators';
+            widthDisplay.textContent = `${newWidth}${isPixelBased ? 'px' : 'fr'}`;
+        }
+        
+        // Apply changes immediately if schema is loaded
+        if (this.currentSchema) {
+            this.applyColumnOrder();
+            this.renderFieldsTable();
+        }
+    }
+
+    toggleColumnVisibility(columnId) {
+        this.settings.columnVisibility[columnId] = !this.settings.columnVisibility[columnId];
+        this.updateColumnOrderDisplay();
+        
+        // Apply changes immediately if schema is loaded
+        if (this.currentSchema) {
+            this.applyColumnOrder();
+            this.renderFieldsTable();
+        }
+    }
+
     resetColumnOrder() {
-        this.settings.columnOrder = ['name', 'type', 'group', 'description', 'indicators'];
+        this.settings.columnOrder = ['name', 'description', 'comments', 'group', 'type', 'indicators'];
+        this.settings.columnVisibility = {
+            name: true,
+            type: true,
+            group: true,
+            description: true,
+            comments: true,
+            indicators: true
+        };
+        this.settings.columnWidths = {
+            name: 2,
+            type: 1,
+            group: 1,
+            description: 3,
+            comments: 2,
+            indicators: 120
+        };
         this.updateColumnOrderDisplay();
         this.initializeColumnDragDrop();
     }
@@ -1749,16 +1926,15 @@ class SchemaEditor {
 
     applyColumnOrder() {
         const header = document.querySelector('.table-header');
-        const columnWidths = {
-            name: '2fr',
-            type: '1fr',
-            group: '1fr',
-            description: '3fr',
-            indicators: '120px'
-        };
         
-        // Build grid template based on column order
-        const gridTemplate = this.settings.columnOrder.map(col => columnWidths[col]).join(' ');
+        // Filter to only visible columns
+        const visibleColumns = this.settings.columnOrder.filter(col => this.settings.columnVisibility[col]);
+        
+        // Build grid template based on visible columns and custom widths
+        const gridTemplate = visibleColumns.map(col => {
+            const width = this.settings.columnWidths[col];
+            return col === 'indicators' ? `${width}px` : `${width}fr`;
+        }).join(' ');
         
         // Apply to header
         header.style.gridTemplateColumns = gridTemplate;
@@ -1768,7 +1944,7 @@ class SchemaEditor {
             row.style.gridTemplateColumns = gridTemplate;
         });
         
-        // Reorder header children
+        // Reorder header children to match visible columns
         this.reorderHeaderColumns();
     }
 
@@ -1779,11 +1955,15 @@ class SchemaEditor {
             type: 'Type', 
             group: 'Group',
             description: 'Description',
+            comments: 'Comments',
             indicators: 'Status'
         };
         
         header.innerHTML = '';
-        this.settings.columnOrder.forEach(columnId => {
+        
+        // Filter to only visible columns and create headers
+        const visibleColumns = this.settings.columnOrder.filter(col => this.settings.columnVisibility[col]);
+        visibleColumns.forEach(columnId => {
             const div = document.createElement('div');
             div.className = `th field-${columnId}`;
             div.textContent = columnHeaders[columnId];
