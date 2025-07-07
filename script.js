@@ -6,33 +6,6 @@ class SchemaEditor {
         this.selectedField = null;
         this.directoryHandle = null;
         
-        // Configuration state - Tomás Configuration (Default)
-        this.config = {
-            theme: 'light',
-            columns: {
-                visible: ['name', 'type', 'group', 'description', 'status'],
-                order: ['name', 'type', 'group', 'description', 'comments', 'status'],
-                widths: {
-                    name: '1.6fr',
-                    type: '0.8fr',
-                    group: '0.8fr',
-                    description: '3fr',
-                    comments: '2fr',
-                    status: '30px'
-                }
-            }
-        };
-        
-        // Available columns configuration
-        this.availableColumns = {
-            name: { label: 'Field Name', defaultWidth: '2fr' },
-            type: { label: 'Type', defaultWidth: '1fr' },
-            group: { label: 'Group', defaultWidth: '1fr' },
-            description: { label: 'Description', defaultWidth: '3fr' },
-            comments: { label: 'Comments', defaultWidth: '2fr' },
-            status: { label: 'Status', defaultWidth: '120px' }
-        };
-        
         // Efficient filtering state
         this.allFields = [];
         this.filteredFields = [];
@@ -40,9 +13,10 @@ class SchemaEditor {
             search: '',
             types: [],
             groups: [],
-            hasComments: false,
-            hasErrors: false,
-            hasChanges: false
+            comments: 'all',     // 'all', 'true', 'false'
+            errors: 'all',       // 'all', 'true', 'false'
+            changes: 'all',      // 'all', 'true', 'false'
+            improvements: 'all'  // 'all', 'true', 'false'
         };
         
         // Metadata caches for performance
@@ -55,127 +29,18 @@ class SchemaEditor {
             group: { isOpen: false, selected: [] }
         };
         
-        this.initializeEventListeners();
-        this.checkBrowserSupport();
-        this.loadConfiguration();
-        this.showEmptyState();
-    }
-
-    async loadConfiguration() {
-        // Try to load configuration from custom.json if available
-        if (this.directoryHandle) {
-            try {
-                const configHandle = await this.directoryHandle.getFileHandle('custom.json');
-                const file = await configHandle.getFile();
-                const configData = JSON.parse(await file.text());
-                
-                // Only merge valid configuration properties, ignore legacy ones
-                const validConfig = {
-                    theme: configData.theme || 'light',
-                    columns: {
-                        visible: configData.columns?.visible || ['name', 'type', 'group', 'description', 'status'],
-                        order: configData.columns?.order || ['name', 'type', 'group', 'description', 'comments', 'status'],
-                        widths: configData.columns?.widths || {
-                            name: '1.6fr',
-                            type: '0.8fr',
-                            group: '0.8fr',
-                            description: '3fr',
-                            comments: '2fr',
-                            status: '30px'
-                        }
-                    }
-                };
-                
-                this.config = validConfig;
-            } catch (error) {
-                // File doesn't exist or error reading, use defaults
-                console.log('No custom.json found, using defaults');
-            }
-        }
-        
-        this.applyConfiguration();
-    }
-
-    async saveConfiguration() {
-        // Create clean configuration object
-        const cleanConfig = {
-            theme: this.config.theme,
-            columns: {
-                visible: this.config.columns.visible,
-                order: this.config.columns.order,
-                widths: this.config.columns.widths
-            }
+        // Settings state with defaults
+        this.settings = {
+            theme: 'light',
+            columnOrder: ['name', 'type', 'group', 'description', 'indicators']
         };
         
-        const configJson = JSON.stringify(cleanConfig, null, 2);
-        
-        if (this.directoryHandle) {
-            try {
-                const configHandle = await this.directoryHandle.getFileHandle('custom.json', { create: true });
-                const writable = await configHandle.createWritable();
-                await writable.write(configJson);
-                await writable.close();
-                this.showConfigSaveSuccess('Configuration saved to custom.json');
-            } catch (error) {
-                console.warn('Could not save to directory, using download fallback');
-                this.downloadConfigFile(configJson);
-            }
-        } else {
-            this.downloadConfigFile(configJson);
-        }
-    }
-
-    downloadConfigFile(configJson) {
-        const blob = new Blob([configJson], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'custom.json';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        this.showConfigSaveSuccess('Configuration downloaded as custom.json');
-    }
-
-    applyConfiguration() {
-        // Apply theme
-        document.documentElement.setAttribute('data-theme', this.config.theme);
-        
-        // Update column visibility and order
-        this.updateTableLayout();
-        
-        // Update UI controls
-        this.updateConfigurationUI();
-    }
-
-    updateTableLayout() {
-        const visibleColumns = this.config.columns.visible;
-        const columnOrder = this.config.columns.order.filter(col => visibleColumns.includes(col));
-        
-        // Generate grid template columns based on visible columns and their widths
-        const gridTemplate = columnOrder.map(col => this.config.columns.widths[col] || '1fr').join(' ');
-        
-        // Update CSS classes for responsive column layout
-        const tableHeader = document.getElementById('tableHeader');
-        const className = `cols-${columnOrder.length}`;
-        
-        if (tableHeader) {
-            tableHeader.className = `table-header ${className}`;
-            tableHeader.style.gridTemplateColumns = gridTemplate;
-            
-            // Generate header content
-            tableHeader.innerHTML = columnOrder.map(colId => {
-                const col = this.availableColumns[colId];
-                return `<div class="th field-${colId}">${col.label}</div>`;
-            }).join('');
-        }
-        
-        // Update existing rows
-        document.querySelectorAll('.field-row').forEach(row => {
-            row.className = `field-row ${className}`;
-            row.style.gridTemplateColumns = gridTemplate;
-        });
+        this.initializeEventListeners();
+        this.checkBrowserSupport();
+        this.loadSettings();
+        this.initializeTheme();
+        this.initializeFilterButtons();
+        this.showEmptyState();
     }
 
     ensureFilterArrays() {
@@ -200,14 +65,6 @@ class SchemaEditor {
     }
 
     initializeEventListeners() {
-        // Configuration
-        document.getElementById('configBtn').addEventListener('click', this.openConfigModal.bind(this));
-        document.getElementById('configCloseBtn').addEventListener('click', this.closeConfigModal.bind(this));
-        document.getElementById('configCancelBtn').addEventListener('click', this.closeConfigModal.bind(this));
-        document.getElementById('configSaveBtn').addEventListener('click', this.saveConfigModal.bind(this));
-        document.getElementById('tomasPresetBtn').addEventListener('click', this.loadTomasPreset.bind(this));
-        document.getElementById('joanPresetBtn').addEventListener('click', this.loadJoanPreset.bind(this));
-        
         // File operations
         document.getElementById('scanFolderBtn').addEventListener('click', this.handleFolderScan.bind(this));
         document.getElementById('fileInput').addEventListener('change', this.handleFileLoad.bind(this));
@@ -220,20 +77,35 @@ class SchemaEditor {
         // Custom dropdown event listeners
         this.initializeCustomDropdowns();
         
-        document.getElementById('commentsFilter').addEventListener('click', this.handleToggleFilter.bind(this, 'hasComments'));
-        document.getElementById('errorsFilter').addEventListener('click', this.handleToggleFilter.bind(this, 'hasErrors'));
-        document.getElementById('changesFilter').addEventListener('click', this.handleToggleFilter.bind(this, 'hasChanges'));
+        document.getElementById('commentsFilter').addEventListener('click', this.handleThreeStateFilter.bind(this, 'comments'));
+        document.getElementById('errorsFilter').addEventListener('click', this.handleThreeStateFilter.bind(this, 'errors'));
+        document.getElementById('changesFilter').addEventListener('click', this.handleThreeStateFilter.bind(this, 'changes'));
+        document.getElementById('improvementsFilter').addEventListener('click', this.handleThreeStateFilter.bind(this, 'improvements'));
         document.getElementById('clearFilters').addEventListener('click', this.clearAllFilters.bind(this));
         
         // Panel management
         document.getElementById('closePanelBtn').addEventListener('click', this.closeFieldDetails.bind(this));
+        
+        // Settings
+        document.getElementById('settingsBtn').addEventListener('click', this.openSettings.bind(this));
+        document.getElementById('closeSettingsBtn').addEventListener('click', this.cancelSettings.bind(this));
+        document.getElementById('cancelSettingsBtn').addEventListener('click', this.cancelSettings.bind(this));
+        document.getElementById('saveSettingsBtn').addEventListener('click', this.saveSettings.bind(this));
+        document.getElementById('lightThemeBtn').addEventListener('click', () => this.selectTheme('light'));
+        document.getElementById('darkThemeBtn').addEventListener('click', () => this.selectTheme('dark'));
+        document.getElementById('resetColumnOrderBtn').addEventListener('click', this.resetColumnOrder.bind(this));
         
         // Handle escape key to close panel and dropdowns
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.closeFieldDetails();
                 this.closeAllDropdowns();
-                this.closeConfigModal();
+                
+                // Only cancel settings if modal is open
+                const modal = document.getElementById('settingsModal');
+                if (modal.style.display === 'flex') {
+                    this.cancelSettings();
+                }
             }
         });
 
@@ -242,314 +114,12 @@ class SchemaEditor {
             if (!e.target.closest('.custom-dropdown')) {
                 this.closeAllDropdowns();
             }
-            if (!e.target.closest('.config-modal-content') && !e.target.closest('#configBtn')) {
-                if (document.getElementById('configModal').classList.contains('open')) {
-                    this.closeConfigModal();
-                }
+            
+            // Close settings modal when clicking overlay
+            if (e.target.classList.contains('settings-overlay')) {
+                this.cancelSettings();
             }
         });
-    }
-
-    // Configuration Modal Methods
-    openConfigModal() {
-        this.populateConfigModal();
-        document.getElementById('configModal').classList.add('open');
-    }
-
-    closeConfigModal() {
-        document.getElementById('configModal').classList.remove('open');
-    }
-
-    populateConfigModal() {
-        // Theme selection
-        const themeInputs = document.querySelectorAll('input[name="theme"]');
-        themeInputs.forEach(input => {
-            input.checked = input.value === this.config.theme;
-        });
-
-        // Column visibility
-        this.populateColumnVisibility();
-        
-        // Column order
-        this.populateColumnOrder();
-        
-        // Column widths
-        this.populateColumnWidths();
-    }
-
-    populateColumnVisibility() {
-        const container = document.getElementById('columnVisibilityList');
-        container.innerHTML = '';
-        
-        Object.entries(this.availableColumns).forEach(([colId, col]) => {
-            const div = document.createElement('div');
-            div.className = 'column-checkbox';
-            
-            const isVisible = this.config.columns.visible.includes(colId);
-            
-            div.innerHTML = `
-                <input type="checkbox" id="col-vis-${colId}" ${isVisible ? 'checked' : ''} 
-                       data-column="${colId}">
-                <label for="col-vis-${colId}">${col.label}</label>
-            `;
-            
-            // Add event listener to update visibility and refresh other sections
-            const checkbox = div.querySelector('input[type="checkbox"]');
-            checkbox.addEventListener('change', (e) => {
-                const colId = e.target.dataset.column;
-                if (e.target.checked) {
-                    if (!this.config.columns.visible.includes(colId)) {
-                        this.config.columns.visible.push(colId);
-                    }
-                    // Also add to order if not present
-                    if (!this.config.columns.order.includes(colId)) {
-                        this.config.columns.order.push(colId);
-                    }
-                } else {
-                    this.config.columns.visible = this.config.columns.visible.filter(id => id !== colId);
-                    // Keep in order array but filter out when displaying
-                }
-                
-                // Refresh column order and widths to reflect visibility changes
-                this.populateColumnOrder();
-                this.populateColumnWidths();
-                
-                // Apply changes immediately
-                this.updateTableLayout();
-            });
-            
-            container.appendChild(div);
-        });
-    }
-
-    populateColumnOrder() {
-        const container = document.getElementById('columnOrderList');
-        container.innerHTML = '';
-        
-        // Only show visible columns in the order list
-        const visibleColumnOrder = this.config.columns.order.filter(colId => 
-            this.config.columns.visible.includes(colId) && this.availableColumns[colId]
-        );
-        
-        visibleColumnOrder.forEach(colId => {
-            const div = document.createElement('div');
-            div.className = 'column-order-item';
-            div.draggable = true;
-            div.dataset.column = colId;
-            
-            div.innerHTML = `
-                <span class="drag-handle">⋮⋮</span>
-                <span>${this.availableColumns[colId].label}</span>
-            `;
-            
-            container.appendChild(div);
-        });
-        
-        this.initializeDragAndDrop(container);
-    }
-
-    populateColumnWidths() {
-        const container = document.getElementById('columnWidthControls');
-        container.innerHTML = '';
-        
-        this.config.columns.visible.forEach(colId => {
-            const col = this.availableColumns[colId];
-            const currentWidth = this.config.columns.widths[colId];
-            
-            // Convert fr units to percentage for slider
-            let sliderValue = 50; // default
-            if (currentWidth.endsWith('fr')) {
-                const frValue = parseFloat(currentWidth);
-                sliderValue = Math.min(100, Math.max(10, frValue * 25));
-            } else if (currentWidth.endsWith('px')) {
-                const pxValue = parseFloat(currentWidth);
-                sliderValue = Math.min(100, Math.max(10, pxValue / 5));
-            }
-            
-            const div = document.createElement('div');
-            div.className = 'width-control';
-            
-            div.innerHTML = `
-                <label>
-                    ${col.label}
-                    <span class="width-value">${currentWidth}</span>
-                </label>
-                <input type="range" min="10" max="100" value="${sliderValue}" 
-                       data-column="${colId}" class="width-slider">
-            `;
-            
-            const slider = div.querySelector('.width-slider');
-            const valueSpan = div.querySelector('.width-value');
-            
-            slider.addEventListener('input', (e) => {
-                const value = parseInt(e.target.value);
-                let newWidth;
-                
-                if (colId === 'status') {
-                    newWidth = `${value * 2}px`;
-                } else {
-                    newWidth = `${value / 25}fr`;
-                }
-                
-                valueSpan.textContent = newWidth;
-                this.config.columns.widths[colId] = newWidth;
-                this.updateTableLayout();
-            });
-            
-            container.appendChild(div);
-        });
-    }
-
-    initializeDragAndDrop(container) {
-        let draggedElement = null;
-        
-        container.addEventListener('dragstart', (e) => {
-            draggedElement = e.target;
-            e.target.classList.add('dragging');
-        });
-        
-        container.addEventListener('dragend', (e) => {
-            e.target.classList.remove('dragging');
-            draggedElement = null;
-        });
-        
-        container.addEventListener('dragover', (e) => {
-            e.preventDefault();
-        });
-        
-        container.addEventListener('drop', (e) => {
-            e.preventDefault();
-            
-            if (draggedElement && e.target.classList.contains('column-order-item')) {
-                const rect = e.target.getBoundingClientRect();
-                const midpoint = rect.top + rect.height / 2;
-                
-                if (e.clientY < midpoint) {
-                    container.insertBefore(draggedElement, e.target);
-                } else {
-                    container.insertBefore(draggedElement, e.target.nextSibling);
-                }
-                
-                this.updateColumnOrderFromDOM();
-            }
-        });
-    }
-
-    updateColumnOrderFromDOM() {
-        const items = document.querySelectorAll('.column-order-item');
-        const newVisibleOrder = Array.from(items).map(item => item.dataset.column);
-        
-        // Get all non-visible columns to preserve their relative positions
-        const nonVisibleColumns = this.config.columns.order.filter(colId => 
-            !this.config.columns.visible.includes(colId)
-        );
-        
-        // Combine: new visible order + non-visible columns
-        this.config.columns.order = [...newVisibleOrder, ...nonVisibleColumns];
-        this.updateTableLayout();
-    }
-
-    saveConfigModal() {
-        // Save theme
-        const selectedTheme = document.querySelector('input[name="theme"]:checked').value;
-        this.config.theme = selectedTheme;
-        
-        // Column visibility is already updated via event listeners
-        
-        // Apply configuration
-        this.applyConfiguration();
-        
-        // Save to file
-        this.saveConfiguration();
-        
-        // Close modal
-        this.closeConfigModal();
-        
-        // Re-render if schema is loaded
-        if (this.currentSchema) {
-            this.renderFieldsTable();
-        }
-    }
-
-    loadTomasPreset() {
-        if (confirm('Load Tomás Configuration? This will replace your current settings.')) {
-            this.config = {
-                theme: 'light',
-                columns: {
-                    visible: ['name', 'type', 'group', 'description', 'status'],
-                    order: ['name', 'type', 'group', 'description', 'comments', 'status'],
-                    widths: {
-                        name: '1.6fr',
-                        type: '0.8fr',
-                        group: '0.8fr',
-                        description: '3fr',
-                        comments: '2fr',
-                        status: '30px'
-                    }
-                }
-            };
-            
-            this.applyConfiguration();
-            this.populateConfigModal();
-            this.showConfigSaveSuccess('Applied Tomás Configuration');
-        }
-    }
-
-    loadJoanPreset() {
-        if (confirm('Load Joan Configuration? This will replace your current settings.')) {
-            this.config = {
-                theme: 'dark',
-                columns: {
-                    visible: ['name', 'description', 'comments', 'group', 'status'],
-                    order: ['name', 'description', 'comments', 'group', 'status', 'type'],
-                    widths: {
-                        name: '1.8fr',
-                        type: '1fr',
-                        group: '0.8fr',
-                        description: '3fr',
-                        comments: '3fr',
-                        status: '30px'
-                    }
-                }
-            };
-            
-            this.applyConfiguration();
-            this.populateConfigModal();
-            this.showConfigSaveSuccess('Applied Joan Configuration');
-        }
-    }
-
-    updateConfigurationUI() {
-        // Update any UI elements that reflect current configuration
-        if (this.currentSchema) {
-            this.updateTableLayout();
-        }
-    }
-
-    showConfigSaveSuccess(message) {
-        // Create a temporary notification
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--success);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-            z-index: 3000;
-            transition: all 0.3s ease;
-        `;
-        notification.textContent = message;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.opacity = '0';
-            notification.style.transform = 'translateY(-20px)';
-            setTimeout(() => document.body.removeChild(notification), 300);
-        }, 3000);
     }
 
     initializeCustomDropdowns() {
@@ -700,11 +270,6 @@ class SchemaEditor {
             
             this.directoryHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
             this.showLoading('Scanning for schema files...');
-            
-            // Load configuration first
-            await this.loadConfiguration();
-            
-            // Then scan for schemas
             await this.scanDirectoryForSchemas();
             
         } catch (error) {
@@ -766,37 +331,6 @@ class SchemaEditor {
             
             for (const file of files) {
                 if (file.name.endsWith('.json')) {
-                    // Check for custom.json first
-                    if (file.name === 'custom.json') {
-                        try {
-                            const content = await this.readFileContent(file);
-                            const configData = JSON.parse(content);
-                            
-                            // Only merge valid configuration properties, ignore legacy ones
-                            const validConfig = {
-                                theme: configData.theme || 'light',
-                                columns: {
-                                    visible: configData.columns?.visible || ['name', 'type', 'group', 'description', 'status'],
-                                    order: configData.columns?.order || ['name', 'type', 'group', 'description', 'comments', 'status'],
-                                    widths: configData.columns?.widths || {
-                                        name: '1.6fr',
-                                        type: '0.8fr',
-                                        group: '0.8fr',
-                                        description: '3fr',
-                                        comments: '2fr',
-                                        status: '30px'
-                                    }
-                                }
-                            };
-                            
-                            this.config = validConfig;
-                            this.applyConfiguration();
-                            continue;
-                        } catch (error) {
-                            console.warn('Error loading custom.json:', error);
-                        }
-                    }
-                    
                     // Only consider files that match the exact pattern: schema_vNNN.json
                     const versionMatch = file.name.match(/^schema_v(\d+)\.json$/);
                     if (versionMatch) {
@@ -867,10 +401,10 @@ class SchemaEditor {
             type: this.getFieldType(def),
             group: def.group_id || 'ungrouped',
             description: def.description || '',
-            comments: def.comments || '',
             hasComments: Boolean(def.comments && def.comments.trim()),
             hasErrors: Boolean(def.errors),
-            hasChanges: Boolean(def.changes)
+            hasChanges: Boolean(def.changes),
+            hasImprovements: Boolean(def.improvements)
         }));
 
         // Extract metadata for filters
@@ -924,7 +458,8 @@ class SchemaEditor {
         document.getElementById('saveBtn').disabled = false;
         document.getElementById('downloadFilteredBtn').style.display = 'inline-flex';
         
-        this.updateTableLayout();
+        // Apply saved column order
+        this.applyColumnOrder();
         this.renderFieldsTable();
         this.updateFieldStats();
     }
@@ -935,10 +470,59 @@ class SchemaEditor {
         this.applyFilters();
     }
 
-    handleToggleFilter(filterName, event) {
-        this.filters[filterName] = !this.filters[filterName];
-        event.target.classList.toggle('active', this.filters[filterName]);
+    // Three-state filtering for boolean properties
+    handleThreeStateFilter(filterName, event) {
+        const currentState = this.filters[filterName];
+        let newState;
+        
+        // Cycle through: all -> true -> false -> all
+        switch (currentState) {
+            case 'all':
+                newState = 'true';
+                break;
+            case 'true':
+                newState = 'false';
+                break;
+            case 'false':
+                newState = 'all';
+                break;
+            default:
+                newState = 'all';
+        }
+        
+        this.filters[filterName] = newState;
+        this.updateFilterButtonState(event.target, filterName, newState);
         this.applyFilters();
+    }
+
+    updateFilterButtonState(button, filterName, state) {
+        button.setAttribute('data-state', state);
+        
+        const label = button.querySelector('.filter-label');
+        const capitalizedName = filterName.charAt(0).toUpperCase() + filterName.slice(1);
+        
+        switch (state) {
+            case 'all':
+                label.textContent = `${capitalizedName}: All`;
+                break;
+            case 'true':
+                label.textContent = `${capitalizedName}: True`;
+                break;
+            case 'false':
+                label.textContent = `${capitalizedName}: False`;
+                break;
+        }
+    }
+
+    initializeFilterButtons() {
+        // Initialize all filter buttons to 'all' state
+        const filterButtons = ['comments', 'errors', 'changes', 'improvements'];
+        filterButtons.forEach(filterName => {
+            const button = document.getElementById(`${filterName}Filter`);
+            if (button) {
+                this.updateFilterButtonState(button, filterName, 'all');
+            }
+        });
     }
 
     clearAllFilters() {
@@ -946,9 +530,10 @@ class SchemaEditor {
             search: '',
             types: [],
             groups: [],
-            hasComments: false,
-            hasErrors: false,
-            hasChanges: false
+            comments: 'all',
+            errors: 'all',
+            changes: 'all',
+            improvements: 'all'
         };
 
         // Reset dropdown states
@@ -962,9 +547,8 @@ class SchemaEditor {
         this.updateDropdownOptions('type');
         this.updateDropdownOptions('group');
         
-        document.getElementById('commentsFilter').classList.remove('active');
-        document.getElementById('errorsFilter').classList.remove('active');
-        document.getElementById('changesFilter').classList.remove('active');
+        // Reset filter buttons
+        this.initializeFilterButtons();
 
         this.applyFilters();
     }
@@ -979,27 +563,40 @@ class SchemaEditor {
                 const searchMatch = 
                     field.id.toLowerCase().includes(this.filters.search) ||
                     field.description.toLowerCase().includes(this.filters.search) ||
-                    field.comments.toLowerCase().includes(this.filters.search) ||
                     field.group.toLowerCase().includes(this.filters.search);
                 if (!searchMatch) return false;
             }
 
-            // Type filter
+            // Type filter - check if field type is in selected types array
             if (this.filters.types.length > 0 && !this.filters.types.includes(field.type)) return false;
 
-            // Group filter
+            // Group filter - check if field group is in selected groups array
             if (this.filters.groups.length > 0 && !this.filters.groups.includes(field.group)) return false;
 
-            // Metadata filters
-            if (this.filters.hasComments && !field.hasComments) return false;
-            if (this.filters.hasErrors && !field.hasErrors) return false;
-            if (this.filters.hasChanges && !field.hasChanges) return false;
+            // Three-state boolean filters
+            if (!this.matchesThreeStateFilter(field.hasComments, this.filters.comments)) return false;
+            if (!this.matchesThreeStateFilter(field.hasErrors, this.filters.errors)) return false;
+            if (!this.matchesThreeStateFilter(field.hasChanges, this.filters.changes)) return false;
+            if (!this.matchesThreeStateFilter(field.hasImprovements, this.filters.improvements)) return false;
 
             return true;
         });
 
         this.renderFieldsTable();
         this.updateResultsCount();
+    }
+
+    matchesThreeStateFilter(fieldValue, filterState) {
+        switch (filterState) {
+            case 'all':
+                return true; // Show all regardless of value
+            case 'true':
+                return fieldValue === true; // Show only fields where property is true
+            case 'false':
+                return fieldValue === false || fieldValue === null || fieldValue === undefined; // Show only fields where property is false/null/undefined
+            default:
+                return true;
+        }
     }
 
     renderFieldsTable() {
@@ -1013,44 +610,42 @@ class SchemaEditor {
     }
 
     createFieldRow(field) {
-        const visibleColumns = this.config.columns.visible;
-        const columnOrder = this.config.columns.order.filter(col => visibleColumns.includes(col));
-        const gridTemplate = columnOrder.map(col => this.config.columns.widths[col] || '1fr').join(' ');
-        
         const row = document.createElement('div');
-        row.className = `field-row cols-${columnOrder.length}`;
-        row.style.gridTemplateColumns = gridTemplate;
+        row.className = 'field-row';
         row.dataset.fieldId = field.id;
         row.addEventListener('click', () => this.selectField(field.id));
 
         const typeColor = this.getTypeColor(field.type);
         const groupColor = this.getGroupColor(field.group);
 
-        // Create cells based on column order and visibility
-        const cells = columnOrder.map(colId => {
-            switch (colId) {
-                case 'name':
-                    return `<div class="field-cell field-name">${field.id}</div>`;
-                case 'type':
-                    return `<div class="field-cell field-type" style="background-color: ${typeColor.bg}; color: ${typeColor.text}; border-color: ${typeColor.border};">${field.type}</div>`;
-                case 'group':
-                    return `<div class="field-cell field-group" style="background-color: ${groupColor.bg}; color: ${groupColor.text}; border-color: ${groupColor.border};">${this.formatGroupName(field.group)}</div>`;
-                case 'description':
-                    return `<div class="field-cell field-description">${field.description}</div>`;
-                case 'comments':
-                    return `<div class="field-cell field-comments">${field.comments}</div>`;
-                case 'status':
-                    return `<div class="field-cell field-indicators">
-                        ${field.hasComments ? '<span class="indicator comments" title="Has comments"></span>' : ''}
-                        ${field.hasErrors ? '<span class="indicator errors" title="Has errors"></span>' : ''}
-                        ${field.hasChanges ? '<span class="indicator changes" title="Has changes"></span>' : ''}
-                    </div>`;
-                default:
-                    return '';
-            }
-        });
+        // Create column content based on settings order
+        const columns = {
+            name: `<div class="field-name">${field.id}</div>`,
+            type: `<div class="field-type" style="background-color: ${typeColor.bg}; color: ${typeColor.text}; border-color: ${typeColor.border};">${field.type}</div>`,
+            group: `<div class="field-group" style="background-color: ${groupColor.bg}; color: ${groupColor.text}; border-color: ${groupColor.border};">${this.formatGroupName(field.group)}</div>`,
+            description: `<div class="field-description">${field.description}</div>`,
+            indicators: `<div class="field-indicators">
+                ${field.hasComments ? '<span class="indicator comments" title="Has comments"></span>' : ''}
+                ${field.hasErrors ? '<span class="indicator errors" title="Has errors"></span>' : ''}
+                ${field.hasChanges ? '<span class="indicator changes" title="Has changes"></span>' : ''}
+                ${field.hasImprovements ? '<span class="indicator improvements" title="Has improvements"></span>' : ''}
+            </div>`
+        };
 
-        row.innerHTML = cells.join('');
+        // Build row HTML based on column order
+        row.innerHTML = this.settings.columnOrder.map(columnId => columns[columnId]).join('');
+
+        // Apply grid template
+        const columnWidths = {
+            name: '2fr',
+            type: '1fr',
+            group: '1fr',
+            description: '3fr',
+            indicators: '120px'
+        };
+        const gridTemplate = this.settings.columnOrder.map(col => columnWidths[col]).join(' ');
+        row.style.gridTemplateColumns = gridTemplate;
+
         return row;
     }
 
@@ -1083,7 +678,7 @@ class SchemaEditor {
         
         document.getElementById('selectedFieldName').textContent = fieldId;
         
-        const fieldGroupBadge = document.getElementById('selectedFieldGroup');
+        const fieldGroupBadge = document.getElementById('selectedFieldType');
         fieldGroupBadge.textContent = this.formatGroupName(fieldGroup);
         fieldGroupBadge.style.backgroundColor = groupColor.bg;
         fieldGroupBadge.style.color = groupColor.text;
@@ -1111,9 +706,39 @@ class SchemaEditor {
         const content = document.getElementById('fieldDetailsContent');
         content.innerHTML = '';
 
-        // Basic Properties
+        // 1. Metadata Section (First)
+        const metadataSection = this.createFormSection('Metadata');
+        this.appendToFormSection(metadataSection, `
+            <div class="form-grid">
+                <div class="form-field full-width">
+                    <label>Description</label>
+                    <textarea data-property="description">${fieldDef.description || ''}</textarea>
+                </div>
+                <div class="form-field full-width">
+                    <label>Comments</label>
+                    <textarea data-property="comments">${fieldDef.comments || ''}</textarea>
+                </div>
+            </div>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" ${fieldDef.changes ? 'checked' : ''} data-property="changes">
+                    <label>Has Changes</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" ${fieldDef.errors ? 'checked' : ''} data-property="errors">
+                    <label>Has Errors</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" ${fieldDef.improvements ? 'checked' : ''} data-property="improvements">
+                    <label>Has Improvements</label>
+                </div>
+            </div>
+        `);
+        content.appendChild(metadataSection);
+
+        // 2. Basic Properties Section (Second)
         const basicSection = this.createFormSection('Basic Properties');
-        basicSection.innerHTML += `
+        this.appendToFormSection(basicSection, `
             <div class="form-grid">
                 <div class="form-field">
                     <label>Type</label>
@@ -1136,51 +761,97 @@ class SchemaEditor {
                     </select>
                 </div>
             </div>
-        `;
+        `);
         content.appendChild(basicSection);
 
-        // Metadata
-        const metadataSection = this.createFormSection('Metadata');
-        metadataSection.innerHTML += `
-            <div class="form-grid">
-                <div class="form-field full-width">
-                    <label>Description</label>
-                    <textarea data-property="description">${fieldDef.description || ''}</textarea>
-                </div>
-                <div class="form-field full-width">
-                    <label>Comments</label>
-                    <textarea data-property="comments">${fieldDef.comments || ''}</textarea>
-                </div>
-            </div>
-            <div class="checkbox-group">
-                <div class="checkbox-item">
-                    <input type="checkbox" ${fieldDef.changes ? 'checked' : ''} data-property="changes">
-                    <label>Has Changes</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" ${fieldDef.errors ? 'checked' : ''} data-property="errors">
-                    <label>Has Errors</label>
-                </div>
-            </div>
-        `;
-        content.appendChild(metadataSection);
-
-        // Enum Values (if applicable)
+        // 3. Enum Values (if applicable) - Collapsible
         if (this.hasEnumValues(fieldDef)) {
-            const enumSection = this.createFormSection('Enum Options');
-            enumSection.appendChild(this.createEnumEditor(fieldDef));
+            const enumSection = this.createFormSection('Enum Options', true);
+            this.appendToFormSection(enumSection, this.createEnumEditor(fieldDef));
             content.appendChild(enumSection);
         }
 
+        // 4. Schema Structure Preview Section (Third/Last) - Collapsible
+        const schemaSection = this.createFormSection('Schema Structure', true);
+        this.appendToFormSection(schemaSection, this.createSchemaEditor(fieldDef));
+        content.appendChild(schemaSection);
+
         // Add event listeners to form elements
         this.attachFormEventListeners(content);
+        
+        // Auto-resize any textareas with existing content (including schema editor)
+        content.querySelectorAll('textarea').forEach(textarea => {
+            setTimeout(() => this.autoResizeTextarea(textarea), 50);
+        });
     }
 
-    createFormSection(title) {
+    createFormSection(title, collapsible = false) {
         const section = document.createElement('div');
-        section.className = 'form-section';
-        section.innerHTML = `<h4>${title}</h4>`;
-        return section;
+        section.className = `form-section${collapsible ? ' collapsible' : ''}`;
+        
+        if (collapsible) {
+            const header = document.createElement('div');
+            header.className = 'form-section-header';
+            header.innerHTML = `
+                <h4>${title}</h4>
+                <svg class="collapse-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7,10L12,15L17,10H7Z"/>
+                </svg>
+            `;
+            
+            const content = document.createElement('div');
+            content.className = 'form-section-content collapsed';
+            
+            header.addEventListener('click', () => {
+                this.toggleFormSection(section);
+            });
+            
+            section.appendChild(header);
+            section.appendChild(content);
+            
+            return section;
+        } else {
+            section.innerHTML = `<h4>${title}</h4>`;
+            return section;
+        }
+    }
+
+    toggleFormSection(section) {
+        const content = section.querySelector('.form-section-content');
+        const icon = section.querySelector('.collapse-icon');
+        const isCollapsed = content.classList.contains('collapsed');
+        
+        if (isCollapsed) {
+            content.classList.remove('collapsed');
+            icon.style.transform = 'rotate(180deg)';
+            
+            // Auto-resize any textareas in the newly expanded section
+            setTimeout(() => {
+                content.querySelectorAll('textarea').forEach(textarea => {
+                    this.autoResizeTextarea(textarea);
+                });
+            }, 300); // Wait for expand animation to complete
+        } else {
+            content.classList.add('collapsed');
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+
+    appendToFormSection(section, content) {
+        if (section.classList.contains('collapsible')) {
+            const sectionContent = section.querySelector('.form-section-content');
+            if (typeof content === 'string') {
+                sectionContent.innerHTML += content;
+            } else {
+                sectionContent.appendChild(content);
+            }
+        } else {
+            if (typeof content === 'string') {
+                section.innerHTML += content;
+            } else {
+                section.appendChild(content);
+            }
+        }
     }
 
     generateGroupOptions(currentGroup) {
@@ -1208,8 +879,89 @@ class SchemaEditor {
     attachFormEventListeners(container) {
         // Input and textarea changes
         container.querySelectorAll('input, textarea, select').forEach(element => {
+            // Skip schema editor textarea as it has its own handlers
+            if (element.classList.contains('schema-json-editor')) {
+                return;
+            }
+            
             element.addEventListener('change', this.handleFieldPropertyChange.bind(this));
+            
+            // Auto-resize textareas (but not schema editor)
+            if (element.tagName === 'TEXTAREA') {
+                let debounceTimer;
+                
+                // Resize on input (typing)
+                element.addEventListener('input', () => {
+                    this.autoResizeTextarea(element);
+                    
+                    // Real-time updates for description and comments (debounced)
+                    if (element.dataset.property === 'description' || element.dataset.property === 'comments') {
+                        clearTimeout(debounceTimer);
+                        debounceTimer = setTimeout(() => {
+                            // Create a synthetic event for the debounced update
+                            const syntheticEvent = {
+                                target: element,
+                                type: 'input'
+                            };
+                            this.handleFieldPropertyChange(syntheticEvent);
+                        }, 300); // 300ms debounce for real-time typing updates
+                    }
+                });
+                
+                // Resize on paste
+                element.addEventListener('paste', () => {
+                    // Delay to allow paste content to be processed
+                    setTimeout(() => this.autoResizeTextarea(element), 0);
+                });
+                
+                // Initial resize for existing content
+                setTimeout(() => this.autoResizeTextarea(element), 0);
+            }
+            
+            // Real-time updates for other form elements
+            if (element.tagName === 'SELECT' || element.type === 'checkbox') {
+                element.addEventListener('input', this.handleFieldPropertyChange.bind(this));
+            }
         });
+    }
+
+    autoResizeTextarea(textarea) {
+        // Skip if textarea is not visible (e.g., in a collapsed section)
+        if (textarea.offsetHeight === 0) {
+            return;
+        }
+        
+        // Store the current scroll position to restore it later
+        const scrollTop = textarea.scrollTop;
+        
+        // Reset height to auto to get the correct scrollHeight
+        textarea.style.height = 'auto';
+        
+        // Different max heights for different types of textareas
+        const isSchemaEditor = textarea.classList.contains('schema-json-editor');
+        const maxHeight = isSchemaEditor ? 400 : 300;
+        const minHeight = isSchemaEditor ? 120 : 60;
+        
+        // Calculate the new height based on scrollHeight
+        // Add a small buffer (2px) to prevent scrollbars from appearing
+        const newHeight = Math.min(
+            Math.max(textarea.scrollHeight + 2, minHeight),
+            maxHeight
+        );
+        
+        // Set the new height
+        textarea.style.height = newHeight + 'px';
+        
+        // Show scrollbar only if content exceeds max height
+        const scrollThreshold = maxHeight - 2; // buffer
+        if (textarea.scrollHeight > scrollThreshold) {
+            textarea.style.overflowY = 'auto';
+        } else {
+            textarea.style.overflowY = 'hidden';
+        }
+        
+        // Restore scroll position
+        textarea.scrollTop = scrollTop;
     }
 
     handleFieldPropertyChange(event) {
@@ -1237,10 +989,13 @@ class SchemaEditor {
         // Update schema
         this.updateFieldProperty(this.selectedField, property, value);
         
-        // Refresh field data and re-render if needed
+        // Auto-resize textarea if it's a textarea element
+        if (event.target.tagName === 'TEXTAREA') {
+            this.autoResizeTextarea(event.target);
+        }
+        
+        // Immediately update the table row and panel header
         this.refreshFieldData(this.selectedField);
-        this.renderFieldsTable();
-        this.updateResultsCount();
     }
 
     updateFieldProperty(fieldId, property, value) {
@@ -1294,11 +1049,54 @@ class SchemaEditor {
                 type: this.getFieldType(def),
                 group: def.group_id || 'ungrouped',
                 description: def.description || '',
-                comments: def.comments || '',
                 hasComments: Boolean(def.comments && def.comments.trim()),
                 hasErrors: Boolean(def.errors),
-                hasChanges: Boolean(def.changes)
+                hasChanges: Boolean(def.changes),
+                hasImprovements: Boolean(def.improvements)
             };
+        }
+        
+        // Update the specific row in the table instead of re-rendering everything
+        this.updateTableRow(fieldId);
+        
+        // Update panel header if this is the currently selected field
+        if (this.selectedField === fieldId) {
+            this.updatePanelHeader(fieldId);
+        }
+        
+        // Update filter results and counts if field no longer matches current filters
+        this.applyFilters();
+    }
+
+    updateTableRow(fieldId) {
+        const field = this.allFields.find(f => f.id === fieldId);
+        if (!field) return;
+        
+        const existingRow = document.querySelector(`[data-field-id="${fieldId}"]`);
+        if (!existingRow) return;
+        
+        const newRow = this.createFieldRow(field);
+        
+        // Preserve selection state
+        if (existingRow.classList.contains('selected')) {
+            newRow.classList.add('selected');
+        }
+        
+        // Replace the existing row
+        existingRow.parentNode.replaceChild(newRow, existingRow);
+    }
+
+    updatePanelHeader(fieldId) {
+        const fieldDef = this.currentSchema.properties[fieldId];
+        const fieldGroup = fieldDef.group_id || 'ungrouped';
+        const groupColor = this.getGroupColor(fieldGroup);
+        
+        const fieldGroupBadge = document.getElementById('selectedFieldType');
+        if (fieldGroupBadge) {
+            fieldGroupBadge.textContent = this.formatGroupName(fieldGroup);
+            fieldGroupBadge.style.backgroundColor = groupColor.bg;
+            fieldGroupBadge.style.color = groupColor.text;
+            fieldGroupBadge.style.borderColor = groupColor.border;
         }
     }
 
@@ -1323,11 +1121,11 @@ class SchemaEditor {
 
         const addButton = document.createElement('button');
         addButton.className = 'enum-add';
-        addButton.textContent = 'Add Option';
-        addButton.addEventListener('click', () => {
+        addButton.textContent = '+ Add Option';
+        addButton.onclick = () => {
             enumList.appendChild(this.createEnumItem(''));
             this.updateEnumValues();
-        });
+        };
 
         container.appendChild(enumList);
         container.appendChild(addButton);
@@ -1341,19 +1139,101 @@ class SchemaEditor {
         
         div.innerHTML = `
             <input type="text" value="${value}" placeholder="Enum value">
-            <button class="enum-remove">×</button>
+            <button class="enum-remove" onclick="this.parentElement.remove(); this.updateEnumValues();">×</button>
         `;
 
-        const input = div.querySelector('input');
-        const removeBtn = div.querySelector('.enum-remove');
-        
-        input.addEventListener('change', this.updateEnumValues.bind(this));
-        removeBtn.addEventListener('click', () => {
-            div.remove();
-            this.updateEnumValues();
-        });
+        div.querySelector('input').addEventListener('change', this.updateEnumValues.bind(this));
         
         return div;
+    }
+
+    createSchemaEditor(fieldDef) {
+        const container = document.createElement('div');
+        container.className = 'schema-editor-container';
+        
+        // Show the complete field definition (including all metadata)
+        const completeFieldDef = { ...fieldDef };
+        
+        // Create the textarea for JSON editing
+        const textarea = document.createElement('textarea');
+        textarea.className = 'schema-json-editor';
+        textarea.value = JSON.stringify(completeFieldDef, null, 2);
+        textarea.placeholder = 'Complete JSON schema for this field including all properties...';
+        
+        // Add event listeners
+        textarea.addEventListener('input', () => {
+            this.autoResizeTextarea(textarea);
+            this.validateAndUpdateSchemaJson(textarea);
+        });
+        
+        textarea.addEventListener('change', () => {
+            this.handleSchemaJsonChange(textarea);
+        });
+        
+        // Create validation message area
+        const validationMsg = document.createElement('div');
+        validationMsg.className = 'schema-validation-message';
+        validationMsg.style.display = 'none';
+        
+        container.appendChild(textarea);
+        container.appendChild(validationMsg);
+        
+        // Auto-resize the textarea initially
+        setTimeout(() => this.autoResizeTextarea(textarea), 0);
+        
+        return container;
+    }
+
+    createCleanFieldDefinition(fieldDef) {
+        // Return the complete field definition (no longer "cleaning" it)
+        return { ...fieldDef };
+    }
+
+    validateAndUpdateSchemaJson(textarea) {
+        const validationMsg = textarea.parentElement.querySelector('.schema-validation-message');
+        
+        try {
+            const parsed = JSON.parse(textarea.value);
+            validationMsg.style.display = 'none';
+            textarea.classList.remove('error');
+            return true;
+        } catch (error) {
+            validationMsg.textContent = `JSON Error: ${error.message}`;
+            validationMsg.style.display = 'block';
+            textarea.classList.add('error');
+            return false;
+        }
+    }
+
+    handleSchemaJsonChange(textarea) {
+        if (!this.selectedField) return;
+        
+        const isValid = this.validateAndUpdateSchemaJson(textarea);
+        if (!isValid) return;
+        
+        try {
+            const newFieldDefinition = JSON.parse(textarea.value);
+            
+            // Update the field definition with the complete new structure
+            this.currentSchema.properties[this.selectedField] = newFieldDefinition;
+            
+            // Immediately update the table row and panel header
+            this.refreshFieldData(this.selectedField);
+            
+            // Update the form fields to reflect JSON changes (but preserve the JSON editor content)
+            const currentTextareaValue = textarea.value;
+            this.renderFieldDetailsForm(this.currentSchema.properties[this.selectedField]);
+            
+            // Restore the JSON editor content (since renderFieldDetailsForm would reset it)
+            const newJsonEditor = document.querySelector('.schema-json-editor');
+            if (newJsonEditor && newJsonEditor !== textarea) {
+                newJsonEditor.value = currentTextareaValue;
+                setTimeout(() => this.autoResizeTextarea(newJsonEditor), 0);
+            }
+            
+        } catch (error) {
+            console.error('Error updating schema structure:', error);
+        }
     }
 
     updateEnumValues() {
@@ -1422,7 +1302,9 @@ class SchemaEditor {
     }
 
     getTypeColor(type) {
-        const typeColors = {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        
+        const lightColors = {
             'string': { bg: '#fef3c7', text: '#92400e', border: '#f59e0b' },
             'number': { bg: '#dbeafe', text: '#1e40af', border: '#3b82f6' },
             'integer': { bg: '#e0e7ff', text: '#4338ca', border: '#6366f1' },
@@ -1433,12 +1315,26 @@ class SchemaEditor {
             'unknown': { bg: '#f7fafc', text: '#4a5568', border: '#a0aec0' }
         };
         
-        return typeColors[type] || typeColors['unknown'];
+        const darkColors = {
+            'string': { bg: '#451a03', text: '#fbbf24', border: '#f59e0b' },
+            'number': { bg: '#1e3a8a', text: '#60a5fa', border: '#3b82f6' },
+            'integer': { bg: '#312e81', text: '#a78bfa', border: '#6366f1' },
+            'boolean': { bg: '#14532d', text: '#4ade80', border: '#22c55e' },
+            'array': { bg: '#831843', text: '#f472b6', border: '#ec4899' },
+            'object': { bg: '#581c87', text: '#c084fc', border: '#a855f7' },
+            'enum': { bg: '#7f1d1d', text: '#f87171', border: '#e53e3e' },
+            'unknown': { bg: '#374151', text: '#9ca3af', border: '#6b7280' }
+        };
+        
+        const colors = isDark ? darkColors : lightColors;
+        return colors[type] || colors['unknown'];
     }
 
     getGroupColor(group) {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        
         // Generate consistent colors for groups using hash-based approach
-        const groupColors = [
+        const lightColors = [
             { bg: '#dbeafe', text: '#1e40af', border: '#3b82f6' }, // Blue
             { bg: '#dcfce7', text: '#166534', border: '#22c55e' }, // Green
             { bg: '#fef3c7', text: '#92400e', border: '#f59e0b' }, // Yellow
@@ -1450,6 +1346,19 @@ class SchemaEditor {
             { bg: '#fdf4ff', text: '#86198f', border: '#d946ef' }, // Fuchsia
             { bg: '#fff7ed', text: '#9a3412', border: '#ea580c' }  // Orange
         ];
+        
+        const darkColors = [
+            { bg: '#1e3a8a', text: '#60a5fa', border: '#3b82f6' }, // Blue
+            { bg: '#14532d', text: '#4ade80', border: '#22c55e' }, // Green
+            { bg: '#451a03', text: '#fbbf24', border: '#f59e0b' }, // Yellow
+            { bg: '#831843', text: '#f472b6', border: '#ec4899' }, // Pink
+            { bg: '#581c87', text: '#c084fc', border: '#a855f7' }, // Purple
+            { bg: '#7f1d1d', text: '#f87171', border: '#e53e3e' }, // Red
+            { bg: '#0c4a6e', text: '#0891b2', border: '#0891b2' }, // Cyan
+            { bg: '#064e3b', text: '#10b981', border: '#059669' }, // Emerald
+            { bg: '#86198f', text: '#d946ef', border: '#d946ef' }, // Fuchsia
+            { bg: '#9a3412', text: '#fb923c', border: '#ea580c' }  // Orange
+        ];
 
         // Simple hash function to assign consistent colors
         let hash = 0;
@@ -1457,7 +1366,8 @@ class SchemaEditor {
             hash = ((hash << 5) - hash + group.charCodeAt(i)) & 0x7fffffff;
         }
         
-        return groupColors[hash % groupColors.length];
+        const colors = isDark ? darkColors : lightColors;
+        return colors[hash % colors.length];
     }
 
     formatGroupName(groupId) {
@@ -1580,25 +1490,29 @@ class SchemaEditor {
         }
         
         // Add metadata filters
-        if (this.filters.hasComments) parts.push('CommentsTrue');
-        if (this.filters.hasErrors) parts.push('ErrorsTrue'); 
-        if (this.filters.hasChanges) parts.push('ChangesTrue');
+        if (this.filters.comments === 'true') parts.push('CommentsTrue');
+        else if (this.filters.comments === 'false') parts.push('CommentsFalse');
+        else parts.push('CommentsAll');
         
-        // Add "All" for unfiltered metadata
-        if (!this.filters.hasComments && !this.filters.hasErrors && !this.filters.hasChanges) {
-            parts.push('CommentsAll', 'ErrorsAll', 'ChangesAll');
-        } else {
-            if (!this.filters.hasComments) parts.push('CommentsAll');
-            if (!this.filters.hasErrors) parts.push('ErrorsAll');
-            if (!this.filters.hasChanges) parts.push('ChangesAll');
-        }
+        if (this.filters.errors === 'true') parts.push('ErrorsTrue');
+        else if (this.filters.errors === 'false') parts.push('ErrorsFalse');
+        else parts.push('ErrorsAll');
+        
+        if (this.filters.changes === 'true') parts.push('ChangesTrue');
+        else if (this.filters.changes === 'false') parts.push('ChangesFalse');
+        else parts.push('ChangesAll');
+        
+        if (this.filters.improvements === 'true') parts.push('ImprovementsTrue');
+        else if (this.filters.improvements === 'false') parts.push('ImprovementsFalse');
+        else parts.push('ImprovementsAll');
         
         // If no filters applied, use "noFilters"
         if (this.filters.types.length === 0 && 
             this.filters.groups.length === 0 && 
-            !this.filters.hasComments && 
-            !this.filters.hasErrors && 
-            !this.filters.hasChanges &&
+            this.filters.comments === 'all' && 
+            this.filters.errors === 'all' && 
+            this.filters.changes === 'all' &&
+            this.filters.improvements === 'all' &&
             !this.filters.search) {
             parts.splice(1); // Remove all filter parts
             parts.push('noFilters');
@@ -1652,6 +1566,229 @@ class SchemaEditor {
             saveBtn.innerHTML = originalHTML;
             saveBtn.style.background = '';
         }, 2000);
+    }
+
+    // Settings Management
+    loadSettings() {
+        try {
+            const savedSettings = localStorage.getItem('schemaEditorSettings');
+            if (savedSettings) {
+                const parsed = JSON.parse(savedSettings);
+                this.settings = { ...this.settings, ...parsed };
+            }
+        } catch (error) {
+            console.warn('Failed to load settings from localStorage:', error);
+        }
+    }
+
+    saveSettingsToStorage() {
+        try {
+            localStorage.setItem('schemaEditorSettings', JSON.stringify(this.settings));
+        } catch (error) {
+            console.warn('Failed to save settings to localStorage:', error);
+        }
+    }
+
+    initializeTheme() {
+        document.documentElement.setAttribute('data-theme', this.settings.theme);
+    }
+
+    openSettings() {
+        // Store original settings for cancel functionality
+        this.originalSettings = { ...this.settings };
+        
+        const modal = document.getElementById('settingsModal');
+        modal.style.display = 'flex';
+        
+        // Update theme buttons to reflect current theme
+        this.updateThemeButtons();
+        
+        // Initialize column order
+        this.updateColumnOrderDisplay();
+        
+        // Initialize drag and drop
+        this.initializeColumnDragDrop();
+        
+        // Close dropdowns
+        this.closeAllDropdowns();
+    }
+
+    closeSettings() {
+        const modal = document.getElementById('settingsModal');
+        modal.style.display = 'none';
+    }
+
+    cancelSettings() {
+        const modal = document.getElementById('settingsModal');
+        
+        // Only revert if modal is open
+        if (modal.style.display === 'flex') {
+            // Revert to original settings
+            this.settings = { ...this.originalSettings };
+            
+            // Apply original theme
+            document.documentElement.setAttribute('data-theme', this.settings.theme);
+            
+            // Apply original column order if schema is loaded
+            if (this.currentSchema) {
+                this.applyColumnOrder();
+                this.renderFieldsTable();
+            }
+            
+            this.closeSettings();
+        }
+    }
+
+    selectTheme(theme) {
+        this.settings.theme = theme;
+        this.updateThemeButtons();
+        
+        // Apply theme immediately for preview
+        document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    updateThemeButtons() {
+        const lightBtn = document.getElementById('lightThemeBtn');
+        const darkBtn = document.getElementById('darkThemeBtn');
+        
+        lightBtn.classList.toggle('active', this.settings.theme === 'light');
+        darkBtn.classList.toggle('active', this.settings.theme === 'dark');
+    }
+
+    updateColumnOrderDisplay() {
+        const container = document.getElementById('columnOrderList');
+        container.innerHTML = '';
+        
+        const columnLabels = {
+            name: 'Field Name',
+            type: 'Type',
+            group: 'Group',
+            description: 'Description',
+            indicators: 'Status'
+        };
+        
+        this.settings.columnOrder.forEach(columnId => {
+            const item = document.createElement('div');
+            item.className = 'column-item';
+            item.dataset.column = columnId;
+            item.draggable = true;
+            
+            item.innerHTML = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9,3H11V5H9V3M13,3H15V5H13V3M9,7H11V9H9V7M13,7H15V9H13V7M9,11H11V13H9V11M13,11H15V13H13V11M9,15H11V17H9V15M13,15H15V17H13V15M9,19H11V21H9V19M13,19H15V21H13V19Z"/>
+                </svg>
+                ${columnLabels[columnId]}
+            `;
+            
+            container.appendChild(item);
+        });
+    }
+
+    initializeColumnDragDrop() {
+        const container = document.getElementById('columnOrderList');
+        
+        container.addEventListener('dragstart', (e) => {
+            if (e.target.classList.contains('column-item')) {
+                e.target.classList.add('dragging');
+                e.dataTransfer.setData('text/plain', e.target.dataset.column);
+            }
+        });
+        
+        container.addEventListener('dragend', (e) => {
+            if (e.target.classList.contains('column-item')) {
+                e.target.classList.remove('dragging');
+            }
+        });
+        
+        container.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            const dragging = container.querySelector('.dragging');
+            const siblings = [...container.querySelectorAll('.column-item:not(.dragging)')];
+            
+            const nextSibling = siblings.find(sibling => {
+                return e.clientY <= sibling.getBoundingClientRect().top + sibling.offsetHeight / 2;
+            });
+            
+            container.insertBefore(dragging, nextSibling);
+        });
+        
+        container.addEventListener('drop', (e) => {
+            e.preventDefault();
+            this.updateColumnOrderFromDOM();
+        });
+    }
+
+    updateColumnOrderFromDOM() {
+        const items = document.querySelectorAll('#columnOrderList .column-item');
+        this.settings.columnOrder = Array.from(items).map(item => item.dataset.column);
+    }
+
+    resetColumnOrder() {
+        this.settings.columnOrder = ['name', 'type', 'group', 'description', 'indicators'];
+        this.updateColumnOrderDisplay();
+        this.initializeColumnDragDrop();
+    }
+
+    saveSettings() {
+        // Apply theme
+        document.documentElement.setAttribute('data-theme', this.settings.theme);
+        
+        // Apply column order
+        this.applyColumnOrder();
+        
+        // Save to localStorage
+        this.saveSettingsToStorage();
+        
+        // Re-render table if schema is loaded to update colors
+        if (this.currentSchema) {
+            this.renderFieldsTable();
+        }
+        
+        this.closeSettings();
+    }
+
+    applyColumnOrder() {
+        const header = document.querySelector('.table-header');
+        const columnWidths = {
+            name: '2fr',
+            type: '1fr',
+            group: '1fr',
+            description: '3fr',
+            indicators: '120px'
+        };
+        
+        // Build grid template based on column order
+        const gridTemplate = this.settings.columnOrder.map(col => columnWidths[col]).join(' ');
+        
+        // Apply to header
+        header.style.gridTemplateColumns = gridTemplate;
+        
+        // Apply to all rows
+        document.querySelectorAll('.field-row').forEach(row => {
+            row.style.gridTemplateColumns = gridTemplate;
+        });
+        
+        // Reorder header children
+        this.reorderHeaderColumns();
+    }
+
+    reorderHeaderColumns() {
+        const header = document.querySelector('.table-header');
+        const columnHeaders = {
+            name: 'Field Name',
+            type: 'Type', 
+            group: 'Group',
+            description: 'Description',
+            indicators: 'Status'
+        };
+        
+        header.innerHTML = '';
+        this.settings.columnOrder.forEach(columnId => {
+            const div = document.createElement('div');
+            div.className = `th field-${columnId}`;
+            div.textContent = columnHeaders[columnId];
+            header.appendChild(div);
+        });
     }
 }
 
