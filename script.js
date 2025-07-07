@@ -125,8 +125,25 @@ class SchemaEditor {
             }
         });
 
-        // Close dropdowns when clicking outside
+        // Close field details panel when clicking outside
         document.addEventListener('click', (e) => {
+            const panel = document.getElementById('fieldDetailsPanel');
+            const isFieldDetailsOpen = panel.style.display === 'flex';
+            
+            if (isFieldDetailsOpen) {
+                // Check if click is outside the panel
+                const isClickOutsidePanel = !panel.contains(e.target);
+                
+                // Check if click is not on a table row
+                const isClickOnTableRow = e.target.closest('.field-row');
+                
+                // Close panel if clicking outside and not on a table row
+                if (isClickOutsidePanel && !isClickOnTableRow) {
+                    this.closeFieldDetails();
+                }
+            }
+            
+            // Close dropdowns when clicking outside
             if (!e.target.closest('.custom-dropdown')) {
                 this.closeAllDropdowns();
             }
@@ -657,10 +674,10 @@ class SchemaEditor {
             description: `<div class="field-description">${field.description}</div>`,
             comments: `<div class="field-comments">${field.comments}</div>`,
             indicators: `<div class="field-indicators">
-                ${field.hasComments ? '<span class="indicator comments" title="Comments"></span>' : ''}
-                ${field.hasErrors ? '<span class="indicator errors" title="Errors"></span>' : ''}
-                ${field.hasChanges ? '<span class="indicator changes" title="Changes"></span>' : ''}
-                ${field.hasImprovements ? '<span class="indicator improvements" title="Improvements"></span>' : ''}
+                ${field.hasComments ? '<span class="indicator comments" title="Has comments"></span>' : ''}
+                ${field.hasErrors ? '<span class="indicator errors" title="Has errors"></span>' : ''}
+                ${field.hasChanges ? '<span class="indicator changes" title="Has changes"></span>' : ''}
+                ${field.hasImprovements ? '<span class="indicator improvements" title="Has improvements"></span>' : ''}
             </div>`
         };
 
