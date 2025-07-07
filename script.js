@@ -770,15 +770,15 @@ class SchemaEditor {
             <div class="checkbox-group">
                 <div class="checkbox-item">
                     <input type="checkbox" ${fieldDef.changes ? 'checked' : ''} data-property="changes">
-                    <label>Changes</label>
+                    <label>Has Changes</label>
                 </div>
                 <div class="checkbox-item">
                     <input type="checkbox" ${fieldDef.errors ? 'checked' : ''} data-property="errors">
-                    <label>Errors</label>
+                    <label>Has Errors</label>
                 </div>
                 <div class="checkbox-item">
                     <input type="checkbox" ${fieldDef.improvements ? 'checked' : ''} data-property="improvements">
-                    <label>Improvements</label>
+                    <label>Has Improvements</label>
                 </div>
             </div>
         `);
@@ -1527,6 +1527,7 @@ class SchemaEditor {
         delete cleaned.changes;
         delete cleaned.errors;
         delete cleaned.comments;
+        delete cleaned.improvements;
         return cleaned;
     }
 
