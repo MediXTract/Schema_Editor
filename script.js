@@ -1212,14 +1212,16 @@ class SchemaEditor {
         const container = document.createElement('div');
         container.className = 'schema-editor-container';
         
-        // Show the complete field definition (including all metadata)
+        // Show the complete field definition with field name as key
         const completeFieldDef = { ...fieldDef };
+        const fieldWithName = {
+            [this.selectedField]: completeFieldDef
+        };
         
         // Create the textarea for JSON editing
         const textarea = document.createElement('textarea');
         textarea.className = 'schema-json-editor';
-        textarea.value = JSON.stringify(completeFieldDef, null, 2);
-        textarea.placeholder = 'Complete JSON schema for this field including all properties...';
+        textarea.value = JSON.stringify(fieldWithName, null, 2);
         
         // Add event listeners
         textarea.addEventListener('input', () => {
