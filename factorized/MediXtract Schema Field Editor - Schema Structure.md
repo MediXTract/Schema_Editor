@@ -137,4 +137,5 @@ The `was_solved` object indicates that a variable-level condition was resolved p
 
 2.  **`comment`** (string) - Describes what was solved and how.
 
+
 3.  **`changed_at`** (string, ISO 8601) - UTC timestamp of when the variable entered this solved state.
