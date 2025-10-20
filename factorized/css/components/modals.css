@@ -1,0 +1,296 @@
+/* Modal Styles */
+
+.settings-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.settings-content {
+    position: relative;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    width: min(90vw, 600px);
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.settings-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+    background: var(--color-light);
+}
+
+.settings-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.settings-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.settings-section {
+    margin-bottom: 2rem;
+}
+
+.settings-section:last-child {
+    margin-bottom: 0;
+}
+
+.settings-section h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--gray-900);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.setting-item {
+    margin-bottom: 1.5rem;
+}
+
+.setting-item:last-child {
+    margin-bottom: 0;
+}
+
+.setting-item label {
+    display: block;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    margin-bottom: 0.75rem;
+}
+
+.theme-selector {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--gray-300);
+    border-radius: var(--radius);
+    background: var(--white);
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    font-weight: 500;
+    flex: 1;
+    min-width: 80px;
+    justify-content: center;
+}
+
+.theme-option:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: translateY(-1px);
+}
+
+.theme-option.active {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+    color: white;
+    box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+}
+
+.theme-option.active:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(67, 97, 238, 0.4);
+}
+
+.column-order-list {
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.column-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    cursor: move;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.column-item:last-child {
+    border-bottom: none;
+}
+
+.column-item:hover {
+    background: var(--gray-50);
+}
+
+.column-item.dragging {
+    opacity: 0.5;
+    transform: rotate(2deg);
+}
+
+.column-item .drag-handle {
+    color: var(--gray-400);
+    flex-shrink: 0;
+}
+
+.column-item:hover .drag-handle {
+    color: var(--color-primary);
+}
+
+.column-label {
+    flex: 1;
+    font-weight: 500;
+    min-width: 0;
+}
+
+.column-width-adjuster {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.width-slider {
+    width: 80px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--gray-200);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.width-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    cursor: pointer;
+    border: 2px solid var(--white);
+    box-shadow: var(--shadow-sm);
+}
+
+.width-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    cursor: pointer;
+    border: 2px solid var(--white);
+    box-shadow: var(--shadow-sm);
+}
+
+.width-display {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--gray-600);
+    min-width: 35px;
+    text-align: center;
+}
+
+.column-visibility-toggle {
+    background: none;
+    border: none;
+    padding: 0.25rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.column-visibility-toggle:hover {
+    background: var(--gray-100);
+}
+
+.column-visibility-toggle.visible {
+    color: var(--color-primary);
+}
+
+.column-visibility-toggle.hidden {
+    color: var(--gray-400);
+}
+
+.settings-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border-top: 1px solid var(--gray-200);
+    background: var(--gray-50);
+}
+
+[data-theme="dark"] .settings-content,
+[data-theme="joan"] .settings-content {
+    background: var(--color-background);
+    border: 1px solid var(--gray-200);
+}
+
+[data-theme="dark"] .settings-header,
+[data-theme="joan"] .settings-header {
+    background: var(--color-light);
+}
+
+[data-theme="dark"] .settings-header h3,
+[data-theme="joan"] .settings-header h3 {
+    color: var(--gray-700);
+}
+
+[data-theme="dark"] .settings-section h4,
+[data-theme="joan"] .settings-section h4 {
+    color: var(--gray-700);
+    border-bottom-color: var(--gray-200);
+}
+
+[data-theme="dark"] .theme-option,
+[data-theme="joan"] .theme-option {
+    background: var(--color-light);
+    border-color: var(--gray-200);
+    color: var(--gray-500);
+}
+
+[data-theme="dark"] .column-item,
+[data-theme="joan"] .column-item {
+    background: var(--color-light);
+    border-bottom-color: var(--gray-200);
+    color: var(--gray-600);
+}
+
+[data-theme="dark"] .settings-footer,
+[data-theme="joan"] .settings-footer {
+    background: var(--color-light);
+    border-top-color: var(--gray-200);
+}

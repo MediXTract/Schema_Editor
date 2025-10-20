@@ -1,0 +1,200 @@
+/* Form Styles */
+
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.form-section h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--gray-900);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-field.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-field label {
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--gray-700);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    padding: 0.75rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    background: var(--white);
+    transition: all 0.2s ease;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgb(102 126 234 / 0.1);
+}
+
+.form-field textarea {
+    resize: none;
+    min-height: 60px;
+    max-height: 300px;
+    overflow-y: hidden;
+    line-height: 1.5;
+    transition: height 0.1s ease;
+    box-sizing: border-box;
+}
+
+.checkbox-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-accent);
+}
+
+.checkbox-item label {
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+/* Collapsible Form Sections */
+.form-section.collapsible {
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.form-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: var(--gray-50);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.form-section-header:hover {
+    background: var(--gray-100);
+}
+
+.form-section-header h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    border: none;
+    padding: 0;
+}
+
+.collapse-icon {
+    color: var(--gray-500);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.form-section-content {
+    overflow: hidden;
+    transition: all 0.3s ease;
+    max-height: 1000px;
+    opacity: 1;
+}
+
+.form-section-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+}
+
+.form-section-content:not(.collapsed) {
+    padding: 1rem;
+}
+
+/* Dark Mode Form Elements */
+[data-theme="dark"] .form-field label,
+[data-theme="joan"] .form-field label {
+    color: var(--gray-500);
+}
+
+[data-theme="dark"] .form-field input,
+[data-theme="dark"] .form-field select,
+[data-theme="dark"] .form-field textarea,
+[data-theme="joan"] .form-field input,
+[data-theme="joan"] .form-field select,
+[data-theme="joan"] .form-field textarea {
+    background: var(--color-light);
+    border-color: var(--gray-200);
+    color: var(--gray-700);
+}
+
+[data-theme="dark"] .form-field input:focus,
+[data-theme="dark"] .form-field select:focus,
+[data-theme="dark"] .form-field textarea:focus,
+[data-theme="joan"] .form-field input:focus,
+[data-theme="joan"] .form-field select:focus,
+[data-theme="joan"] .form-field textarea:focus {
+    border-color: var(--color-primary);
+}
+
+[data-theme="dark"] .form-section h4,
+[data-theme="joan"] .form-section h4 {
+    color: var(--gray-700);
+    border-bottom-color: var(--gray-200);
+}
+
+[data-theme="dark"] .checkbox-item label,
+[data-theme="joan"] .checkbox-item label {
+    color: var(--gray-500);
+}
+
+[data-theme="dark"] .form-section.collapsible {
+    border-color: var(--gray-200);
+}
+
+[data-theme="dark"] .form-section-header {
+    background: var(--color-light);
+}
+
+[data-theme="dark"] .form-section-header:hover {
+    background: var(--gray-200);
+}
+
+[data-theme="dark"] .form-section-header h4 {
+    color: var(--gray-700);
+}
+
+[data-theme="dark"] .collapse-icon {
+    color: var(--gray-400);
+}

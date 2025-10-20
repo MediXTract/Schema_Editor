@@ -1,0 +1,74 @@
+/* Banner Styles */
+
+.info-banner, 
+.warning-banner, 
+.error-banner {
+    background: var(--white);
+    border-left: 4px solid var(--primary);
+    margin: 0 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1rem;
+}
+
+.warning-banner {
+    border-left-color: var(--warning);
+}
+
+.error-banner {
+    border-left-color: var(--danger);
+    background: #fef2f2;
+    color: var(--danger);
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+}
+
+.banner-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.banner-text {
+    flex: 1;
+}
+
+.banner-text strong {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.banner-text span {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+}
+
+[data-theme="dark"] .info-banner, 
+[data-theme="dark"] .warning-banner,
+[data-theme="joan"] .info-banner, 
+[data-theme="joan"] .warning-banner {
+    background: var(--color-light);
+    color: var(--gray-700);
+}
+
+[data-theme="dark"] .error-banner,
+[data-theme="joan"] .error-banner {
+    background: #1F2937;
+    color: #FCA5A5;
+}
+
+[data-theme="joan"] .error-banner {
+    background: #111111;
+}
+
+[data-theme="dark"] .banner-text span,
+[data-theme="joan"] .banner-text span {
+    color: var(--gray-500);
+}

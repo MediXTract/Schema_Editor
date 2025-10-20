@@ -1,0 +1,986 @@
+{
+  "p_hospital_country": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_hospital_id": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_date_of_birth": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_month_of_birth": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_year_of_birth": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_birth_location": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_date_of_admission": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_ga_weeks": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_ga_days": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_birth_weight": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_length": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_head_circ": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_sex": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "unmatched": { "correction": true } },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_number_of_infants": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "delivery": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "unmatched": { "correction": true } },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_chorioamnionitis": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_mhypertension": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_intrauterin_infections": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "unmatched": { "correction": true } },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_ab_preg_desc": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "unmatched": { "missing_docs": true } },
+      "patient_I": { "unmatched": { "missing_docs": true } },
+      "patient_J": { "unmatched": { "improved_comment": true } },
+      "patient_K": { "unmatched": { "correction": true } },
+      "patient_L": { "unmatched": { "correction": true } }
+    }
+  },
+  "m_prenatal_steroids": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "unmatched": { "correction": true } },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "unmatched": { "missing_docs": true } },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_ua_ph": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_apgar1": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_apgar5": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_apgar10": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_pda": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_ab_first24h": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "ab_before": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_surfactant": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "enteral_start": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_nec": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "unmatched": { "correction": true } },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_nec_treatment": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "npo_overall": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "perforation": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "unmatched": { "correction": true } },
+      "patient_F": { "unmatched": { "questioned": true } },
+      "patient_G": { "matched": true },
+      "patient_I": { "unmatched": { "questioned": true } },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_nec_surgery1_date": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "p_hospital_id_other": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "p_rank": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_intrauterin_infections_specify": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "unmatched": { "improved_comment": true } },
+      "patient_F": { "unmatched": { "filled_blank": true } },
+      "patient_G": { "blank": true },
+      "patient_I": { "unmatched": { "improved_comment": true } },
+      "patient_J": { "unmatched": { "improved_comment": true } },
+      "patient_K": { "blank": true },
+      "patient_L": { "unmatched": { "improved_comment": true } }
+    }
+  },
+  "m_medication_pda___0": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_medication_pda___1": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_medication_pda___2": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_medication_pda___4": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_medication_pda___5": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_medication_pda___6": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_medication_pda___unk": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_pda_surg_date": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_surgery_pda_ligation_dol": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_ino": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_probiotics_b_nec_onset": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_probiotics_product___1": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_probiotics_product___2": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_probiotics_product___3": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_probiotics_product___4": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_probiotics_product___5": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_probiotics_product___6": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_probiotics_product___8": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_probiotics_product___unk": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_probiotics_product___na": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_probiotics_product_other": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "ab_before_days": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "unmatched": { "correction": true } },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_ab_ttt_nr": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "unmatched": { "correction": true } },
+      "patient_K": { "unmatched": { "correction": true } },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_surgery_cardiac": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_surgery_cardiac_specific": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "uncertainties_nec": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_cardiac_surgery": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_ab_preg": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "unmatched": { "correction": true } },
+      "patient_L": { "unmatched": { "correction": true } }
+    }
+  },
+  "p_place_of_birth": {
+    "performance": {
+      "patient_D": { "unmatched": { "filled_blank": true } },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "radio_ileus": {
+    "performance": {
+      "patient_D": { "unmatched": { "correction": true } },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "unmatched": { "correction": true } },
+      "patient_I": { "unmatched": { "contradictions": true } },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "npo_duration": {
+    "performance": {
+      "patient_D": { "unmatched": { "correction": true } },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "unmatched": { "correction": true } },
+      "patient_I": { "unmatched": { "correction": true } },
+      "patient_J": { "unmatched": { "questioned": true } },
+      "patient_K": { "unmatched": { "correction": true } },
+      "patient_L": { "unmatched": { "questioned": true } }
+    }
+  },
+  "perf_date": {
+    "performance": {
+      "patient_D": { "unmatched": { "correction": true } },
+      "patient_E": { "unmatched": { "filled_blank": true } },
+      "patient_F": { "unmatched": { "questioned": true } },
+      "patient_G": { "matched": true },
+      "patient_I": { "unmatched": { "questioned": true } },
+      "patient_J": { "matched": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_focal_gastroint_perf": {
+    "performance": {
+      "patient_D": { "unmatched": { "correction": true } },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_surgery_sip": {
+    "performance": {
+      "patient_D": { "unmatched": { "correction": true } },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "unmatched": { "questioned": true } },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_surgery_sip_date1": {
+    "performance": {
+      "patient_D": { "unmatched": { "correction": true } },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "unmatched": { "questioned": true } },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_surgery_sip_dol": {
+    "performance": {
+      "patient_D": { "unmatched": { "correction": true } },
+      "patient_E": { "blank": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "unmatched": { "questioned": true } },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_medication_pda___na": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "unmatched": { "standardized": true } },
+      "patient_G": { "matched": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "blank": true },
+      "patient_K": { "blank": true },
+      "patient_L": { "blank": true }
+    }
+  },
+  "m_nec_onset_date": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "unmatched": { "standardized": true } },
+      "patient_I": { "unmatched": { "contradictions": true } },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_nec_onset": {
+    "performance": {
+      "patient_D": { "matched": true },
+      "patient_E": { "unmatched": { "standardized": true } },
+      "patient_F": { "unmatched": { "standardized": true } },
+      "patient_G": { "unmatched": { "standardized": true } },
+      "patient_I": { "unmatched": { "contradictions": true } },
+      "patient_J": { "unmatched": { "standardized": true } },
+      "patient_K": { "unmatched": { "standardized": true } },
+      "patient_L": { "unmatched": { "standardized": true } }
+    }
+  },
+  "pen_after": {
+    "performance": {
+      "patient_D": { "unmatched": { "improved_comment": true, "contradictions": true } },
+      "patient_E": { "unmatched": { "correction": true } },
+      "patient_F": { "matched": true },
+      "patient_G": { "unmatched": { "improved_comment": true, "contradictions": true } },
+      "patient_I": { "unmatched": { "contradictions": true } },
+      "patient_J": { "unmatched": { "correction": true } },
+      "patient_K": { "unmatched": { "contradictions": true } },
+      "patient_L": { "matched": true }
+    }
+  },
+  "m_number_surg": {
+    "performance": {
+      "patient_D": { "unmatched": { "missing_docs": true } },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "unmatched": { "missing_docs": true } },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "unmatched": { "missing_docs": true } }
+    }
+  },
+  "intubation_after": {
+    "performance": {
+      "patient_D": { "unmatched": { "questioned": true } },
+      "patient_E": { "matched": true },
+      "patient_F": { "matched": true },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "matched": true },
+      "patient_K": { "matched": true },
+      "patient_L": { "unmatched": { "questioned": true } }
+    }
+  },
+  "m_feeding_full_date": {
+    "performance": {
+      "patient_D": { "unmatched": { "questioned": true } },
+      "patient_E": { "blank": true },
+      "patient_F": { "unmatched": { "questioned": true } },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "unmatched": { "questioned": true } },
+      "patient_K": { "unmatched": { "questioned": true } },
+      "patient_L": { "unmatched": { "missing_docs": true } }
+    }
+  },
+  "m_feeding_full": {
+    "performance": {
+      "patient_D": { "unmatched": { "questioned": true } },
+      "patient_E": { "blank": true },
+      "patient_F": { "unmatched": { "questioned": true } },
+      "patient_G": { "matched": true },
+      "patient_I": { "matched": true },
+      "patient_J": { "unmatched": { "questioned": true } },
+      "patient_K": { "unmatched": { "questioned": true } },
+      "patient_L": { "unmatched": { "missing_docs": true } }
+    }
+  },
+  "m_medication_pda___3": {
+    "performance": {
+      "patient_D": { "blank": true },
+      "patient_E": { "matched": true },
+      "patient_F": { "blank": true },
+      "patient_G": { "blank": true },
+      "patient_I": { "blank": true },
+      "patient_J": { "unmatched": { "correction": true } },
+      "patient_K": { "blank": true },
+      "patient_L": { "matched": true }
+    }
+  }
+}

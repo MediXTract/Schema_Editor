@@ -1,0 +1,65 @@
+/* Panel Styles */
+
+.field-details-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 73vw;
+    min-width: 400px;
+    height: 100vh;
+    background: var(--white);
+    border-left: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-xl);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+}
+
+.field-details-panel.open {
+    transform: translateX(0);
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+    background: var(--color-light);
+}
+
+.panel-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.panel-title h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+}
+
+.panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+[data-theme="dark"] .field-details-panel,
+[data-theme="joan"] .field-details-panel {
+    background: var(--color-background);
+    border-left-color: var(--gray-200);
+}
+
+[data-theme="dark"] .panel-title h3,
+[data-theme="joan"] .panel-title h3 {
+    color: var(--gray-700);
+}
+
+[data-theme="dark"] .panel-content,
+[data-theme="joan"] .panel-content {
+    background: var(--color-background);
+}

@@ -1,0 +1,65 @@
+/* CSS Reset & Base Variables */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color Definitions */
+    --color-primary: #1D6491;
+    --color-accent: #4361EE;
+    --color-purple: #3B1AAF;
+    --color-purple-soft: #A593E0;
+    --color-purple-dark: #2C1154;
+    --color-background: #FFFFFF;
+    --color-light: #C8DFF8;
+    --color-muted-text: #3A506B;
+    --color-muted: #A6B1E1;
+    --color-dark: #112B3C;
+    
+    /* Semantic color mappings */
+    --primary: var(--color-primary);
+    --primary-dark: var(--color-purple);
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    
+    /* Gray Scale */
+    --gray-50: #F8FAFC;
+    --gray-100: var(--color-light);
+    --gray-200: #E2E8F0;
+    --gray-300: var(--color-muted);
+    --gray-400: var(--color-purple-soft);
+    --gray-500: var(--color-muted-text);
+    --gray-600: var(--color-muted-text);
+    --gray-700: var(--color-dark);
+    --gray-800: var(--color-purple-dark);
+    --gray-900: var(--color-dark);
+    --white: var(--color-background);
+    
+    /* Design Tokens */
+    --radius: 8px;
+    --radius-lg: 12px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(29 100 145 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(29 100 145 / 0.1), 0 1px 2px -1px rgb(29 100 145 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(29 100 145 / 0.1), 0 4px 6px -4px rgb(29 100 145 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(29 100 145 / 0.1), 0 8px 10px -6px rgb(29 100 145 / 0.1);
+}
+
+body {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 50%, var(--color-purple) 100%);
+    color: var(--color-dark);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+/* App Layout */
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
