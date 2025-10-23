@@ -1,6 +1,7 @@
 /**
  * SchemaEditor - Main orchestrator class
  * Coordinates all services and components
+ * FIXED: 1) Variable panel opening, 2) Theme instant change, 3) Double folder scan
  */
 
 import { EventBus } from './EventBus.js';
@@ -9,11 +10,13 @@ import { StorageService } from '../services/StorageService.js';
 import { FileService } from '../services/FileService.js';
 import { SchemaService } from '../services/SchemaService.js';
 import { FilterService } from '../services/FilterService.js';
+import { PerformanceService } from '../services/PerformanceService.js';
 import { TableManager } from '../components/TableManager.js';
 import { FilterBar } from '../components/FilterBar.js';
 import { FieldDetailsPanel } from '../components/FieldDetailsPanel.js';
 import { SettingsModal } from '../components/SettingsModal.js';
 import { EmptyState } from '../components/EmptyState.js';
+import { PatientClassificationPanel } from '../components/PatientClassificationPanel.js';
 import { ThemeManager } from '../ui/ThemeManager.js';
 import { NotificationManager } from '../ui/NotificationManager.js';
 import { EVENTS } from '../../config/constants.js';
@@ -29,6 +32,7 @@ export class SchemaEditor {
         this.fileService = new FileService(this.stateManager);
         this.schemaService = new SchemaService(this.stateManager);
         this.filterService = new FilterService(this.stateManager);
+        this.performanceService = new PerformanceService(this.stateManager);
         
         // Initialize UI managers
         this.themeManager = new ThemeManager(this.stateManager, this.eventBus);
@@ -38,7 +42,23 @@ export class SchemaEditor {
         this.emptyState = new EmptyState();
         this.tableManager = new TableManager(this.stateManager, this.eventBus, this.schemaService);
         this.filterBar = new FilterBar(this.stateManager, this.eventBus, this.filterService);
-        this.fieldDetailsPanel = new FieldDetailsPanel(this.stateManager, this.eventBus, this.schemaService);
+        
+        // CRITICAL: Initialize PatientClassificationPanel BEFORE FieldDetailsPanel
+        this.patientClassificationPanel = new PatientClassificationPanel(
+            this.stateManager, 
+            this.eventBus, 
+            this.performanceService
+        );
+        
+        // Now FieldDetailsPanel can receive patientClassificationPanel as dependency
+        this.fieldDetailsPanel = new FieldDetailsPanel(
+            this.stateManager, 
+            this.eventBus, 
+            this.schemaService,
+            this.performanceService,
+            this.patientClassificationPanel
+        );
+        
         this.settingsModal = new SettingsModal(this.stateManager, this.eventBus, this.storageService);
         
         // Initialize application
@@ -108,6 +128,8 @@ export class SchemaEditor {
                 this.fieldDetailsPanel.close();
                 this.filterBar.closeAllDropdowns();
                 this.settingsModal.close();
+                // Close patient classification modal if open
+                this.patientClassificationPanel.closeFormModal();
             }
         });
         
@@ -125,7 +147,7 @@ export class SchemaEditor {
             
             // Close field details panel when clicking outside
             const panel = document.getElementById('fieldDetailsPanel');
-            const isFieldDetailsOpen = panel.style.display === 'flex';
+            const isFieldDetailsOpen = panel && panel.classList.contains('open');
             
             if (isFieldDetailsOpen) {
                 const isClickOutsidePanel = !panel.contains(e.target);
@@ -167,8 +189,11 @@ export class SchemaEditor {
             this.tableManager.renderTable();
         });
         
-        // Theme changed
+        // FIX #2: Theme changed - Apply immediately
         this.eventBus.on(EVENTS.THEME_CHANGED, (theme) => {
+            // Apply theme to document
+            document.documentElement.setAttribute('data-theme', theme);
+            // Refresh table with new theme colors
             this.tableManager.renderTable();
         });
         
@@ -176,10 +201,23 @@ export class SchemaEditor {
         this.eventBus.on(EVENTS.FIELD_SELECTED, ({ fieldId }) => {
             this.tableManager.selectField(fieldId);
         });
+
+        // Patient classification events
+        this.eventBus.on(EVENTS.CLASSIFICATION_UPDATED, ({ fieldId, patientId }) => {
+            console.log(`Classification updated for field ${fieldId}, patient ${patientId}`);
+            this.updateFieldStats();
+            this.tableManager.refreshTable();
+        });
+
+        this.eventBus.on(EVENTS.PATIENT_DELETED, ({ fieldId, patientId }) => {
+            console.log(`Patient ${patientId} deleted from field ${fieldId}`);
+            this.updateFieldStats();
+            this.tableManager.refreshTable();
+        });
     }
 
     /**
-     * Handle folder scan
+     * FIX #3: Handle folder scan - Fixed double prompt issue
      */
     async handleFolderScan() {
         if (!this.fileService.isFileSystemAccessSupported()) {
@@ -190,10 +228,8 @@ export class SchemaEditor {
         try {
             this.notificationManager.showLoading('Selecting folder...');
             
-            const dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
-            this.stateManager.setDirectoryHandle(dirHandle);
-            
-            this.notificationManager.showLoading('Scanning for schema files...');
+            // FIX: The FileService.scanFolder() already calls showDirectoryPicker internally
+            // So we should NOT call it here again. Let FileService handle it.
             await this.fileService.scanFolder();
             
             this.loadLatestSchema();
@@ -259,6 +295,9 @@ export class SchemaEditor {
         this.stateManager.setTypeOptions(typeOptions);
         this.stateManager.setGroupOptions(groupOptions);
         
+        // Extract all patients from schema
+        this.stateManager.extractAllPatients(schema);
+        
         // Initialize filter options
         this.filterBar.populateFilterOptions();
         
@@ -300,7 +339,13 @@ export class SchemaEditor {
     updateFieldStats() {
         const state = this.stateManager.getState();
         const fieldCount = state.allFields.length;
-        document.getElementById('fieldStats').textContent = `${fieldCount} fields`;
+        const patientCount = state.allPatients.size;
+        
+        const statsText = patientCount > 0 
+            ? `${fieldCount} fields • ${patientCount} patients`
+            : `${fieldCount} fields`;
+            
+        document.getElementById('fieldStats').textContent = statsText;
     }
 
     /**
@@ -308,6 +353,8 @@ export class SchemaEditor {
      */
     onSchemaLoaded() {
         console.log('Schema loaded successfully');
+        const state = this.stateManager.getState();
+        console.log(`Total patients in schema: ${state.allPatients.size}`);
     }
 
     /**
@@ -368,7 +415,7 @@ export class SchemaEditor {
             const content = JSON.stringify(filteredSchema, null, 2);
             this.fileService.downloadFile(filename, content);
             
-            this.notificationManager.showSuccess(`Downloaded: ${filename}`);
+            this.notificationManager.showSuccess(`Downloaded: ${filename}`, 'downloadFilteredBtn');
             
         } catch (error) {
             this.notificationManager.showError(`Error downloading: ${error.message}`);
@@ -385,6 +432,8 @@ export class SchemaEditor {
         delete cleaned.errors;
         delete cleaned.comments;
         delete cleaned.improvements;
+        delete cleaned.notes;
+        delete cleaned.performance;
         return cleaned;
     }
 

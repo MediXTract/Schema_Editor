@@ -1,5 +1,6 @@
 /**
  * FieldDetailsPanel - Component for displaying and editing field details
+ * DEBUG VERSION: Includes console logs to diagnose opening issues
  */
 import { FormBuilder } from '../ui/FormBuilder.js';
 import { getGroupColor } from '../utils/colorUtils.js';
@@ -9,22 +10,43 @@ import { validateJSON } from '../utils/validators.js';
 import { EVENTS, FIELD_TYPES } from '../../config/constants.js';
 
 export class FieldDetailsPanel {
-    constructor(stateManager, eventBus, schemaService) {
+    constructor(stateManager, eventBus, schemaService, performanceService, patientClassificationPanel) {
+        console.log('🔧 FieldDetailsPanel constructor called');
+        console.log('  - stateManager:', !!stateManager);
+        console.log('  - eventBus:', !!eventBus);
+        console.log('  - schemaService:', !!schemaService);
+        console.log('  - performanceService:', !!performanceService);
+        console.log('  - patientClassificationPanel:', !!patientClassificationPanel);
+        
         this.stateManager = stateManager;
         this.eventBus = eventBus;
         this.schemaService = schemaService;
+        this.performanceService = performanceService;
+        this.patientClassificationPanel = patientClassificationPanel;
         this.formBuilder = new FormBuilder();
         
         this.panel = document.getElementById('fieldDetailsPanel');
         this.content = document.getElementById('fieldDetailsContent');
         
+        console.log('  - panel element:', !!this.panel);
+        console.log('  - content element:', !!this.content);
+        
+        if (!this.panel) {
+            console.error('❌ ERROR: fieldDetailsPanel element not found in DOM!');
+        }
+        if (!this.content) {
+            console.error('❌ ERROR: fieldDetailsContent element not found in DOM!');
+        }
+        
         this.init();
+        console.log('✅ FieldDetailsPanel initialized successfully');
     }
 
     /**
      * Initialize panel
      */
     init() {
+        console.log('🔧 FieldDetailsPanel.init() called');
         this.setupEventListeners();
         this.subscribeToEvents();
     }
@@ -33,9 +55,13 @@ export class FieldDetailsPanel {
      * Setup event listeners
      */
     setupEventListeners() {
+        console.log('🔧 Setting up event listeners');
         const closeBtn = document.getElementById('closePanelBtn');
         if (closeBtn) {
             closeBtn.addEventListener('click', () => this.close());
+            console.log('  ✅ Close button listener added');
+        } else {
+            console.warn('  ⚠️  Close button not found');
         }
     }
 
@@ -43,11 +69,27 @@ export class FieldDetailsPanel {
      * Subscribe to events
      */
     subscribeToEvents() {
+        console.log('🔧 Subscribing to events');
+        
         this.eventBus.on(EVENTS.FIELD_SELECTED, ({ fieldId }) => {
+            console.log('📡 FIELD_SELECTED event received:', fieldId);
             if (fieldId) {
                 this.show(fieldId);
+            } else {
+                console.warn('  ⚠️  fieldId is null/undefined');
             }
         });
+
+        // Listen for classification updates to refresh panel
+        this.eventBus.on(EVENTS.CLASSIFICATION_UPDATED, ({ fieldId }) => {
+            console.log('📡 CLASSIFICATION_UPDATED event received:', fieldId);
+            const state = this.stateManager.getState();
+            if (state.selectedField === fieldId) {
+                this.refreshPatientSection(fieldId);
+            }
+        });
+        
+        console.log('  ✅ Event subscriptions complete');
     }
 
     /**
@@ -55,27 +97,66 @@ export class FieldDetailsPanel {
      * @param {string} fieldId - Field ID
      */
     show(fieldId) {
+        console.log('🎯 FieldDetailsPanel.show() called with fieldId:', fieldId);
+        
+        if (!this.panel) {
+            console.error('❌ ERROR: panel element is null! Cannot show panel.');
+            return;
+        }
+        
         const state = this.stateManager.getState();
+        console.log('  - Current state:', state);
+        
+        if (!state.currentSchema) {
+            console.error('❌ ERROR: currentSchema is null!');
+            return;
+        }
+        
+        if (!state.currentSchema.properties) {
+            console.error('❌ ERROR: currentSchema.properties is null!');
+            return;
+        }
+        
         const fieldDef = state.currentSchema.properties[fieldId];
+        console.log('  - Field definition:', fieldDef);
         
-        if (!fieldDef) return;
+        if (!fieldDef) {
+            console.error(`❌ ERROR: Field definition not found for fieldId: ${fieldId}`);
+            return;
+        }
 
-        // Update header
-        this.updateHeader(fieldId, fieldDef);
-        
-        // Render form
-        this.renderForm(fieldId, fieldDef);
-        
-        // Show panel
-        this.panel.classList.add('open');
-        this.panel.style.display = 'flex';
+        try {
+            // Update header
+            console.log('  - Updating header...');
+            this.updateHeader(fieldId, fieldDef);
+            
+            // Render form
+            console.log('  - Rendering form...');
+            this.renderForm(fieldId, fieldDef);
+            
+            // Show panel
+            console.log('  - Showing panel...');
+            this.panel.classList.add('open');
+            this.panel.style.display = 'flex';
+            
+            console.log('✅ Panel should now be visible');
+            console.log('  - panel.classList:', this.panel.classList.toString());
+            console.log('  - panel.style.display:', this.panel.style.display);
+        } catch (error) {
+            console.error('❌ ERROR in show():', error);
+            console.error('Stack trace:', error.stack);
+        }
     }
 
     /**
      * Close panel
      */
     close() {
-        this.panel.classList.remove('open');
+        console.log('🚪 FieldDetailsPanel.close() called');
+        if (this.panel) {
+            this.panel.classList.remove('open');
+            console.log('  ✅ Panel closed');
+        }
         this.stateManager.setSelectedField(null);
     }
 
@@ -109,25 +190,48 @@ export class FieldDetailsPanel {
      * @param {Object} fieldDef - Field definition
      */
     renderForm(fieldId, fieldDef) {
+        console.log('  📝 renderForm() called');
+        
+        if (!this.content) {
+            console.error('    ❌ ERROR: content element is null!');
+            return;
+        }
+        
         this.content.innerHTML = '';
 
-        // 1. Metadata Section
-        const metadataSection = this.createMetadataSection(fieldDef);
-        this.content.appendChild(metadataSection);
+        try {
+            // 1. Metadata Section
+            console.log('    - Creating metadata section...');
+            const metadataSection = this.createMetadataSection(fieldDef);
+            this.content.appendChild(metadataSection);
 
-        // 2. Basic Properties Section
-        const basicSection = this.createBasicPropertiesSection(fieldDef);
-        this.content.appendChild(basicSection);
+            // 2. Basic Properties Section
+            console.log('    - Creating basic properties section...');
+            const basicSection = this.createBasicPropertiesSection(fieldDef);
+            this.content.appendChild(basicSection);
 
-        // 3. Enum Values Section (if applicable)
-        if (this.schemaService.hasEnumValues(fieldDef)) {
-            const enumSection = this.createEnumSection(fieldDef);
-            this.content.appendChild(enumSection);
+            // 3. Enum Values Section (if applicable)
+            if (this.schemaService.hasEnumValues(fieldDef)) {
+                console.log('    - Creating enum section...');
+                const enumSection = this.createEnumSection(fieldDef);
+                this.content.appendChild(enumSection);
+            }
+
+            // 4. Patient Classification Section
+            console.log('    - Creating patient classification section...');
+            const patientSection = this.createPatientClassificationSection(fieldId, fieldDef);
+            this.content.appendChild(patientSection);
+
+            // 5. Schema Structure Section
+            console.log('    - Creating schema section...');
+            const schemaSection = this.createSchemaSection(fieldId, fieldDef);
+            this.content.appendChild(schemaSection);
+            
+            console.log('    ✅ All sections created successfully');
+        } catch (error) {
+            console.error('    ❌ ERROR in renderForm():', error);
+            console.error('    Stack trace:', error.stack);
         }
-
-        // 4. Schema Structure Section
-        const schemaSection = this.createSchemaSection(fieldId, fieldDef);
-        this.content.appendChild(schemaSection);
     }
 
     /**
@@ -152,13 +256,19 @@ export class FieldDetailsPanel {
             onChange: debouncedUpdate
         });
 
+        const notesTextarea = this.formBuilder.createTextarea({
+            value: fieldDef.notes || '',
+            property: 'notes',
+            placeholder: 'General notes about this variable\'s performance across all patients...',
+            onChange: debouncedUpdate
+        });
+
         const checkboxes = this.formBuilder.createCheckboxGroup([
             { checked: fieldDef.changes || false, property: 'changes', label: 'Changes' },
             { checked: fieldDef.errors || false, property: 'errors', label: 'Errors' },
             { checked: fieldDef.improvements || false, property: 'improvements', label: 'Improvements' }
         ]);
 
-        // Add change listeners to checkboxes
         checkboxes.querySelectorAll('input[type="checkbox"]').forEach(cb => {
             cb.addEventListener('change', (e) => this.handlePropertyChange(e));
         });
@@ -175,6 +285,12 @@ export class FieldDetailsPanel {
         grid.appendChild(this.formBuilder.createFormField({
             label: 'Comments',
             input: commentsTextarea,
+            fullWidth: true
+        }));
+
+        grid.appendChild(this.formBuilder.createFormField({
+            label: 'General Notes (Variable-Level)',
+            input: notesTextarea,
             fullWidth: true
         }));
 
@@ -344,6 +460,57 @@ export class FieldDetailsPanel {
     }
 
     /**
+     * Create patient classification section
+     * @param {string} fieldId - Field ID
+     * @param {Object} fieldDef - Field definition
+     * @returns {HTMLElement} Section element
+     */
+    createPatientClassificationSection(fieldId, fieldDef) {
+        console.log('      🏥 Creating patient classification section');
+        
+        const container = document.createElement('div');
+        container.className = 'patient-classification-wrapper';
+        container.id = 'patientClassificationWrapper';
+
+        try {
+            if (this.patientClassificationPanel) {
+                console.log('      - Rendering patient classification panel...');
+                this.patientClassificationPanel.render(fieldId, container);
+                console.log('      ✅ Patient classification panel rendered');
+            } else {
+                console.error('      ❌ ERROR: patientClassificationPanel is null!');
+                container.innerHTML = '<p style="color: red; padding: 1rem;">Error: Patient classification panel not available</p>';
+            }
+        } catch (error) {
+            console.error('      ❌ ERROR rendering patient classification:', error);
+            container.innerHTML = '<p style="color: red; padding: 1rem;">Error rendering patient classification: ' + error.message + '</p>';
+        }
+
+        return this.formBuilder.createFormSection({
+            title: 'Patient Classifications',
+            collapsible: true,
+            collapsed: true,
+            content: container
+        });
+    }
+
+    /**
+     * Refresh patient classification section
+     * @param {string} fieldId - Field ID
+     */
+    refreshPatientSection(fieldId) {
+        console.log('🔄 Refreshing patient section for field:', fieldId);
+        const wrapper = document.getElementById('patientClassificationWrapper');
+        if (wrapper) {
+            wrapper.innerHTML = '';
+            this.patientClassificationPanel.render(fieldId, wrapper);
+            console.log('  ✅ Patient section refreshed');
+        } else {
+            console.warn('  ⚠️  Patient classification wrapper not found');
+        }
+    }
+
+    /**
      * Create schema structure section
      * @param {string} fieldId - Field ID
      * @param {Object} fieldDef - Field definition
@@ -378,7 +545,7 @@ export class FieldDetailsPanel {
         container.appendChild(validationMsg);
 
         return this.formBuilder.createFormSection({
-            title: 'Schema Structure',
+            title: 'Schema Structure (JSON)',
             collapsible: true,
             collapsed: true,
             content: container
@@ -422,11 +589,9 @@ export class FieldDetailsPanel {
             const parsed = JSON.parse(textarea.value);
             const newFieldDefinition = parsed[selectedField] || parsed;
 
-            // Update schema
             state.currentSchema.properties[selectedField] = newFieldDefinition;
             this.stateManager.updateSchema(state.currentSchema);
 
-            // Refresh field data
             this.refreshFieldData(selectedField);
 
         } catch (error) {
@@ -446,21 +611,18 @@ export class FieldDetailsPanel {
         const property = event.target.dataset.property;
         let value = event.target.type === 'checkbox' ? event.target.checked : event.target.value.trim();
 
-        // Update schema
         this.schemaService.updateFieldProperty(state.currentSchema, selectedField, property, value);
         this.stateManager.updateSchema(state.currentSchema);
 
-        // Auto-resize if textarea
         if (event.target.tagName === 'TEXTAREA') {
             autoResizeTextarea(event.target);
         }
 
-        // Refresh field data
         this.refreshFieldData(selectedField);
     }
 
     /**
-     * Handle group change (special case for new group creation)
+     * Handle group change
      * @param {Event} event - Change event
      */
     handleGroupChange(event) {
@@ -475,10 +637,8 @@ export class FieldDetailsPanel {
             if (newGroup && newGroup.trim()) {
                 value = newGroup.trim();
                 
-                // Add to group options
                 state.groupOptions.add(value);
                 
-                // Update the select element
                 const groupOptions = [
                     ...Array.from(state.groupOptions).sort().map(g => ({ value: g, label: formatGroupName(g) })),
                     { value: '__new__', label: '+ Create New Group' }
@@ -498,11 +658,9 @@ export class FieldDetailsPanel {
             }
         }
 
-        // Update schema
         this.schemaService.updateFieldProperty(state.currentSchema, selectedField, 'group_id', value);
         this.stateManager.updateSchema(state.currentSchema);
 
-        // Refresh field data
         this.refreshFieldData(selectedField);
     }
 
@@ -514,7 +672,6 @@ export class FieldDetailsPanel {
         const state = this.stateManager.getState();
         const def = state.currentSchema.properties[fieldId];
 
-        // Update field in allFields array
         const fieldIndex = state.allFields.findIndex(f => f.id === fieldId);
         if (fieldIndex !== -1) {
             state.allFields[fieldIndex] = {
@@ -529,17 +686,16 @@ export class FieldDetailsPanel {
                 hasNotes: Boolean(def.notes && def.notes.trim()),
                 hasErrors: Boolean(def.errors),
                 hasChanges: Boolean(def.changes),
-                hasImprovements: Boolean(def.improvements)
+                hasImprovements: Boolean(def.improvements),
+                patientCount: def.performance ? Object.keys(def.performance).length : 0,
+                hasPerformanceData: Boolean(def.performance && Object.keys(def.performance).length > 0)
             };
         }
 
-        // Update header
         this.updateHeader(fieldId, def);
 
-        // Emit field updated event
         this.eventBus.emit(EVENTS.FIELD_UPDATED, { fieldId });
 
-        // Re-apply filters
         const filterService = this.stateManager.getState().filterService;
         if (filterService) {
             this.eventBus.emit(EVENTS.FILTERS_CHANGED);

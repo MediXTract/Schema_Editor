@@ -1,5 +1,6 @@
 /**
  * FileService - File operations (read, write, download)
+ * FIXED: Removed double folder selection prompt
  */
 export class FileService {
     constructor(stateManager) {
@@ -23,6 +24,8 @@ export class FileService {
             throw new Error('File System Access API not supported');
         }
 
+        // FIX: Let the CALLER handle showDirectoryPicker, not this method
+        // Or if we handle it here, don't require the caller to also call it
         const dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
         this.stateManager.setDirectoryHandle(dirHandle);
 

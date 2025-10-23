@@ -117,9 +117,15 @@ export class StateManager {
      * @param {string} fieldId - Field ID
      */
     setSelectedField(fieldId) {
+        console.log('📝 StateManager.setSelectedField() called with:', fieldId);
+        
         this.setState({
             selectedField: fieldId
-        }, EVENTS.FIELD_SELECTED);
+        });
+        
+        // FIX: Emit event with proper data object containing fieldId
+        console.log('  - Emitting FIELD_SELECTED event with fieldId:', fieldId);
+        this.eventBus.emit(EVENTS.FIELD_SELECTED, { fieldId: fieldId });
     }
 
     /**

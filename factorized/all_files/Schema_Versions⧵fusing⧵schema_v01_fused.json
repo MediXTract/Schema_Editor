@@ -37,7 +37,41 @@
         "2": "Germany",
         "3": "Austria"
       },
-      "notes": "Works correctly."
+      "notes": "Works correctly.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_hospital_id": {
       "anyOf": [
@@ -155,7 +189,41 @@
         "83": "Freiburg",
         "999": "Other"
       },
-      "notes": "Sometimes the difference between Berne FK (Frauenspital Kinderklinik) and Berne KISPI (Kinderklinik / Children's Hospital Bern) is not present in the documentation provided. Our model outputs KISPI for P2 and P4 and validation data points FK. We should have more information about it."
+      "notes": "Sometimes the difference between Berne FK (Frauenspital Kinderklinik) and Berne KISPI (Kinderklinik / Children's Hospital Bern) is not present in the documentation provided. Our model outputs KISPI for P2 and P4 and validation data points FK. We should have more information about it.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_hospital_id_other": {
       "anyOf": [
@@ -169,7 +237,8 @@
       "default": null,
       "description": "Specify Other Hospital - Text field for hospital name when Hospital ID is 999 (Other)",
       "group_id": "group_1",
-      "notes": "There's no \"other hospital\" case in the validation data. But it should work correctly if the name of the hospital is specified in the documentation provided to the system."
+      "notes": "There's no \"other hospital\" case in the validation data. But it should work correctly if the name of the hospital is specified in the documentation provided to the system.",
+      "performance": {}
     },
     "id_neonet": {
       "anyOf": [
@@ -198,7 +267,41 @@
       "default": null,
       "description": "Date of birth - Patient's birth date in YYYY-MM-DD format (validation: date_dmy, must be before admission date)",
       "group_id": "group_1",
-      "notes": "Works correctly when provided."
+      "notes": "Works correctly when provided.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_month_of_birth": {
       "anyOf": [
@@ -240,7 +343,41 @@
         "11": "November",
         "12": "December"
       },
-      "notes": "Works fine."
+      "notes": "Works fine.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_year_of_birth": {
       "anyOf": [
@@ -256,7 +393,41 @@
       "default": null,
       "description": "Year of birth - Four-digit year when patient was born (validation: number, range 2000-2050)",
       "group_id": "group_1",
-      "notes": "Works fine."
+      "notes": "Works fine.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_informed_consent": {
       "anyOf": [
@@ -326,7 +497,41 @@
       "default": null,
       "description": "Birth location - Where the birth occurred. Options: 1=inborn, 2=outborn. Critical: Only babies born at the Geburtshilfe Inselspital in Bern are considered inborn. All others are considered outborn.",
       "group_id": "group_2",
-      "notes": "Works fine."
+      "notes": "Works fine.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_place_of_birth": {
       "anyOf": [
@@ -340,7 +545,41 @@
       "default": null,
       "description": "Specify the place of birth if the patient is outborn. Use the standardized name from the following list whenever possible:\n\nLausanne, Geneva, Vevey-Riviera Chablais, Aigle-Riviera, Sion, Neuchatel, Delemont, Fribourg, Biel_Bienne, Berne FK, Berne KISPI, Basel, Bruderholz, Olten, Aarau, Baden, Lucerne, Bellinzona, Mendrisio, Locarno, Lugano Civico, Chur Kantonsspital, Schaffhausen, Zurich KISPI, Zurich Triemli, Zurich UniSpital, Zollikerberg, Winterthur, Muensterlingen, St. Gallen, St. Gallen FK, Meyrin Hôpital de la Tour, Morges EHC, Nyon, Payerne, Yverdon-les-Bains EHNV, Uster, Buelach, Grangettes, Lugano Sant' Anna, Rennaz, Solothurn, Graz, Salzburg, Wien, München, Heidelberg, Frankfurt, Freiburg.\n\nIf the location is not on this list, write the name exactly as it appears in the documentation.",
       "group_id": "group_2",
-      "notes": "Some minor revision necessary to adjust the prompt. Standardize the way to call different hospitals (abbreviations)."
+      "notes": "Some minor revision necessary to adjust the prompt. Standardize the way to call different hospitals (abbreviations).",
+      "performance": {
+        "patient_D": {
+          "filled_blank": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_date_of_admission": {
       "anyOf": [
@@ -355,7 +594,41 @@
       "default": null,
       "description": "Date of admission - Date when patient was admitted in YYYY-MM-DD format (validation: date_dmy, must be after birth date)",
       "group_id": "group_1",
-      "notes": "It's not always specified in the documentation. Is there another way to say it? For patient 2, the validation data has a null and we get 2017-01-19 (the patient's date of birth)."
+      "notes": "It's not always specified in the documentation. Is there another way to say it? For patient 2, the validation data has a null and we get 2017-01-19 (the patient's date of birth).",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_ethnicity": {
       "anyOf": [
@@ -393,7 +666,41 @@
       "default": null,
       "description": "Weeks of gestation - Gestational age in completed weeks (validation: number, range 22-42)",
       "group_id": "group_1",
-      "notes": "Works fine."
+      "notes": "Works fine.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_ga_days": {
       "anyOf": [
@@ -409,7 +716,41 @@
       "default": null,
       "description": "Days of gestation - Additional days beyond completed weeks (validation: number, range 0-6)",
       "group_id": "group_1",
-      "notes": "Works fine. We found an error for patient 2: the documentation is contradictory (entries 31 6/7 and 31 1/7 GW)."
+      "notes": "Works fine. We found an error for patient 2: the documentation is contradictory (entries 31 6/7 and 31 1/7 GW).",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_birth_weight": {
       "anyOf": [
@@ -425,7 +766,41 @@
       "default": null,
       "description": "Birth weight in g - Weight at birth in grams (validation: number, range 200-5000)",
       "group_id": "group_1",
-      "notes": "Works correctly."
+      "notes": "Works correctly.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_length": {
       "anyOf": [
@@ -441,7 +816,41 @@
       "default": null,
       "description": "Length at birth in cm - Body length at birth in centimeters (validation: number, range 15-60)",
       "group_id": "group_1",
-      "notes": "Not always specified in the documentation provided. If specified, it works fine."
+      "notes": "Not always specified in the documentation provided. If specified, it works fine.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_head_circ": {
       "anyOf": [
@@ -457,7 +866,41 @@
       "default": null,
       "description": "Head circumference in cm - Occipitofrontal head circumference at birth in centimeters (validation: number, range 18-45)",
       "group_id": "group_1",
-      "notes": "Not always specified in the documentation provided. If specified, it works fine."
+      "notes": "Not always specified in the documentation provided. If specified, it works fine.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_sex": {
       "anyOf": [
@@ -476,7 +919,41 @@
       "default": null,
       "description": "Patient Sex - Gender assignment at birth. Options: 1=female, 2=male, 9=non-determinable",
       "group_id": "group_1",
-      "notes": "Works correctly."
+      "notes": "Works correctly.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_number_of_infants": {
       "anyOf": [
@@ -492,7 +969,41 @@
       "default": null,
       "description": "Number of infants in this birth - Total number of babies born in this pregnancy (validation: number, range 1-7)",
       "group_id": "group_1",
-      "notes": "Works correctly."
+      "notes": "Works correctly.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "p_rank": {
       "anyOf": [
@@ -506,7 +1017,21 @@
       "default": null,
       "description": "Order of births - In which order was the child with NEC born? (first=A, second=B, etc.)",
       "group_id": "group_1",
-      "notes": "In patient 1 we found an error in the validation data that the model corrected. The correct value in this case is A (first twin) and not B (second twin), in contradiction with the (incorrect) validation data."
+      "notes": "In patient 1 we found an error in the validation data that the model corrected. The correct value in this case is A (first twin) and not B (second twin), in contradiction with the (incorrect) validation data.",
+      "performance": {
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "delivery": {
       "anyOf": [
@@ -525,7 +1050,41 @@
       "default": null,
       "description": "Delivery mode - Method of delivery. Options: 1=spontaneous, 2=assisted vaginal delivery, 3=cesarian section",
       "group_id": "group_1",
-      "notes": "Works correctly."
+      "notes": "Works correctly.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_chorioamnionitis": {
       "anyOf": [
@@ -543,7 +1102,41 @@
       "default": null,
       "description": "Chorioamnionitis - Maternal chorioamnionitis diagnosis. Options: 0=No, 1=Yes",
       "group_id": "group_3",
-      "notes": "All the validation data contains a 0 in this field. We didn't get any false positives, but we need more data to ensure the identification of positive cases."
+      "notes": "All the validation data contains a 0 in this field. We didn't get any false positives, but we need more data to ensure the identification of positive cases.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_mhypertension": {
       "anyOf": [
@@ -562,7 +1155,41 @@
       "default": null,
       "description": "Maternal hypertension - High blood pressure during pregnancy. Options: 0=no, 1=without edema and/or proteinuria, 2=with edema/proteinuria (preeclampsia, HELLP)",
       "group_id": "group_3",
-      "notes": "We need more validation data to assess the stage of this variable."
+      "notes": "We need more validation data to assess the stage of this variable.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_intrauterin_infections": {
       "anyOf": [
@@ -581,7 +1208,41 @@
       "default": null,
       "description": "Maternal infections - Intrauterine infections during pregnancy. Critical: This refers exclusively to maternal infections, not neonatal or newborn infections. Options: 0=no, 1=yes suspected, 2=yes proven",
       "group_id": "group_2",
-      "notes": "Clarify the difference between suspected and proven. Not always clear in the documentation. Conservative aproach."
+      "notes": "Clarify the difference between suspected and proven. Not always clear in the documentation. Conservative aproach.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_intrauterin_infections_specify": {
       "anyOf": [
@@ -595,7 +1256,29 @@
       "default": null,
       "description": "Specify Maternal infections - Detailed description of maternal infections if present",
       "group_id": "group_2",
-      "notes": "We need more data to confirm. But it's the type of variable that should work fine."
+      "notes": "We need more data to confirm. But it's the type of variable that should work fine.",
+      "performance": {
+        "patient_E": {
+          "improved_comment": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "filled_blank": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "improved_comment": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "improved_comment": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "improved_comment": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_ab_preg": {
       "anyOf": [
@@ -617,7 +1300,41 @@
         "0": "No",
         "1": "Yes"
       },
-      "notes": "We need more data to assess the stage of this variable. It would be helpful to have a list of typical antibiotics given in this scenario."
+      "notes": "We need more data to assess the stage of this variable. It would be helpful to have a list of typical antibiotics given in this scenario.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_ab_preg_desc": {
       "anyOf": [
@@ -631,7 +1348,37 @@
       "default": null,
       "description": "Description of Antibiotics given within 1 month before delivery - Details of antibiotic treatment (names, duration, indication, trimester, etc.)",
       "group_id": "group_3",
-      "notes": "We need more data to confirm. But it's the type of variable that should work fine."
+      "notes": "We need more data to confirm. But it's the type of variable that should work fine.",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "missing_doc": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "missing_doc": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "improved_comment": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_prenatal_steroids": {
       "anyOf": [
@@ -657,7 +1404,41 @@
         "2": "complete",
         "3": "yes"
       },
-      "notes": "We need to adjust the definitions. Someone with domain specific knowledge would be helpful in order to understand the specific clinical scenarios that lead to the classification of 'incomplete', 'complete', or 'absent' steroid administration. There could be errors in the validation data, but we need a better understanding of the variable for confirmation. Two courses of antenatal steroids were started, but dosing details are missing. This supports Option 1 (Incomplete), Option 2 (Complete) if assuming full dosing, or Option 3 (Given, dose unknown). The validation chose 3 due to missing specifics; the model predicted 2, likely inferring completion."
+      "notes": "We need to adjust the definitions. Someone with domain specific knowledge would be helpful in order to understand the specific clinical scenarios that lead to the classification of 'incomplete', 'complete', or 'absent' steroid administration. There could be errors in the validation data, but we need a better understanding of the variable for confirmation. Two courses of antenatal steroids were started, but dosing details are missing. This supports Option 1 (Incomplete), Option 2 (Complete) if assuming full dosing, or Option 3 (Given, dose unknown). The validation chose 3 due to missing specifics; the model predicted 2, likely inferring completion.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "missing_doc": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_ua_ph": {
       "anyOf": [
@@ -673,7 +1454,41 @@
       "default": null,
       "description": "Umbilical artery pH - pH value from umbilical artery blood gas (validation: number_2dp, range 6.50-7.90)",
       "group_id": "group_1",
-      "notes": "We found an error in the validation dataset. The umbilical artery pH was classified as UNK for patient 3, although it was actually known. In fact, the patient was diagnosed with perinatal acidosis (pH 7.05). Additionally, patient 4 in the validation dataset is supposed to have a pH of 7.32, but we found no information about this value in the documents related to patient 4, probably because the information is missing from our records."
+      "notes": "We found an error in the validation dataset. The umbilical artery pH was classified as UNK for patient 3, although it was actually known. In fact, the patient was diagnosed with perinatal acidosis (pH 7.05). Additionally, patient 4 in the validation dataset is supposed to have a pH of 7.32, but we found no information about this value in the documents related to patient 4, probably because the information is missing from our records.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_apgar1": {
       "anyOf": [
@@ -689,7 +1504,41 @@
       "default": null,
       "description": "Apgar 1 min - Apgar score at 1 minute after birth (validation: number, range 0-10)",
       "group_id": "group_1",
-      "notes": "Works correctly."
+      "notes": "Works correctly.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_apgar5": {
       "anyOf": [
@@ -705,7 +1554,41 @@
       "default": null,
       "description": "Apgar 5 min - Apgar score at 5 minutes after birth (validation: number, range 0-10)",
       "group_id": "group_1",
-      "notes": "Works correctly."
+      "notes": "Works correctly.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_apgar10": {
       "anyOf": [
@@ -721,7 +1604,41 @@
       "default": null,
       "description": "Apgar 10 min - Apgar score at 10 minutes after birth (validation: number, range 0-10)",
       "group_id": "group_1",
-      "notes": "Works correctly."
+      "notes": "Works correctly.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_bdefect": {
       "anyOf": [
@@ -1061,7 +1978,41 @@
         "1": "absent",
         "2": "present"
       },
-      "notes": "The variable works as expected. However, we recommend changing the coding from 1 = absent and 2 = present to the more conventional 0 = absent and 1 = present. Unless there is a specific reason for the current coding scheme, we suggest aligning with standard practice. If such a reason exists, please let us know."
+      "notes": "The variable works as expected. However, we recommend changing the coding from 1 = absent and 2 = present to the more conventional 0 = absent and 1 = present. Unless there is a specific reason for the current coding scheme, we suggest aligning with standard practice. If such a reason exists, please let us know.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_medication_pda___0": {
       "anyOf": [
@@ -1083,7 +2034,21 @@
         "0": "False (active treatment given)",
         "1": "True (conservative management)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_medication_pda___1": {
       "anyOf": [
@@ -1105,7 +2070,21 @@
         "0": "False (not administered)",
         "1": "True (administered)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_medication_pda___2": {
       "anyOf": [
@@ -1127,7 +2106,21 @@
         "0": "False (not administered)",
         "1": "True (administered)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_medication_pda___3": {
       "anyOf": [
@@ -1149,7 +2142,21 @@
         "0": "False (single or no medication)",
         "1": "True (combination therapy)"
       },
-      "notes": "We recommend eliminating the variable ‘3 = both’."
+      "notes": "We recommend eliminating the variable ‘3 = both’.",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_medication_pda___4": {
       "anyOf": [
@@ -1171,7 +2178,21 @@
         "0": "False (no surgery)",
         "1": "True (surgical intervention)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_medication_pda___5": {
       "anyOf": [
@@ -1193,7 +2214,21 @@
         "0": "False (not administered)",
         "1": "True (administered)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_medication_pda___6": {
       "anyOf": [
@@ -1215,7 +2250,21 @@
         "0": "False (standard approach)",
         "1": "True (alternative therapy)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_medication_pda___unk": {
       "anyOf": [
@@ -1237,7 +2286,21 @@
         "0": "False (treatment type known)",
         "1": "True (treatment type unknown)"
       },
-      "notes": "We recommend eliminating the variables \"both\" and \"N/A\". Maybe even \"UNK\" could be eliminated and just leave \"null\". We would like to discuss the meaning and the value of that variable \"UNK\", what's the difference between that field and just \"null\"?"
+      "notes": "We recommend eliminating the variables \"both\" and \"N/A\". Maybe even \"UNK\" could be eliminated and just leave \"null\". We would like to discuss the meaning and the value of that variable \"UNK\", what's the difference between that field and just \"null\"?",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_medication_pda___na": {
       "anyOf": [
@@ -1259,7 +2322,21 @@
         "0": "False (treatment decision applicable)",
         "1": "True (treatment decision not applicable)"
       },
-      "notes": "We recommend eliminating the variables \"both\" and \"N/A\". Maybe even \"UNK\" could be eliminated and just leave \"null\". We would like to discuss the meaning and the value of that variable \"UNK\", what's the difference between that field and just \"null\"?"
+      "notes": "We recommend eliminating the variables \"both\" and \"N/A\". Maybe even \"UNK\" could be eliminated and just leave \"null\". We would like to discuss the meaning and the value of that variable \"UNK\", what's the difference between that field and just \"null\"?",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "standardized": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_pda_surg_date": {
       "anyOf": [
@@ -1274,7 +2351,8 @@
       "default": null,
       "description": "Date of surgical PDA ligation - Date when PDA surgery was performed in YYYY-MM-DD format",
       "group_id": "group_3",
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_surgery_pda_ligation_dol": {
       "anyOf": [
@@ -1288,7 +2366,8 @@
       "default": null,
       "description": "Age (in Days) of surgical PDA ligation - Calculated field based on birth date and surgery date",
       "group_id": "group_3",
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_ino": {
       "anyOf": [
@@ -1306,7 +2385,8 @@
       "default": null,
       "description": "Inhaled nitric oxide - Treatment with inhaled nitric oxide. Options: 0=No, 1=Yes",
       "group_id": "group_2",
-      "notes": "Our model identified an error in the validation data. There is evidence of patient 2 receiving iNO treatment along with O2 (typical use) on January 29, 2017, as documented in the intensive care records. This indicates inhaled nitric oxide therapy was administered, which contradicts the validation dataset classification for this patient."
+      "notes": "Our model identified an error in the validation data. There is evidence of patient 2 receiving iNO treatment along with O2 (typical use) on January 29, 2017, as documented in the intensive care records. This indicates inhaled nitric oxide therapy was administered, which contradicts the validation dataset classification for this patient.",
+      "performance": {}
     },
     "m_probiotics_b_nec_onset": {
       "anyOf": [
@@ -1324,7 +2404,8 @@
       "default": null,
       "description": "Probiotics before NEC onset - Administration of probiotics before NEC development. CRITICAL: The administration must be strictly before NEC onset. Options: 0=No, 1=Yes",
       "group_id": "group_2",
-      "notes": "The validation labels indicate '0' (no probiotics before NEC onset) for Patient 1 and '1' (probiotics administered before NEC onset) for Patients 2, 3, and 4. However, our model consistently predicts '0' for all patients, suggesting potential issues within the validation data. For Patients 2 and 4, the probiotic identified is 'BEBA HA,' subsequently recorded in the field 'm_probiotics_product.' Yet, documentation related to 'BEBA HA' appears only after NEC onset (for both patients), indicating possible misclassification. The only relevant entry before NEC onset for Patient 2 is 'Gut priming 8x0.5 ml.' We need clarification on whether this protocol includes probiotics or if this is a data entry error. Patient 3's validation entry mentions 'defenses', which also requires further verification. It would be helpful to receive a descriptive paragraph per probiotic detailing its typical representation in clinical documents, and confirmation if protocols like 'gut priming' inherently include any probiotics."
+      "notes": "The validation labels indicate '0' (no probiotics before NEC onset) for Patient 1 and '1' (probiotics administered before NEC onset) for Patients 2, 3, and 4. However, our model consistently predicts '0' for all patients, suggesting potential issues within the validation data. For Patients 2 and 4, the probiotic identified is 'BEBA HA,' subsequently recorded in the field 'm_probiotics_product.' Yet, documentation related to 'BEBA HA' appears only after NEC onset (for both patients), indicating possible misclassification. The only relevant entry before NEC onset for Patient 2 is 'Gut priming 8x0.5 ml.' We need clarification on whether this protocol includes probiotics or if this is a data entry error. Patient 3's validation entry mentions 'defenses', which also requires further verification. It would be helpful to receive a descriptive paragraph per probiotic detailing its typical representation in clinical documents, and confirmation if protocols like 'gut priming' inherently include any probiotics.",
+      "performance": {}
     },
     "m_probiotics_product___1": {
       "anyOf": [
@@ -1346,7 +2427,8 @@
         "0": "False (not administered)",
         "1": "True (administered)"
       },
-      "notes": "Probiotic product identification and timing relative to NEC onset requires careful documentation review."
+      "notes": "Probiotic product identification and timing relative to NEC onset requires careful documentation review.",
+      "performance": {}
     },
     "m_probiotics_product___2": {
       "anyOf": [
@@ -1368,7 +2450,8 @@
         "0": "False (not administered)",
         "1": "True (administered)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_probiotics_product___3": {
       "anyOf": [
@@ -1390,7 +2473,8 @@
         "0": "False (not administered)",
         "1": "True (administered)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_probiotics_product___4": {
       "anyOf": [
@@ -1412,7 +2496,8 @@
         "0": "False (not administered)",
         "1": "True (administered)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_probiotics_product___5": {
       "anyOf": [
@@ -1434,7 +2519,8 @@
         "0": "False (not administered)",
         "1": "True (administered)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_probiotics_product___6": {
       "anyOf": [
@@ -1456,7 +2542,8 @@
         "0": "False (not administered)",
         "1": "True (administered)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_probiotics_product___8": {
       "anyOf": [
@@ -1478,7 +2565,8 @@
         "0": "False (not administered)",
         "1": "True (administered)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_probiotics_product___unk": {
       "anyOf": [
@@ -1500,7 +2588,8 @@
         "0": "False (product type known / no product)",
         "1": "True (product type unknown)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_probiotics_product___na": {
       "anyOf": [
@@ -1522,7 +2611,8 @@
         "0": "False (assessment applicable)",
         "1": "True (assessment not applicable)"
       },
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_probiotics_product_other": {
       "anyOf": [
@@ -1536,7 +2626,8 @@
       "default": null,
       "description": "Specify other probiotics given - Text field for other probiotic products not listed",
       "group_id": "group_3",
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_ab_first24h": {
       "anyOf": [
@@ -1554,7 +2645,41 @@
       "default": null,
       "description": "Antibiotics in first 24h - Whether antibiotics were given in the first 24 hours of life. Options: 0=No, 1=Yes",
       "group_id": "group_1",
-      "notes": "Works as expected. For patient 3, the validation dataset shows '1' while we have 'null'. Our available documentation corresponds to a later respiratory infection episode, not to the neonatal period. Confirming antibiotic use within the first 24 hours of life would require access to neonatal ICU records, immediate postnatal clinical notes, or birth medication records. Since this information was not available in our data sources, the 'null' value is appropriate. The discrepancy may be due to an error in the validation dataset or access to additional documentation on their end."
+      "notes": "Works as expected. For patient 3, the validation dataset shows '1' while we have 'null'. Our available documentation corresponds to a later respiratory infection episode, not to the neonatal period. Confirming antibiotic use within the first 24 hours of life would require access to neonatal ICU records, immediate postnatal clinical notes, or birth medication records. Since this information was not available in our data sources, the 'null' value is appropriate. The discrepancy may be due to an error in the validation dataset or access to additional documentation on their end.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "ab_before": {
       "anyOf": [
@@ -1572,7 +2697,41 @@
       "default": null,
       "description": "Administration of antibiotics before NEC onset. Options: 0=No, 1=Yes. Critical: The administration of antibiotics must strictly occur before the diagnosis of NEC (Grade IIa) to be marked as 1 = Yes; antibiotics administered on the same day as NEC onset do not qualify as 'before'.",
       "group_id": "group_2",
-      "notes": "Errors CORRECTED with critical field anañysis - 100% correct\n\nPatients 1 and 4 are correct and consistent. For Patient 3, the same issue persists as previously noted in 'ab_before_days' due to missing information about antibiotic administration prior to NEC. IMPORTANT: For Patient 2, antibiotics (co-amoxicillin and amikacin) started exactly on January 25, coinciding with NEC Grade IIa diagnosis, meaning our previous value of '1' was incorrect; it should be '0' because antibiotics administered on the same day as NEC onset do not qualify as 'before.' This has been corrected in the prompt to prevent this error."
+      "notes": "Errors CORRECTED with critical field anañysis - 100% correct\n\nPatients 1 and 4 are correct and consistent. For Patient 3, the same issue persists as previously noted in 'ab_before_days' due to missing information about antibiotic administration prior to NEC. IMPORTANT: For Patient 2, antibiotics (co-amoxicillin and amikacin) started exactly on January 25, coinciding with NEC Grade IIa diagnosis, meaning our previous value of '1' was incorrect; it should be '0' because antibiotics administered on the same day as NEC onset do not qualify as 'before.' This has been corrected in the prompt to prevent this error.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "ab_before_days": {
       "anyOf": [
@@ -1588,7 +2747,33 @@
       "default": null,
       "description": "Days of (any) antibiotics before NEC onset - Total days of antibiotic treatment before NEC (validation: number, range 0-120)",
       "group_id": "group_2",
-      "notes": "Discrepancies were due to whether the start day of antibiotics was counted as day 0 or day 1. Our review of clinical reports confirmed that the system likely treated the start day as day 0. Additionally, NEC onset day is excluded from the count. This is and has to be clearly stated in the variable definition to avoid ambiguity. Example - Patient 1: Antibiotics started on January 13 and ended on January 17, with NEC onset on January 19. The correct 'ab_before_days' is 5 (counting Jan 13 as Day 1 and Jan 17 as Day 5). The validation data reported 4, suggesting that the start day was treated as Day 0. Example - Patient 3: Two antibiotic courses were given — first from Day 1 to Day 5, and then from Day 10 to Day 12, with NEC onset on Day 13. The correct 'ab_before_days' should be 8 (5 + 3). The validation data reported 5, likely due to only the first antibiotic course being captured or an error in summing multiple courses. Example - Patient 4: Antibiotics were administered from March 9 to March 15, with NEC onset on March 19. Here, the validation correctly reported 'ab_before_days' as 7, aligning with the rule that the start day counts as Day 1 and the NEC day is excluded. This highlights the importance of ensuring two things: (1) consistent counting conventions (start day = Day 1, NEC day excluded), and (2) proper summation of all antibiotic periods prior to NEC onset, even when non-consecutive."
+      "notes": "Discrepancies were due to whether the start day of antibiotics was counted as day 0 or day 1. Our review of clinical reports confirmed that the system likely treated the start day as day 0. Additionally, NEC onset day is excluded from the count. This is and has to be clearly stated in the variable definition to avoid ambiguity. Example - Patient 1: Antibiotics started on January 13 and ended on January 17, with NEC onset on January 19. The correct 'ab_before_days' is 5 (counting Jan 13 as Day 1 and Jan 17 as Day 5). The validation data reported 4, suggesting that the start day was treated as Day 0. Example - Patient 3: Two antibiotic courses were given — first from Day 1 to Day 5, and then from Day 10 to Day 12, with NEC onset on Day 13. The correct 'ab_before_days' should be 8 (5 + 3). The validation data reported 5, likely due to only the first antibiotic course being captured or an error in summing multiple courses. Example - Patient 4: Antibiotics were administered from March 9 to March 15, with NEC onset on March 19. Here, the validation correctly reported 'ab_before_days' as 7, aligning with the rule that the start day counts as Day 1 and the NEC day is excluded. This highlights the importance of ensuring two things: (1) consistent counting conventions (start day = Day 1, NEC day excluded), and (2) proper summation of all antibiotic periods prior to NEC onset, even when non-consecutive.",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_ab_ttt_nr": {
       "anyOf": [
@@ -1604,7 +2789,33 @@
       "default": null,
       "description": "Number of periods of Antibiotic Treatment before NEC - Count of distinct antibiotic treatment episodes (validation: number, range 0-5)",
       "group_id": "group_2",
-      "notes": "One discrepancy identified for patient 3, where validation indicates 2 antibiotic treatment periods before NEC but 0 was registered. The discrepancy may be due to the short amount of data we have for patient 3. Patients 1, 2, and 4 matched correctly without issues."
+      "notes": "One discrepancy identified for patient 3, where validation indicates 2 antibiotic treatment periods before NEC but 0 was registered. The discrepancy may be due to the short amount of data we have for patient 3. Patients 1, 2, and 4 matched correctly without issues.",
+      "performance": {
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_sepsis___1": {
       "anyOf": [
@@ -1778,7 +2989,41 @@
       "default": null,
       "description": "Surfactant treatment - Administration of lung surfactant. Options: 1=not given, 2=given. Critical: exogenous surfactant administration must be explicitly mentioned in the documentation.",
       "group_id": "group_2",
-      "notes": "CORRECTED with critical fields analysis - 100% acuracy\n\n\nCRITICAL: The clinical note for Patient 2 describes respiratory distress syndrome due to primary surfactant deficiency in a premature infant, with CPAP support and oxygen supplementation. These findings could suggest that surfactant treatment was clinically indicated, but it wasn’t. We should adjust the PROMPT. For patient 3, again, we probably are lacking some reports as it points a null in our output (because it’s not mentioned in our given documents) and the validation data indicates an administration of lung surfactant. We recommend changing the coding from 1 = not given and 2 = given to the more conventional 0 = not given and 1 = given. Unless there is a specific reason for the current coding scheme, we suggest aligning with standard practice. If such a reason exists, please let us know."
+      "notes": "CORRECTED with critical fields analysis - 100% acuracy\n\n\nCRITICAL: The clinical note for Patient 2 describes respiratory distress syndrome due to primary surfactant deficiency in a premature infant, with CPAP support and oxygen supplementation. These findings could suggest that surfactant treatment was clinically indicated, but it wasn’t. We should adjust the PROMPT. For patient 3, again, we probably are lacking some reports as it points a null in our output (because it’s not mentioned in our given documents) and the validation data indicates an administration of lung surfactant. We recommend changing the coding from 1 = not given and 2 = given to the more conventional 0 = not given and 1 = given. Unless there is a specific reason for the current coding scheme, we suggest aligning with standard practice. If such a reason exists, please let us know.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "enteral_start": {
       "anyOf": [
@@ -1794,7 +3039,41 @@
       "default": null,
       "description": "Enteral feeding before NEC onset: start day - Day when enteral feeding started (validation: number, range 1-7, where 1=1st day after birth). When identifying the start of enteral feeding, pay close attention to any mention of nutrition administered p.o. (by mouth) or via tube (such as nasogastric or orogastric tube). These routes indicate enteral nutrition, as opposed to parenteral nutrition (which is given i.v.).",
       "group_id": "group_2",
-      "notes": "NOT WORKING. Prompt adjusted - look for improvement. Seems to work better now."
+      "notes": "NOT WORKING. Prompt adjusted - look for improvement. Seems to work better now.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_enteral_pre___0": {
       "anyOf": [
@@ -2078,7 +3357,8 @@
       "default": null,
       "description": "Cardiac surgery - Surgical intervention on the heart. Options: 0=none/minor, 1=yes",
       "group_id": "group_1",
-      "notes": "It works as expected, but we need more data to confirm. All the validation data currently has 0s in this field."
+      "notes": "It works as expected, but we need more data to confirm. All the validation data currently has 0s in this field.",
+      "performance": {}
     },
     "m_surgery_cardiac_specific": {
       "anyOf": [
@@ -2092,7 +3372,8 @@
       "default": null,
       "description": "Specify cardiac surgery - Detailed description of cardiac surgical procedure performed",
       "group_id": "group_3",
-      "notes": "We need more data to assess the stage of this variable."
+      "notes": "We need more data to assess the stage of this variable.",
+      "performance": {}
     },
     "m_nec": {
       "anyOf": [
@@ -2111,7 +3392,41 @@
       "default": null,
       "description": "Necrotising enterocolitis - NEC diagnosis status. Options: 1=no, 2=suspected, 3=yes",
       "group_id": "group_1",
-      "notes": "We propose updating the option values to 0 = No, 1 = Yes, and 2 = Suspected to improve clarity and align with standard coding practices. Otherwise, the feature is working as expected, labeling all patients in the validation dataset as 'Yes'."
+      "notes": "We propose updating the option values to 0 = No, 1 = Yes, and 2 = Suspected to improve clarity and align with standard coding practices. Otherwise, the feature is working as expected, labeling all patients in the validation dataset as 'Yes'.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "uncertainties_nec": {
       "anyOf": [
@@ -2133,7 +3448,8 @@
         "0": "No",
         "1": "Yes"
       },
-      "notes": "Why is this field left blank in the validation data? When is it applicable? Our model is currently populating it with 0s, as no uncertainty has been identified."
+      "notes": "Why is this field left blank in the validation data? When is it applicable? Our model is currently populating it with 0s, as no uncertainty has been identified.",
+      "performance": {}
     },
     "m_nec_onset_date": {
       "anyOf": [
@@ -2148,7 +3464,41 @@
       "default": null,
       "description": "Date of (Proven) NEC Diagnosis - Date when NEC was definitively diagnosed in YYYY-MM-DD format",
       "group_id": "group_1",
-      "notes": "Functioning as expected. For patient 3, the documentation specifies the month but not the exact day."
+      "notes": "Functioning as expected. For patient 3, the documentation specifies the month but not the exact day.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "standardized": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "contradictions": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_nec_treatment": {
       "anyOf": [
@@ -2167,7 +3517,41 @@
       "default": null,
       "description": "Treatment for NEC - Type of treatment provided for NEC. Options: 0=none, 1=medical only/conservative, 2=medical and surgical",
       "group_id": "group_1",
-      "notes": "Functioning as expected for all patients."
+      "notes": "Functioning as expected for all patients.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_nec_onset": {
       "anyOf": [
@@ -2181,7 +3565,41 @@
       "default": null,
       "description": "Age (Days) when proven NEC (Bell's stage 2) diagnosed - Calculated field based on birth date and NEC onset date",
       "group_id": "group_2",
-      "notes": "Functioning as expected. Patient 1 is 7, not 6."
+      "notes": "Functioning as expected. Patient 1 is 7, not 6.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "standardized": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "standardized": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "standardized": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "contradictions": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "standardized": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "standardized": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "standardized": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "radio_ileus": {
       "anyOf": [
@@ -2203,7 +3621,41 @@
         "0": "No",
         "1": "Yes"
       },
-      "notes": "There may be a potential discrepancy worth reviewing. For patient 1, the documentation explicitly states: 'Radiologically showed pneumatosis intestinalis et hepatis with static small bowel loops' on January 19, 2025 (NEC onset day), which is classic radiological evidence of ileus. This finding occurred within the required 48-hour timeframe. 'Static small bowel loops' is a recognized radiological sign of ileus, indicating disrupted intestinal peristalsis and functional obstruction. The clinical evidence strongly supports coding this as 1 (Yes); however, the validation data labels this variable as 0 (No)."
+      "notes": "There may be a potential discrepancy worth reviewing. For patient 1, the documentation explicitly states: 'Radiologically showed pneumatosis intestinalis et hepatis with static small bowel loops' on January 19, 2025 (NEC onset day), which is classic radiological evidence of ileus. This finding occurred within the required 48-hour timeframe. 'Static small bowel loops' is a recognized radiological sign of ileus, indicating disrupted intestinal peristalsis and functional obstruction. The clinical evidence strongly supports coding this as 1 (Yes); however, the validation data labels this variable as 0 (No).",
+      "performance": {
+        "patient_D": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "contradictions": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "intubation_after": {
       "anyOf": [
@@ -2229,7 +3681,41 @@
         "2": "yes: new intubation",
         "3": "yes: intubation due to surgery"
       },
-      "notes": "Resultats inconsistents en pacient 2, dona 2 i 3 alternativament. Hauriem d'ajustar el prompt per tal de que tingui en compte cirugia.\nPel patient 3, el cas com sempre és que falta info."
+      "notes": "Resultats inconsistents en pacient 2, dona 2 i 3 alternativament. Hauriem d'ajustar el prompt per tal de que tingui en compte cirugia.\nPel patient 3, el cas com sempre és que falta info.",
+      "performance": {
+        "patient_D": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "pen_after": {
       "anyOf": [
@@ -2255,7 +3741,43 @@
         "2": "yes: new PEN treatment after NEC onset",
         "3": "yes"
       },
-      "notes": "Aquest potser l'haurem de revisar amb més itineràncies, al P3 li falta data, el P1, P2 i P3 no els fa bé (o si però varia indistintament entre respostes correctes i incorrectes). Hauriem de posar-ho (que no sé si ja hi és) en un critical field i veure com reacciona."
+      "notes": "Aquest potser l'haurem de revisar amb més itineràncies, al P3 li falta data, el P1, P2 i P3 no els fa bé (o si però varia indistintament entre respostes correctes i incorrectes). Hauriem de posar-ho (que no sé si ja hi és) en un critical field i veure com reacciona.",
+      "performance": {
+        "patient_D": {
+          "improved_comment": true,
+          "contradictions": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "improved_comment": true,
+          "contradictions": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "contradictions": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "contradictions": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "npo_overall": {
       "anyOf": [
@@ -2277,7 +3799,41 @@
         "0": "No",
         "1": "Yes"
       },
-      "notes": "Works as expected. Improvement made for P4: the validation data was previously pointing to null, but it was actually a positive case."
+      "notes": "Works as expected. Improvement made for P4: the validation data was previously pointing to null, but it was actually a positive case.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "npo_duration": {
       "anyOf": [
@@ -2293,7 +3849,41 @@
       "default": null,
       "description": "Non per os duration overall in days - Duration of NPO status (validation: number, range 0-30)",
       "group_id": "group_2",
-      "notes": "Sometimes lack of information"
+      "notes": "Sometimes lack of information",
+      "performance": {
+        "patient_D": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "perforation": {
       "anyOf": [
@@ -2315,7 +3905,41 @@
         "0": "No",
         "1": "Yes"
       },
-      "notes": "More data (group 3) - No testing."
+      "notes": "More data (group 3) - No testing.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "perf_date": {
       "anyOf": [
@@ -2330,7 +3954,37 @@
       "default": null,
       "description": "Date of complication: Perforation - Date when perforation occurred in YYYY-MM-DD format",
       "group_id": "group_2",
-      "notes": "More data (group 3) - No testing."
+      "notes": "More data (group 3) - No testing.",
+      "performance": {
+        "patient_D": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "filled_blank": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_feeding_full_date": {
       "anyOf": [
@@ -2345,7 +3999,37 @@
       "default": null,
       "description": "Date of First day of full feed reached - Date when full feeding was achieved in YYYY-MM-DD format",
       "group_id": "group_5",
-      "notes": "Question: Before Nec onset or after NEC onset? What does it mean exactly 'full feed'? Does it mean just enteral or strictly oral?"
+      "notes": "Question: Before Nec onset or after NEC onset? What does it mean exactly 'full feed'? Does it mean just enteral or strictly oral?",
+      "performance": {
+        "patient_D": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "missing_doc": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_feeding_full": {
       "anyOf": [
@@ -2359,7 +4043,37 @@
       "default": null,
       "description": "Age at 'First day of life full feed reached' - Calculated field based on birth date and full feeding date",
       "group_id": "group_5",
-      "notes": "Question: Before Nec onset or after NEC onset? What does it mean exactly 'full feed'? Does it mean just enteral or strictly oral?"
+      "notes": "Question: Before Nec onset or after NEC onset? What does it mean exactly 'full feed'? Does it mean just enteral or strictly oral?",
+      "performance": {
+        "patient_D": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "missing_doc": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_cardiac_surgery": {
       "anyOf": [
@@ -2381,7 +4095,8 @@
         "0": "No",
         "1": "Yes"
       },
-      "notes": null
+      "notes": null,
+      "performance": {}
     },
     "m_focal_gastroint_perf": {
       "anyOf": [
@@ -2403,7 +4118,41 @@
         "1": "absent",
         "2": "present"
       },
-      "notes": "Patient 2 present."
+      "notes": "Patient 2 present.",
+      "performance": {
+        "patient_D": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_surgery_sip": {
       "anyOf": [
@@ -2425,7 +4174,21 @@
         "0": "No",
         "1": "Yes"
       },
-      "notes": "SIP intervention found for patient 2."
+      "notes": "SIP intervention found for patient 2.",
+      "performance": {
+        "patient_D": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_surgery_sip_date1": {
       "anyOf": [
@@ -2440,7 +4203,21 @@
       "default": null,
       "description": "Date of surgery for SIP/FIP - Date when SIP/FIP surgery was performed in YYYY-MM-DD format",
       "group_id": "group_3",
-      "notes": null
+      "notes": null,
+      "performance": {
+        "patient_D": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_surgery_sip_dol": {
       "anyOf": [
@@ -2454,7 +4231,21 @@
       "default": null,
       "description": "Age (in Days) of SIP/FIP surgery - Calculated field based on birth date and surgery date",
       "group_id": "group_3",
-      "notes": null
+      "notes": null,
+      "performance": {
+        "patient_D": {
+          "correction": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "questioned": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_number_surg": {
       "anyOf": [
@@ -2478,7 +4269,41 @@
       "default": null,
       "description": "Number of surgeries due to NEC -Options: 0, 1, 2, 3, 4, 5, 6=>5, 9=unknown",
       "group_id": "group_2",
-      "notes": "Per al P2 hauriem de tindre més itineràncies, ha fet una bé i l'altre malament. Per al P3 falta data, com sempre."
+      "notes": "Per al P2 hauriem de tindre més itineràncies, ha fet una bé i l'altre malament. Per al P3 falta data, com sempre.",
+      "performance": {
+        "patient_D": {
+          "missing_doc": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "missing_doc": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "missing_doc": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_nec_surgery1_date": {
       "anyOf": [
@@ -2493,7 +4318,41 @@
       "default": null,
       "description": "Date of 1st NEC surgery - Date when first NEC surgery was performed in YYYY-MM-DD format",
       "group_id": "group_1",
-      "notes": "Works as expected."
+      "notes": "Works as expected.",
+      "performance": {
+        "patient_D": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_E": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_F": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_G": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_I": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_J": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_K": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        },
+        "patient_L": {
+          "match": true,
+          "last_updated": "2025-10-20T23:26:02.599680Z"
+        }
+      }
     },
     "m_surg1_duration": {
       "anyOf": [

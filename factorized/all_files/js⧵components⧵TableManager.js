@@ -1,5 +1,6 @@
 /**
  * TableManager - Component for rendering and managing the fields table
+ * FIXED: Properly passes fieldId in FIELD_SELECTED event
  */
 import { getTypeColor, getGroupColor } from '../utils/colorUtils.js';
 import { formatGroupName } from '../utils/formatters.js';
@@ -13,16 +14,27 @@ export class TableManager {
         
         this.tableBody = document.getElementById('fieldsTableBody');
         this.tableHeader = document.querySelector('.table-header');
+        
+        console.log('🔧 TableManager initialized');
+        console.log('  - tableBody:', !!this.tableBody);
+        console.log('  - tableHeader:', !!this.tableHeader);
     }
 
     /**
      * Render entire table
      */
     renderTable() {
-        if (!this.tableBody) return;
+        console.log('📊 TableManager.renderTable() called');
+        
+        if (!this.tableBody) {
+            console.error('❌ ERROR: tableBody element not found!');
+            return;
+        }
 
         const state = this.stateManager.getState();
         const { filteredFields } = state;
+
+        console.log('  - Rendering', filteredFields.length, 'fields');
 
         this.tableBody.innerHTML = '';
 
@@ -30,6 +42,8 @@ export class TableManager {
             const row = this.createFieldRow(field);
             this.tableBody.appendChild(row);
         });
+        
+        console.log('  ✅ Table rendered successfully');
     }
 
     /**
@@ -42,8 +56,16 @@ export class TableManager {
         row.className = 'field-row';
         row.dataset.fieldId = field.id;
         
+        // FIX: Properly pass fieldId in event data object
         row.addEventListener('click', () => {
+            console.log('🖱️  Field row clicked:', field.id);
+            console.log('  - Calling stateManager.setSelectedField()');
+            
+            // The StateManager.setSelectedField will emit FIELD_SELECTED event
+            // with proper event data: { fieldId }
             this.stateManager.setSelectedField(field.id);
+            
+            console.log('  - setSelectedField() called with:', field.id);
         });
 
         const typeColor = getTypeColor(field.type);
@@ -110,9 +132,21 @@ export class TableManager {
      * @param {string} fieldId - Field ID
      */
     selectField(fieldId) {
+        console.log('🎯 TableManager.selectField() called with:', fieldId);
+        
+        if (!this.tableBody) {
+            console.error('❌ ERROR: tableBody is null');
+            return;
+        }
+        
         // Update visual selection
         this.tableBody.querySelectorAll('.field-row').forEach(row => {
-            row.classList.toggle('selected', row.dataset.fieldId === fieldId);
+            const isSelected = row.dataset.fieldId === fieldId;
+            row.classList.toggle('selected', isSelected);
+            
+            if (isSelected) {
+                console.log('  ✅ Row selected:', row.dataset.fieldId);
+            }
         });
     }
 
@@ -140,9 +174,11 @@ export class TableManager {
         }
 
         // Apply to all rows
-        this.tableBody.querySelectorAll('.field-row').forEach(row => {
-            row.style.gridTemplateColumns = gridTemplate;
-        });
+        if (this.tableBody) {
+            this.tableBody.querySelectorAll('.field-row').forEach(row => {
+                row.style.gridTemplateColumns = gridTemplate;
+            });
+        }
 
         // Reorder header columns
         this.reorderHeaderColumns();
@@ -183,6 +219,7 @@ export class TableManager {
      * Refresh entire table (re-render)
      */
     refreshTable() {
+        console.log('🔄 TableManager.refreshTable() called');
         this.renderTable();
     }
 }

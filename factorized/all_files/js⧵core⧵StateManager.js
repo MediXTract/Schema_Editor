@@ -27,7 +27,13 @@ export class StateManager {
             settings: null, // Will be loaded from StorageService
             typeOptions: new Set(),
             groupOptions: new Set(),
-            directoryHandle: null
+            directoryHandle: null,
+            
+            // NEW: Patient-related state
+            allPatients: new Set(),           // All unique patient IDs across schema
+            selectedPatient: null,             // Currently selected patient ID
+            patientFilter: null,               // Filter by specific patient
+            performanceCache: new Map()        // Cache for performance summaries
         };
     }
 
@@ -62,6 +68,9 @@ export class StateManager {
             currentSchema: schema,
             currentVersion: version
         }, EVENTS.SCHEMA_LOADED);
+        
+        // Extract all patients from schema
+        this.extractAllPatients(schema);
     }
 
     /**
@@ -72,6 +81,9 @@ export class StateManager {
         this.setState({
             currentSchema: schema
         }, EVENTS.SCHEMA_UPDATED);
+        
+        // Update patient list
+        this.extractAllPatients(schema);
     }
 
     /**
@@ -105,9 +117,15 @@ export class StateManager {
      * @param {string} fieldId - Field ID
      */
     setSelectedField(fieldId) {
+        console.log('📝 StateManager.setSelectedField() called with:', fieldId);
+        
         this.setState({
             selectedField: fieldId
-        }, EVENTS.FIELD_SELECTED);
+        });
+        
+        // FIX: Emit event with proper data object containing fieldId
+        console.log('  - Emitting FIELD_SELECTED event with fieldId:', fieldId);
+        this.eventBus.emit(EVENTS.FIELD_SELECTED, { fieldId: fieldId });
     }
 
     /**
@@ -204,5 +222,147 @@ export class StateManager {
             };
             this.eventBus.emit(EVENTS.FIELD_UPDATED, { fieldId, updates });
         }
+    }
+
+    // ========== NEW: PATIENT-RELATED STATE METHODS ==========
+
+    /**
+     * Extract all unique patient IDs from schema
+     * @param {Object} schema - Schema object
+     */
+    extractAllPatients(schema) {
+        const patients = new Set();
+        
+        if (schema && schema.properties) {
+            Object.values(schema.properties).forEach(field => {
+                if (field.performance) {
+                    Object.keys(field.performance).forEach(patientId => {
+                        patients.add(patientId);
+                    });
+                }
+            });
+        }
+        
+        this.state.allPatients = patients;
+    }
+
+    /**
+     * Get all patient IDs
+     * @returns {Array} Sorted array of patient IDs
+     */
+    getAllPatients() {
+        return Array.from(this.state.allPatients).sort();
+    }
+
+    /**
+     * Set selected patient
+     * @param {string|null} patientId - Patient ID or null to clear
+     */
+    setSelectedPatient(patientId) {
+        this.setState({
+            selectedPatient: patientId
+        }, EVENTS.PATIENT_ADDED);
+    }
+
+    /**
+     * Get selected patient
+     * @returns {string|null} Selected patient ID
+     */
+    getSelectedPatient() {
+        return this.state.selectedPatient;
+    }
+
+    /**
+     * Set patient filter
+     * @param {string|null} patientId - Patient ID to filter by, or null to clear
+     */
+    setPatientFilter(patientId) {
+        this.setState({
+            patientFilter: patientId
+        }, EVENTS.FILTERS_CHANGED);
+    }
+
+    /**
+     * Get patient filter
+     * @returns {string|null} Patient filter
+     */
+    getPatientFilter() {
+        return this.state.patientFilter;
+    }
+
+    /**
+     * Add patient to cache
+     * @param {string} patientId - Patient ID
+     */
+    addPatient(patientId) {
+        this.state.allPatients.add(patientId);
+        this.eventBus.emit(EVENTS.PATIENT_ADDED, { patientId });
+    }
+
+    /**
+     * Remove patient from cache (when deleted from all fields)
+     * @param {string} patientId - Patient ID
+     */
+    removePatient(patientId) {
+        this.state.allPatients.delete(patientId);
+        
+        // Clear if this was the selected patient
+        if (this.state.selectedPatient === patientId) {
+            this.state.selectedPatient = null;
+        }
+        
+        // Clear if this was the patient filter
+        if (this.state.patientFilter === patientId) {
+            this.state.patientFilter = null;
+        }
+        
+        this.eventBus.emit(EVENTS.PATIENT_DELETED, { patientId });
+    }
+
+    /**
+     * Cache performance summary for a field or patient
+     * @param {string} key - Cache key (fieldId or patientId)
+     * @param {Object} summary - Summary data
+     */
+    cachePerformanceSummary(key, summary) {
+        this.state.performanceCache.set(key, {
+            data: summary,
+            timestamp: Date.now()
+        });
+    }
+
+    /**
+     * Get cached performance summary
+     * @param {string} key - Cache key
+     * @param {number} maxAge - Maximum age in milliseconds (default: 60000 = 1 minute)
+     * @returns {Object|null} Cached summary or null if not found/expired
+     */
+    getCachedPerformanceSummary(key, maxAge = 60000) {
+        const cached = this.state.performanceCache.get(key);
+        
+        if (!cached) return null;
+        
+        const age = Date.now() - cached.timestamp;
+        if (age > maxAge) {
+            this.state.performanceCache.delete(key);
+            return null;
+        }
+        
+        return cached.data;
+    }
+
+    /**
+     * Clear performance cache
+     */
+    clearPerformanceCache() {
+        this.state.performanceCache.clear();
+    }
+
+    /**
+     * Invalidate cache for a specific key
+     * @param {string} key - Cache key
+     */
+    invalidateCache(key) {
+        this.state.performanceCache.delete(key);
     }
 }
